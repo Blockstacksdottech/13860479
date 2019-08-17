@@ -1,0 +1,104 @@
+{% extends "footer.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>morphex - how it works</title>
+    <link rel="shortcut icon" href="/assets/img/favicon.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Montserrat:400,700%7CLato:300,300italic,400,700,900%7CYesteryear">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/style-add.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+    <script src="/assets/js/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#transactionForm').submit(function() {
+                var location = $('#rd-navbar-form-search-widget').val();
+                window.location.href = "/transaction/" + location;
+                return false;
+            });
+            $('#contact').submit(function() {
+                var name = $('#contact-me-name').val();
+                var email = $('#contact-me-email').val();
+                var message = $('#contact-me-message').val();
+                window.location.href = '/send?name='+name+'&email='+email+'&message='+message;
+            });
+            $('#subscribe').submit(function() {
+                var email = $('#subscribe-email').val();
+                window.location.href = '/subscribe?email='+email
+            });
+        });
+    </script>
+</head>
+<body>
+		<div class="page text-center">
+			<header class="page-head">
+				<div class="rd-navbar-wrap">
+					<nav class="rd-navbar rd-navbar-default rd-navbar-light" data-md-device-layout="rd-navbar-fixed" data-lg-device-layout="rd-navbar-static" data-lg-auto-height="true" data-md-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static" data-lg-stick-up="true">
+						<div class="rd-navbar-inner">
+							<div class="rd-navbar-panel">
+								<button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar, .rd-navbar-nav-wrap"><span></span></button>
+								<div class="rd-navbar-brand">
+									<a href="/"><img style="margin-top: -5px;margin-left: -15px;" width="180" height="60" src="/assets/img/logo.png" alt=""></a>
+								</div>
+							</div>
+							<div class="rd-navbar-menu-wrap">
+								<div class="rd-navbar-nav-wrap">
+									<div class="rd-navbar-mobile-scroll">
+										<div class="rd-navbar-mobile-brand">
+											<a href="index.html"><img style="margin-top: -5px;margin-left: -15px;" width="138" height="60" src="/assets/img/logo.png" alt=""></a>
+										</div>
+										<div class="form-search-wrap">
+											<form class="form-search rd-search" action="search-results.html" method="GET">
+												<div class="form-group">
+													<label class="form-label form-search-label form-label-sm" for="rd-navbar-form-search-widget">Search</label>
+													<input class="form-search-input input-sm form-control form-control-gray-lightest input-sm" id="rd-navbar-form-search-widget" type="text" name="s" autocomplete="off">
+												</div>
+												<button class="form-search-submit" type="submit"><span class="novi-icon mdi mdi-magnify"></span></button>
+											</form>
+										</div>
+										<ul class="rd-navbar-nav">
+											<li><a href="/exchange"><span>Exchange</span></a></li>
+											<li class="active"><a href="/how-it-works"><span>How it works</span></a></li>
+											<li><a href="/checkup"><span>Checkup</span></a></li>
+											<li><a href="/blog"><span>Blog</span></a></li>
+											<li><a href="/faq"><span>FAQ</span></a></li>
+											<li><a href="/contact"><span>Contact</span></a></li>
+											<li><a href="#" data-toggle="dropdown" data-close-others="true"><span>Language</span><a class="paddingImages"><img src="/assets/img/flag-uk.png"></a>
+												<ul class="dropdown-menu pull-right">
+													<li>
+														<a href="/?clang=de"><img src="/assets/img/flag-de.png"><span class="dropElement">Deutsch</span></a>
+													</li>
+													<li class="active">
+														<a href="/?clang=en"><img src="/assets/img/flag-uk.png"><span class="dropElement">English</span></a>
+													</li>
+													<li>
+														<a href="/?clang=fr"><img src="/assets/img/flag-fr.png"><span class="dropElement">François</span></a>
+													</li>
+													<li>
+														<a href="/?clang=es"><img src="/assets/img/flag-es.png"><span class="dropElement">Español</span></a>
+													</li>
+												</ul>
+												</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</nav>
+				</div>
+			</header><img src="/assets/img/bg.png" style="width:100%;">
+			<section class="section novi-background section-98 section-sm-110">
+				<div class="container">
+			<h2 style='color:green;'>Success</h2>
+			<p style='font-size:20px;' >You have successfuly {{message}}</p>
+	</div>
+</section>
+
+{% endblock %}
