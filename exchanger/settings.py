@@ -24,9 +24,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY','%l@&95($!@-_)=ucorv!-x$&f0!381oiae_+cavn+kux9752^9')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['instexchanger.herokuapp.com']
+ALLOWED_HOSTS = ['instexchanger.herokuapp.com','127.0.0.1']
 
 
 # Application definition
@@ -125,7 +125,7 @@ api_key = '3222bb3892a7984bd43d91f6db1853c4'
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/assets/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
     os.path.join(BASE_DIR, "assets")

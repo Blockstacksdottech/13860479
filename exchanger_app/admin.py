@@ -5,3 +5,5 @@ from .models import *
 admin.site.register(Task)
 admin.site.register(Transaction)
 admin.site.register(Currencies)
+admin.site.register(Listener)
+admin.site.register(Prices)

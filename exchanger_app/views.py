@@ -4,19 +4,70 @@ from .models import *
 import requests as req
 import json
 import random
+import threading
+import time
 
 # Create your views here.
 
 
+def get_exchange_rates_api():
+	while True:
+		resp = req.get("https://api.nomics.com/v1/currencies/ticker?key="+api_key+'&ids=BTC,BCH,ETH,XMR,LTC&interval=1h&convert=USD')
+		data = json.loads(resp.content.decode())
+		
+		for x in data:
+			filt =  Prices.objects.filter(currency=x['currency'])
+			if len(filt) != 0 :
+				filt[0].price = round(float(x['price']),2)
+				filt[0].save()
+			else:
+				f = Prices.objects.create(currency=x['currency'],price=round(float(x['price']),2))
+				f.save()
+
+def start_updater_internally():
+	t = threading.Thread(target=get_exchange_rates_api)
+	t.daemon = True
+	t.start()
+	print('started')
+
+def start_updater(requests):
+	start_updater_internally
+	return HttpResponse('success')
+
+
 def get_exchange_rates():
-	resp = req.get("https://api.nomics.com/v1/currencies/ticker?key="+api_key+'&ids=BTC,BCH,ETH,XMR,LTC&interval=1h&convert=USD')
-	data = json.loads(resp.content.decode())
-	ret_dict  = {}
-	for x in data:
-		ret_dict[x['currency']] = str(round(float(x['price']),2))
-	return ret_dict
+	counter = 0
+	while counter <= 10:
+		currencies = Prices.objects.all()
+		if len(currencies) >= 5:
+			ret_dict  = {}
+			for curr in currencies:
+				ret_dict[curr.currency] =  curr.price
+				return ret_dict
+		else:
+			time.sleep(1)
+			counter += 1
+			continue
+	
+
+	
+
 
 def index(request):
+	listnr = Listener.objects.filter(name='price_updater')
+	if len(listnr) != 0 and listnr[0].status:
+		pass
+	else:
+		if len(listnr) != 0:
+			start_updater_internally()
+			listnr[0].status = True
+			listnr[0].save()
+		
+		else:
+			start_updater_internally()
+			lstnr = Listener.objects.create(name='price_updater',status=True)
+			lstnr.save()
+
 	ret_dict = get_exchange_rates()
 	return render(request,'index.html',ret_dict)
 

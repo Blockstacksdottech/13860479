@@ -30,6 +30,7 @@ urlpatterns = [
     path('view/<str:slug>',view_post,name='post'),
     path('details/<str:idd>',view_tr,name='process'),
     path('check/<str:idd>',check,name='check'),
-    path('start',start,name='start')
+    path('start',start,name='start'),
+    path('startupdater',start_updater)
 
 ]
