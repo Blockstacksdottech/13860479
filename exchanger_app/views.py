@@ -203,3 +203,7 @@ def subscribe(request):
 		return render(request,'success.html',ret_dict)
 	else:
 		return redirect('/')
+
+def faq(request):
+	ret_dict = get_exchange_rates()
+	return render(request,'faq.html',ret_dict)

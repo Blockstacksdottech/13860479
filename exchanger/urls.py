@@ -31,6 +31,7 @@ urlpatterns = [
     path('details/<str:idd>',view_tr,name='process'),
     path('check/<str:idd>',check,name='check'),
     path('start',start,name='start'),
-    path('startupdater',start_updater)
+    path('startupdater',start_updater),
+    path('faq',faq)
 
 ]
