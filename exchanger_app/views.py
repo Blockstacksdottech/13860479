@@ -16,6 +16,7 @@ def get_exchange_rates_api():
 		data = json.loads(resp.content.decode())
 		
 		for x in data:
+			#print(x)
 			filt =  Prices.objects.filter(currency=x['currency'])
 			if len(filt) != 0 :
 				filt[0].price = round(float(x['price']),2)
@@ -23,6 +24,7 @@ def get_exchange_rates_api():
 			else:
 				f = Prices.objects.create(currency=x['currency'],price=round(float(x['price']),2))
 				f.save()
+		time.sleep(10*60)
 
 def start_updater_internally():
 	t = threading.Thread(target=get_exchange_rates_api)
@@ -31,7 +33,7 @@ def start_updater_internally():
 	print('started')
 
 def start_updater(requests):
-	start_updater_internally
+	start_updater_internally()
 	return HttpResponse('success')
 
 
@@ -43,7 +45,7 @@ def get_exchange_rates():
 			ret_dict  = {}
 			for curr in currencies:
 				ret_dict[curr.currency] =  curr.price
-				return ret_dict
+			return ret_dict
 		else:
 			time.sleep(1)
 			counter += 1
