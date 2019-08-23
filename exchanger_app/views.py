@@ -6,10 +6,11 @@ import json
 import random
 import threading
 import time
+from bs4 import BeautifulSoup
 
 # Create your views here.
 
-
+"""
 def get_exchange_rates_api():
 	while True:
 		resp = req.get("https://api.nomics.com/v1/currencies/ticker?key="+api_key+'&ids=BTC,BCH,ETH,XMR,LTC&interval=1h&convert=USD')
@@ -25,6 +26,68 @@ def get_exchange_rates_api():
 				f = Prices.objects.create(currency=x['currency'],price=round(float(x['price']),2))
 				f.save()
 		time.sleep(10*60)
+"""
+
+def get_exchange_rates_api():
+	while True:
+		resp = req.get('https://coinmarketcap.com/')
+		soup = BeautifulSoup(resp.content.decode(),'html.parser')
+		table = soup.find('table')
+		trs = table.find('tbody').findAll('tr')
+		for tr in trs:
+			#print('exchanger')
+			tds = tr.findAll('td')
+			#print(tds[1]['data-sort']  + ' ==> ' + str(round(float(tds[3]['data-sort']),2)) )
+			filled = False
+			if 'id-bitcoin' == tr['id']:
+				key = 'BTC'
+				value = round(float(tds[3]['data-sort']),2)
+				filled = True
+			elif 'bitcoin-cash' in tr['id']:
+				key = 'BCH'
+				value = round(float(tds[3]['data-sort']),2)
+				filled = True
+			elif 'id-ethereum' == tr['id']:
+				key = 'ETH'
+				value = round(float(tds[3]['data-sort']),2)
+				print('eth')
+				print(tds[3]['data-sort'])
+				filled = True
+			elif 'litecoin' in tr['id']:
+				key = 'LTC'
+				value = round(float(tds[3]['data-sort']),2)
+				print(tds[3]['data-sort'])
+				filled = True
+			elif 'monero' in tr['id']:
+				key = 'XMR'
+				value = round(float(tds[3]['data-sort']),2)
+				print(tds[3]['data-sort'])
+				filled = True
+			
+			if filled:
+				#print('changement')
+				filt =  Prices.objects.filter(currency=key)
+				if len(filt) != 0 :
+					#print('updating')
+					filt[0].price = value
+					filt[0].save()
+				else:
+					f = Prices.objects.create(currency=key,price=value)
+					f.save()
+			else:
+				pass
+		time.sleep(20)
+
+
+
+
+
+
+
+
+
+
+
 
 def start_updater_internally():
 	t = threading.Thread(target=get_exchange_rates_api)
