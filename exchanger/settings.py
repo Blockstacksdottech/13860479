@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'exchanger_app',
-    'blog'
+    'blog',
+    'custom_admin'
 ]
 
 MIDDLEWARE = [

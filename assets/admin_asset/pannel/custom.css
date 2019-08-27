@@ -1,0 +1,24 @@
+.lgo{
+    background-color:transparent;
+    width:80%;
+    padding: 0;
+}
+.lgo a{
+    color:red !important;
+    padding:0 !important;
+}
+.days{
+    color:#c71f1f;
+    margin:0 5px 0 5px;
+}
+
+.change button{
+    background-color: #c71f1f !important;
+    margin-left:5px !important;
+    border-color: transparent !important;
+}
+.change button:hover{
+    background-color: transparent !important;
+    border-color:#c71f1f !important;
+    color:#c71f1f;
+}

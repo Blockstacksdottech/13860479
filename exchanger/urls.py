@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from exchanger_app.views import *
 from blog.views import *
+from custom_admin.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,6 +33,10 @@ urlpatterns = [
     path('check/<str:idd>',check,name='check'),
     path('start',start,name='start'),
     path('startupdater',start_updater),
-    path('faq',faq)
+    path('faq',faq),
+    path('custadmin',view_login),
+    path('verfadmin',verify_login),
+    path('pannel',show_pannel),
+    path('logout',log_out)
 
 ]
