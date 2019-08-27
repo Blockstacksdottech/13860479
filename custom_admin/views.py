@@ -6,7 +6,7 @@ from .models import *
 
 
 def view_login(request):
-	return render(request,'login.html')
+	return render(request,'new_login.html')
 
 def verify_login(request):
 	if request.method == 'POST':
@@ -14,7 +14,7 @@ def verify_login(request):
 		password = request.POST.get('password','')
 
 		if username == '' or password == '':
-			return render(request,'login.html',{'message':'empty field'})
+			return render(request,'new_login.html',{'message':'empty field'})
 
 		usr = User.objects.filter(username =  username )
 		if len(usr) != 0:
@@ -23,10 +23,10 @@ def verify_login(request):
 				request.session['user'] = usr.username
 				return  redirect('/pannel')
 			else:
-				return render(request,'login.html',{'message':'password is incorrect'})
+				return render(request,'new_login.html',{'message':'password is incorrect'})
 				
 		else:
-			return render(request,'login.html',{'message':'user not found'})
+			return render(request,'new_login.html',{'message':'user not found'})
 		
 	else:
 		return HttpResponse('not valid')
@@ -38,7 +38,7 @@ def show_pannel(request):
 		usr = User.objects.filter(username = username)[0]
 		return render(request,'pannel.html',{'username':usr.username})
 	else:
-		return render(request,'login.html',{'message':'please login first'})
+		return render(request,'new_login.html',{'message':'please new_login first'})
 
 
 def log_out(request):
@@ -47,3 +47,5 @@ def log_out(request):
 
 def get_details(request):
 	pass
+
+#ndhkjkuejmx
