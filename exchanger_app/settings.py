@@ -26,7 +26,7 @@ SECRET_KEY = SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY','%l@&95($!@-_)=ucor
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['instexchanger.herokuapp.com','127.0.0.1','0.0.0.0']
+ALLOWED_HOSTS = ['instexchanger.herokuapp.com','127.0.0.1']
 
 
 # Application definition
@@ -160,6 +160,7 @@ main_test_label = 'testm'
 b_a_k ='beQWNG1BHQupGnCANx51Jw96VsxT1pAhyzNIpcShJpfPsYyVOmgUpb5memo2XZ74'
 b_a_p = 'NrH2t7PRJERLfPz2XdwdbLYHtttYJWk7u7yJQGwmx06jBJiG9Wb4itVK1uPNOdyo'
 
+
 ltc_provider_acc = 'testbalance'
 
 monero_user = 'exchanger'
@@ -167,6 +168,3 @@ monero_password = 'exchangerpass'
 
 eth_test_provider_p = '0xc57beb2188e830a11cf710f5f3a11177761d41e7fe0ce5425a6c46a3054f8d29'
 eth_test_provider_ad = '0x5c4542d89ca5766EBd9AbCE36049FD8AA79d484F'
-
-
-

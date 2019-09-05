@@ -5,8 +5,8 @@ from django.db import models
 
 class Task(models.Model):
 	transaction_id = models.CharField(max_length = 1000)
-	action =  models.CharField(max_length = 300)
-	status = models.CharField(max_length = 300)
+	action =  models.CharField(max_length = 300) # waiting for funds | confirmations | checking availability | transaction sent
+	status = models.CharField(max_length = 300) # done or not yet
 
 	def __str__(self):
 		return self.transaction_id
@@ -18,9 +18,9 @@ class Transaction(models.Model):
 	recv_address = models.CharField(max_length=1000)
 	in_currency = models.CharField(max_length=10)
 	out_currency = models.CharField(max_length=10)
-	amount_in = models.BigIntegerField(default=0)
-	fees = models.IntegerField(default=5)
-	amount_out = models.BigIntegerField(default=0)
+	amount_in = models.FloatField(default=0)
+	fees = models.IntegerField(default=2)
+	amount_out = models.FloatField(default=0)
 	created = models.DateTimeField(auto_now_add=True)
 	hash_tr = models.CharField(max_length=1000,default = None)
 
@@ -59,5 +59,13 @@ class Listener(models.Model):
 
 	def __str__(self):
 		return self.name
+
+class Eth_wallets(models.Model):
+	public_key = models.CharField(max_length=350)
+	private_key = models.CharField(max_length=350)
+	user_id = models.CharField(max_length=150)
+
+	def __str__(self):
+		return self.public_key
 
 

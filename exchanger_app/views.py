@@ -7,6 +7,8 @@ import random
 import threading
 import time
 from bs4 import BeautifulSoup
+from .nodes_handler import *
+from .in_listener import *
 
 # Create your views here.
 
@@ -157,6 +159,21 @@ def exchange_pannel(request):
 		print('here')
 		return redirect('/')
 
+
+def run_lstn(coin,t,l):
+
+	if coin == 'ETH':
+		account = l
+		lstnr = listener(t.in_currency,account.privateKey,t.transaction_id)
+	else:
+		address = l
+		lstnr = listener(t.in_currency,address,t.transaction_id)
+	
+	lstnr.start_c(coin)
+
+	
+
+
 def start(request):
 	if request.method == "POST":
 		in_c  = request.POST.get('inCurrency','')
@@ -169,20 +186,47 @@ def start(request):
 				continue
 			else:
 				break
-		out_mod = Currencies.objects.filter(currency=in_c)[0]
-		in_mod = Currencies.objects.filter(currency=out_c)[0]
+		#out_mod = Currencies.objects.filter(currency=out_c)[0]
+		#in_mod = Currencies.objects.filter(currency=in_c)[0]
+		handler = get_handler(in_c)
+		if handler:
+			pass
+		else:
+			return HttpResponse(json.dumps({
+			'processId':'undefined'
+		}))
+
+		# get new address
+		if in_c == 'ETH':
+			account = handler.eth.account.create('check this')
+			address = account.address
+		else:
+			address = handler.send('getnewaddress',main_test_label)
+
+
+
+
+
 		# when the nodes are integrated generate an address directly from the client
 		t = Transaction.objects.create(
 			transaction_id = idd,
 			return_address = return_address,
 			refund_address = refund_address,
-			recv_address = in_mod.test_address,
+			recv_address = address, #make an address getter
 			in_currency = in_c,
 			out_currency = out_c,
 			hash_tr = 'None'
 			
 		)
 		t.save()
+		
+		if in_c == 'ETH':
+			this_arg  = account
+		else:
+			this_arg = address
+		tr = threading.Thread(target=run_lstn,args=(in_c,t,this_arg,))
+		tr.daemon = True
+		tr.start()
 
 		
 		return HttpResponse(json.dumps({
@@ -270,3 +314,7 @@ def subscribe(request):
 def faq(request):
 	ret_dict = get_exchange_rates()
 	return render(request,'faq.html',ret_dict)
+
+
+
+
