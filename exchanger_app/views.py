@@ -165,6 +165,8 @@ def run_lstn(coin,t,l):
 	if coin == 'ETH':
 		account = l
 		lstnr = listener(t.in_currency,account.privateKey,t.transaction_id)
+	
+
 	else:
 		address = l
 		lstnr = listener(t.in_currency,address,t.transaction_id)
@@ -200,8 +202,12 @@ def start(request):
 		if in_c == 'ETH':
 			account = handler.eth.account.create('check this')
 			address = account.address
+		elif in_c == 'XMR':
+			resp = handler.send('create_address',account_index=mon_receiver_index)
+			address = resp['result']['address']
 		else:
 			address = handler.send('getnewaddress',main_test_label)
+
 
 
 
@@ -267,7 +273,7 @@ def check(request,idd):
 
 		}
 		return render(request,'transaction_done.html',ret_dict)
-	else:
+	elif 'waiting'  in task.status:
 		ret_dict ={
 			'id':t.transaction_id,
 			'in_c':t.in_currency,
@@ -277,9 +283,19 @@ def check(request,idd):
 			'sys_add':t.recv_address,
 			'date':t.created,
 			'message':task.action,
+			'status':task.status
 
 		}
-		return render(request,'transaction_hold.html',ret_dict)
+		return render(request,'exchange_details.html',ret_dict)
+	else:
+		ret_dict ={
+			'currency':t.out_currency,
+			'address':t.return_address,
+			'amount':t.amount_out
+			
+
+		}
+		return render(request,'exchanging.html',ret_dict)
 
 
 

@@ -38,23 +38,29 @@ class Bitcoin:
 			return False
 		else:
 			return data['result']
+
 class Monero:
 	def __init__(self):
 		self.user  = monero_user
 		self.password = monero_password
-		self.url = 'http://127.0.0.1:18083/json_rpc'.format(self.user,self.password)
+		#self.url = 'http://127.0.0.1:18083/json_rpc'.format(self.user,self.password)
+		self.url = 'http://23.254.176.26:18083/json_rpc'.format(self.user,self.password)
 	def send(self,command,**kwargs):
 		params = dict(kwargs)
-		print(params)
+		if 'in_' in params.keys():
+			del params['in_']
+			params['in'] = True
+
+		#print(params)
 		custom_payload = payload_2.copy()
 		custom_payload['method'] = command
 		custom_payload['params'] = params
-		print(custom_payload)
+		#print(custom_payload)
 
 		resp = req.post(self.url ,auth=HTTPDigestAuth(self.user,self.password), json=custom_payload,headers=headers)
-		print(resp.content.decode())
+		#print(resp.content.decode())
 		data = json.loads(resp.content.decode())
-		print(data)
+		#print(data)
 		if 'error' in data.keys():
 			print(data['error'])
 			return False

@@ -1,0 +1,91 @@
+{% extends "foot.html" %}
+{% block content %}
+<section class="allposts mb-5">
+        <div class="container">
+            <form action='/blog/modify_post' method='post' enctype="multipart/form-data">
+                {% csrf_token %}
+            <div class="row">
+                <div class="col-12">
+                    <h4 class="font-weight-bold">Add New Post</h4>
+                    <input hidden name='slug' value='{{post.slug}}'>
+                    <div class="my-3">
+                        <input type="text" class="form-control mb-4" placeholder="Enter Post Title Here" name="title" value='{{post.title}}'>
+                    </div>
+                    <div class="my-3">
+                        <textarea id="summernote" name="description"></textarea>
+                    </div>
+                    <div class="row my-3">
+                        
+                        <div class="col-6">
+                            <select class="browser-default custom-select" name="tag" multiple>
+										<option selected>Add Tag</option>
+										{% for tag in tags %}
+										<option value="{{tag.name}}">{{tag.name}}</option>
+										{% endfor %}
+                                        
+                                </select>
+                        </div>
+                    </div>
+                    <div class="my-3">
+                        <label>Post Picture</label>
+                        
+                        <input type="file" class="file_up" id='up' name="myfile" hidden>
+                        <label class='file_but' for='up'>Choose a file</label>
+                    </div>
+                    <div class="my-3">
+                        <label>Meta Title</label>
+                        <input type="text" class="form-control mb-4" placeholder="Meta Title" name='metatitle' value='{{post.meta_title}}'>
+                    </div>
+                    <div class="my-3">
+                        <label>Meta Description</label>
+                        <input type="text" class="form-control mb-4" placeholder="Meta Description" name='metadesc' value='{{post.small_description}}'>
+                    </div>
+                    <div class="my-3">
+                        <label>Meta Keyword</label>
+                        <input type="text" class="form-control mb-4" placeholder="Meta Keyword" name='metakey'  value='{{post.meta_key}}'>
+                    </div>
+                    <div class="my-3">
+                        <button class="btn btn-success btn-lg float-lg-right" type='submit'>Publish</button>
+                    </div>
+                </div>
+            </div>
+            </form>
+		</div>
+		</section>
+	{% endblock %}
+	{% block script %}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
+
+    <script type="text/javascript">
+        $('#summernote').summernote({
+            minHeight: 300,
+            focus: false,
+            airMode: false,
+            dialogsInBody: true,
+            dialogsFade: true,
+            disableDragAndDrop: false,
+            toolbar: [
+                ['font', ['bold', 'underline', 'clear']],
+                ['fontname', ['fontname']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                //['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']],
+            ],
+            popover: {
+                air: [
+                    ['color', ['color']],
+                    ['font', ['bold', 'underline', 'clear']]
+                ]
+            },
+            print: {
+                //'stylesheetUrl': 'url_of_stylesheet_for_printing'
+            }
+        });
+		var elems = document.getElementsByClassName('note-editable');
+        var p = elems[0].getElementsByTagName('p')[0];
+        p.innerHTML = '{{post.content | safe}}'
+	</script>
+	
+	{% endblock %}

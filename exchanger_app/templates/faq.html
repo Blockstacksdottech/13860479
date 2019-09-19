@@ -1,142 +1,139 @@
 {% extends "footer.html" %}
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
+<section class="faq">
+	<div class="container py-3">
+		<div class="row">
+			<div class="col-12">
+				<h1 class="section-title mb-5"> Frequently Asked Questions</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-10 mx-auto">
+				<div class="accordion mb-5" id="faqExample">
+					<div class="card">
+						<div class="card-header p-2" id="headingOne">
+							<h5 class="mb-0">
+								<button class="btn btn-link" type="button" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+								  Q: What is morphex?
+								</button>
+							</h5>
+						</div>
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>morphex - frequently asked questions</title>
-    <link rel="shortcut icon" href="/assets/img/favicon.png">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Montserrat:400,700%7CLato:300,300italic,400,700,900%7CYesteryear">
-    <link rel="stylesheet" href="/assets/css/style.css">
-    <link rel="stylesheet" href="/assets/css/style-add.css">
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
-    <script src="/assets/js/jquery.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('form').submit(function() {
-                var location = $('#rd-navbar-search-form-control').val();
-                window.location.href = "/transaction/" + location;
-                return false;
-            });
-        });
-    </script>
-</head>
+						<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#faqExample">
+							<div class="card-body">
+								morphex is an automated instant cryptocurrency exchange committed to providing safe, anonymous cryptocurrency exchanges at the best crypto-to-crypto exchange rates available.
+							</div>
+						</div>
+					</div>
+					<div class="card">
+						<div class="card-header p-2" id="headingTwo">
+							<h5 class="mb-0">
+								<button class="btn btn-link" type="button" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+							  Q: How does the exchanger work?
+							</button>
+							</h5>
+						</div>
+						<div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#faqExample">
+							<div class="card-body">
+								morphex exchanges one digital asset for another. We maintain a presence on all major exchanges to give you the best possible rates in real-time. To use the exchanger, you can follow a few simple steps. First, choose the trade you want to make from the
+								list of available currencies. Next, input a receiving address for the coins you want to receive and a refund address for the coin you will use to pay -- just in case. After that, make sure you agree to the terms of
+								service and begin the exchange. You will receive a payment address for the coin you are trading, and you have 15 minutes to make a payment and complete the exchange. Once you've made a payment, you will receive your
+								new coins in the currency you selected.
+							</div>
+						</div>
+					</div>
+					<div class="card">
+						<div class="card-header p-2" id="headingThree">
+							<h5 class="mb-0">
+								<button class="btn btn-link" type="button" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+								  Q. Does morphex require KYC?
+								</button>
+							</h5>
+						</div>
+						<div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#faqExample">
+							<div class="card-body">
+								morphex will never collect any identifying information from our users to make an exchange, not even your email address. We are committed to providing a platform for fully anonymous cryptocurrency exchange.
+							</div>
+						</div>
+					</div>
+					<div class="card">
+						<div class="card-header p-2" id="headingThree">
+							<h5 class="mb-0">
+								<button class="btn btn-link" type="button" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+								  Q. Why trust morphex?
+								</button>
+							</h5>
+						</div>
+						<div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#faqExample">
+							<div class="card-body">
+								Our developers are specialists with extensive blockchain experience. You do not need to provide any personal information to use our service, no passwords, nothing that attackers could use to gain access to your data. Our servers are under reliable protection
+								and we use strong security protocols.All transactions are SSL protected to prevent interception of information, and morphex is protected from DDoS attacks.
+							</div>
+						</div>
+					</div>
+					<div class="card">
+						<div class="card-header p-2" id="headingThree">
+							<h5 class="mb-0">
+								<button class="btn btn-link" type="button" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+								  Q. Are there fees?
+								</button>
+							</h5>
+						</div>
+						<div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#faqExample">
+							<div class="card-body">
+								morphex takes a service fee of .5% on all exchanges.
+							</div>
+						</div>
+					</div>
+					<div class="card">
+						<div class="card-header p-2" id="headingThree">
+							<h5 class="mb-0">
+								<button class="btn btn-link" type="button" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+								  Q. Why don't you have fixed exchange rates?
+								</button>
+							</h5>
+						</div>
+						<div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#faqExample">
+							<div class="card-body">
+								The volatility of cryptocurrency markets means that exchange rates can change significantly at any moment. Morphex does not fix exchange rates to take advantage of market fluctuations, so we can always give our user the best possible rates.
+							</div>
+						</div>
+					</div>
+					<div class="card">
+						<div class="card-header p-2" id="headingThree">
+							<h5 class="mb-0">
+								<button class="btn btn-link" type="button" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+								  Q. Will there be more coins available in the future?
+								</button>
+							</h5>
+						</div>
+						<div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#faqExample">
+							<div class="card-body">
+								We are actively adding coins to our exchanger, so keep checking back with us to see what’s new. If there’s a coin you’d like to see added, send us a message and let us know.
+							</div>
+						</div>
+					</div>
+					<div class="card">
+						<div class="card-header p-2" id="headingThree">
+							<h5 class="mb-0">
+								<button class="btn btn-link" type="button" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+								  Q. Do you have an .onion address?
+								</button>
+							</h5>
+						</div>
+						<div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#faqExample">
+							<div class="card-body">
+								Yes, you can reach us via Tor at xxxxxxx.onion
+							</div>
+						</div>
+					</div>
+				</div>
 
-<body>
-    <div class="page text-center">
-        <header class="page-head">
-            <div class="rd-navbar-wrap">
-                <nav class="rd-navbar rd-navbar-default rd-navbar-light" data-md-device-layout="rd-navbar-fixed" data-lg-device-layout="rd-navbar-static" data-lg-auto-height="true" data-md-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static" data-lg-stick-up="true">
-                    <div class="rd-navbar-inner">
-                        <div class="rd-navbar-panel">
-                            <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar, .rd-navbar-nav-wrap"><span></span></button>
-                            <div class="rd-navbar-brand">
-                                <a href="/"><img style="margin-top: -5px;margin-left: -15px;" width="180" height="60" src="/assets/img/logo.png" alt=""></a>
-                            </div>
-                        </div>
-                        <div class="rd-navbar-menu-wrap">
-                            <div class="rd-navbar-nav-wrap">
-                                <div class="rd-navbar-mobile-scroll">
-                                    <div class="rd-navbar-mobile-brand">
-                                        <a href="index.html"><img style="margin-top: -5px;margin-left: -15px;" width="138" height="60" src="/assets/img/logo.png" alt=""></a>
-                                    </div>
-                                    <div class="form-search-wrap">
-                                        <form class="form-search rd-search" action="search-results.html" method="GET">
-                                            <div class="form-group">
-                                                <label class="form-label form-search-label form-label-sm" for="rd-navbar-form-search-widget">Search</label>
-                                                <input class="form-search-input input-sm form-control form-control-gray-lightest input-sm" id="rd-navbar-form-search-widget" type="text" name="s" autocomplete="off">
-                                            </div>
-                                            <button class="form-search-submit" type="submit"><span class="novi-icon mdi mdi-magnify"></span></button>
-                                        </form>
-                                    </div>
-                                    <ul class="rd-navbar-nav">
-                                        <li><a href="/exchange"><span>Exchange</span></a></li>
-                                        <li><a href="/how-it-works"><span>How it works</span></a></li>
-                                        <li><a href="/checkup"><span>Checkup</span></a></li>
-                                        <li><a href="/blog"><span>Blog</span></a></li>
-                                        <li class="active"><a href="/faq"><span>FAQ</span></a></li>
-                                        <li><a href="/contact"><span>Contact</span></a></li>
-                                        <li><a href="#" data-toggle="dropdown" data-close-others="true"><span>Language</span><a class="paddingImages"><img src="/assets/img/flag-uk.png"></a>
-                                            <ul class="dropdown-menu pull-right">
-                                                <li>
-                                                    <a href="/?clang=de"><img src="/assets/img/flag-de.png"><span class="dropElement">Deutsch</span></a>
-                                                </li>
-                                                <li class="active">
-                                                    <a href="/?clang=en"><img src="/assets/img/flag-uk.png"><span class="dropElement">English</span></a>
-                                                </li>
-                                                <li>
-                                                    <a href="/?clang=fr"><img src="/assets/img/flag-fr.png"><span class="dropElement">François</span></a>
-                                                </li>
-                                                <li>
-                                                    <a href="/?clang=es"><img src="/assets/img/flag-es.png"><span class="dropElement">Español</span></a>
-                                                </li>
-                                            </ul>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-        </header><img src="/assets/img/bg.png" style="width:100%;">
-        <section class="section">
-            <div class="container">
-                <div class="row justify-content-sm-center">
-                    <div class="col-xl-6"><img class="d-none d-xl-inline-block" src="/assets/img/image_faq.png" width="470" height="770" alt=""></div>
-                    <div class="col-md-9 col-xl-6 offset-top-0">
-                        <h1 class="text-darker text-xl-left">General Questions</h1>
-                        <hr class="divider bg-mantis hr-xl-left-0">
-                        <div class="offset-top-41 offset-xl-top-66">
-                            <div class="accordion offset-top-0" id="accordion-1" role="tablist" aria-multiselectable="true">
-                                <div class="card card-accordion"><a class="card-header collapsed" id="collapseOne-header" href="#" data-toggle="collapse" data-target="#collapseOne-content" aria-expanded="false" aria-controls="collapseOne-content">Who can take advantage of Intense?</a>
-                                    <div class="collapse" id="collapseOne-content" aria-labelledby="collapseOne-header" data-parent="#accordion-1">
-                                        <div class="card-body">Intense is a universal solution for professional developers, designers and end users. This powerful HTML template can be used to build sites of any type, be it a blogger’s resource or professional portfolio. Intense meets all the modern quality standards, which will give you a solid basis to compete with rivals on the web.</div>
-                                    </div>
-                                </div>
-                                <div class="card card-accordion"><a class="card-header collapsed" id="collapseTwo-header" href="#" data-toggle="collapse" data-target="#collapseTwo-content" aria-expanded="false" aria-controls="collapseTwo-content">How can web developers benefit from Intense?</a>
-                                    <div class="collapse" id="collapseTwo-content" aria-labelledby="collapseTwo-header" data-parent="#accordion-1">
-                                        <div class="card-body">Intense is a flexible instrument for professional developers. It comes packed with 250+ pre-designed pages, 20 premium plugins, 50+ scalable shortcodes, and an extended Bootstrap toolkit. Moreover, Intense is based on a CSS Flex grid system and provides full Sass support.</div>
-                                    </div>
-                                </div>
-                                <div class="card card-accordion"><a class="card-header collapsed" id="collapseThree-header" href="#" data-toggle="collapse" data-target="#collapseThree-content" aria-expanded="false" aria-controls="collapseThree-content">What makes Intense special for web designers?</a>
-                                    <div class="collapse" id="collapseThree-content" aria-labelledby="collapseThree-header" data-parent="#accordion-1">
-                                        <div class="card-body">Intense offers a huge UI kit for web designers. It includes 150 PSD files, 2000+ font icons, unlimited skins and colors, parallax and hover effects, canvas animations, and much more. All these features can streamline the workflow and turn any project into an eye candy.</div>
-                                    </div>
-                                </div>
-                                <div class="card card-accordion"><a class="card-header collapsed" id="collapseFour-header" href="#" data-toggle="collapse" data-target="#collapseFour-content" aria-expanded="false" aria-controls="collapseFour-content">Does Intense have a design for my specific niche?</a>
-                                    <div class="collapse" id="collapseFour-content" aria-labelledby="collapseFour-header" data-parent="#accordion-1">
-                                        <div class="card-body">The package of Intense has child templates intended for a variety of niches. Whether you run a model agency, restaurant or consulting firm, you can choose a ready-made solution for your own business. The number of child themes is constantly growing to embrace a wider range of niches.</div>
-                                    </div>
-                                </div>
-                                <div class="card card-accordion"><a class="card-header collapsed" id="collapseFive-header" href="#" data-toggle="collapse" data-target="#collapseFive-content" aria-expanded="false" aria-controls="collapseFive-content">What does Intense offer for my marketing needs?</a>
-                                    <div class="collapse" id="collapseFive-content" aria-labelledby="collapseFive-header" data-parent="#accordion-1">
-                                        <div class="card-body">Intense has effective instruments for your marketing campaigns. Its package contains a number of landing and newsletter templates designed with proven marketing tactics in mind.</div>
-                                    </div>
-                                </div>
-                                <div class="card card-accordion"><a class="card-header collapsed" id="collapseSix-header" href="#" data-toggle="collapse" data-target="#collapseSix-content" aria-expanded="false" aria-controls="collapseSix-content">What pages would Intense have in its full package?</a>
-                                    <div class="collapse" id="collapseSix-content" aria-labelledby="collapseSix-header" data-parent="#accordion-1">
-                                        <div class="card-body">Intense gives an access to 250+ ready-made pages for multiple purposes. Among them, there are 10+ homepages, 10+ one-page designs, 20+ header and 10+ footer styles, 20+ extra pages, 10+ event templates, 20+ portfolio layouts, 20+ blog templates, and many others.</div>
-                                    </div>
-                                </div>
-                                <div class="card card-accordion"><a class="card-header collapsed" id="collapseSeven-header" href="#" data-toggle="collapse" data-target="#collapseSeven-content" aria-expanded="false" aria-controls="collapseSeven-content">Is Intense an eCommerce-ready solution?</a>
-                                    <div class="collapse" id="collapseSeven-content" aria-labelledby="collapseSeven-header" data-parent="#accordion-1">
-                                        <div class="card-body">Yes, you can use Intense to give a head start to a web store. It is integrated with a shopping cart and includes 10+ eCommerce templates for building different store pages.</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="section novi-background section-66 context-dark bg-blue-gray">
-            <div class="container">
-                <h2>If you have a question please send us a letter</h2><a class="btn btn-default btn-icon btn-icon-left offset-top-20" href="/contact"><span class="novi-icon icon mdi mdi-email-outline"></span>Contact Us</a></div>
-        </section>
-        {% endblock %}
+			</div>
+		</div>
+		<!--/row-->
+	</div>
+	<!--container-->
+
+</section>
+{% endblock %}

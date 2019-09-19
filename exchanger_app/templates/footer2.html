@@ -1,0 +1,68 @@
+
+{% block content %} {% endblock %}
+<footer class="section novi-background section-relative section-top-66 section-bottom-34 page-footer bg-black context-dark">
+	<div class="container">
+		<div class="row justify-content-sm-center text-xl-left grid-group-md">
+			<div class="col-sm-5 col-lg-3 col-xl-2 text-sm-left">
+				<h6 class="text-uppercase text-spacing-60">Exchange Rates</h6>
+				<div class="d-block">
+					<div class="d-inline-block">
+						<ul class="list list-marked">
+							<li>
+								<p>BTC {{BTC}}</p>
+							</li>
+							<li>
+								<p>ETH {{ETH}}</p>
+							</li>
+							<li>
+								<p>BCH {{BCH}}</p>
+							</li>
+							<li>
+								<p>XMR {{XMR}}</p>
+							</li>
+							<li>
+								<p>LTC {{LTC}}</p>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-12 col-md-12 col-lg-5 col-xl-6 text-lg-left">
+				<h6 class="text-uppercase text-spacing-60">Newsletter</h6>
+				<p>Keep up with our always upcoming product features and technologies. Enter your e-mail and subscribe to our newsletter.</p>
+				<div class="offset-top-30">
+					<form class="rd-mailform" id='subscribe' data-form-output="form-subscribe-footer" data-form-type="subscribe" method="post" action="bat/rd-mailform.php">
+						<div class="form-group">
+							<div class="input-group input-group-sm"><span class="input-group-prepend"><span class="input-group-text input-group-icon"><span class="novi-icon mdi mdi-email"></span></span>
+								</span>
+								<input class="form-control" id='subscribe-email' placeholder="Type your E-Mail" type="email" name="email" data-constraints="@Required @Email"><span class="input-group-append"><button class="btn btn-sm btn-primary" type="submit">Subscribe</button></span></div>
+						</div>
+						<div class="form-output" id="form-subscribe-footer"></div>
+					</form>
+				</div>
+			</div>
+			<div class="col-sm-5 col-lg-3 col-xl-2 text-sm-left">
+				<h6 class="text-uppercase text-spacing-60">Useful Links</h6>
+				<div class="d-block">
+					<div class="d-inline-block">
+						<ul class="list list-marked">
+							<li><a href="/exchange">Exchange</a></li>
+							<li><a href="/how-it-works">How it works</a></li>
+							<li><a href="/faq">FAQ</a></li>
+							<li><a href="/contact">Contact</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container offset-top-50">
+		<p class="small text-darker">© copyright 2018 - all rights reserved <span class="copyright-year"></span> .<a href="privacy.html">Privacy Policy</a></p>
+	</div>
+</footer>
+</div>
+<script src="/assets/js/core.min.js"></script>
+<script src="/assets/js/script.js"></script>
+</body>
+
+</html>

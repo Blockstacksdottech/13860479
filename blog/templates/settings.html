@@ -1,0 +1,102 @@
+{% exntends 'footer.html' %}
+{% block content %}
+<section class="allposts mb-5">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<h4 class="font-weight-bold">Settings</h4>
+				<div class="row">
+					<div class="my-3 col-4">
+						<label>Start/Stop Payments</label>
+						<form>
+							<div class="input-group">
+								<select class="browser-default custom-select" id="inputGroupSelect04">
+								  <option value="1">Start</option>
+								  <option value="2">Stop</option>
+								</select>
+								<div class="input-group-append">
+									<button class="btn btn-md btn-success m-0 px-3 py-2 z-depth-0 waves-effect" type="button">Save</button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="my-3 col-4">
+						<label>Change Duration Session</label>
+						<form>
+							<div class="input-group">
+								<input type="number" class="form-control" placeholder="Duration">
+								<div class="input-group-append">
+									<button class="btn btn-md btn-success m-0 px-3 py-2 z-depth-0 waves-effect" type="button" id="button-addon2">Save</button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="my-3 col-4">
+						<label>Enable /Disable Single Coins</label>
+						<form>
+							<div class="input-group">
+								<select class="browser-default custom-select" id="inputGroupSelect04">
+										  <option value="1">Enable</option>
+										  <option value="2">Disable</option>
+										</select>
+								<div class="input-group-append">
+									<button class="btn btn-md btn-success m-0 px-3 py-2 z-depth-0 waves-effect" type="button">Save</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="my-3 col-6">
+						<label>Change Service Fee</label>
+						<form>
+							<div class="input-group">
+								<input type="number" class="form-control" placeholder="Service Fee">
+								<div class="input-group-append">
+									<button class="btn btn-md btn-success m-0 px-3 py-2 z-depth-0 waves-effect" type="button" id="button-addon2">Save</button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="my-3 col-6">
+						<label>Change Transaction Fee</label>
+						<form>
+							<div class="input-group mb-3">
+								<input type="number" class="form-control" placeholder="Transaction Fee">
+								<div class="input-group-append">
+									<button class="btn btn-md btn-success m-0 px-3 py-2 z-depth-0 waves-effect" type="button" id="button-addon2">Save</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="my-3 col-6">
+						<label>Change Minimum payment</label>
+						<form>
+							<div class="input-group mb-3">
+								<input type="number" class="form-control" placeholder="Minimum Payment">
+								<div class="input-group-append">
+									<button class="btn btn-md btn-success m-0 px-3 py-2 z-depth-0 waves-effect" type="button" id="button-addon2">Save</button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="my-3 col-6">
+						<label>Change Maximum Payment</label>
+						<form>
+							<div class="input-group mb-3">
+								<input type="number" class="form-control" placeholder="Maximum Payment">
+								<div class="input-group-append">
+									<button class="btn btn-md btn-success m-0 px-3 py-2 z-depth-0 waves-effect" type="button" id="button-addon2">Save</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+{% endblock %}

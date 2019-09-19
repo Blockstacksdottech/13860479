@@ -129,7 +129,8 @@ STATIC_URL = '/assets/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
-    os.path.join(BASE_DIR, "assets")
+    os.path.join(BASE_DIR, "assets"),
+    os.path.join(BASE_DIR, 'media')
 ]
 
 
@@ -168,5 +169,8 @@ monero_password = 'exchangerpass'
 eth_test_provider_p = '0xc57beb2188e830a11cf710f5f3a11177761d41e7fe0ce5425a6c46a3054f8d29'
 eth_test_provider_ad = '0x5c4542d89ca5766EBd9AbCE36049FD8AA79d484F'
 
+mon_receiver_index  = 1
 
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'assets/media')

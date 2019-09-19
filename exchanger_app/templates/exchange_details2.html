@@ -1,0 +1,152 @@
+{% extends "footer.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="shortcut icon" href="/assets/img/favicon.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Montserrat:400,700%7CLato:300,300italic,400,700,900%7CYesteryear">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/style-add.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+    <script src="/assets/js/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('form').submit(function() {
+                var location = $('#rd-navbar-search-form-control').val();
+                window.location.href = "/transaction/" + location;
+                return false;
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="page text-center">
+        <header class="page-head">
+            <div class="rd-navbar-wrap">
+                <nav class="rd-navbar rd-navbar-default rd-navbar-light" data-md-device-layout="rd-navbar-fixed" data-lg-device-layout="rd-navbar-static" data-lg-auto-height="true" data-md-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static" data-lg-stick-up="true">
+                    <div class="rd-navbar-inner">
+                        <div class="rd-navbar-panel">
+                            <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar, .rd-navbar-nav-wrap"><span></span></button>
+                            <div class="rd-navbar-brand">
+                                <a href="/"><img style="margin-top: -5px;margin-left: -15px;" width="180" height="60" src="/assets/img/logo.png" alt=""></a>
+                            </div>
+                        </div>
+                        <div class="rd-navbar-menu-wrap">
+                            <div class="rd-navbar-nav-wrap">
+                                <div class="rd-navbar-mobile-scroll">
+                                    <div class="rd-navbar-mobile-brand">
+                                        <a href="index.html"><img style="margin-top: -5px;margin-left: -15px;" width="138" height="60" src="/assets/img/logo.png" alt=""></a>
+                                    </div>
+                                    <div class="form-search-wrap">
+                                        <form class="form-search rd-search" action="search-results.html" method="GET">
+                                            <div class="form-group">
+                                                <label class="form-label form-search-label form-label-sm" for="rd-navbar-form-search-widget">Search</label>
+                                                <input class="form-search-input input-sm form-control form-control-gray-lightest input-sm" id="rd-navbar-form-search-widget" type="text" name="s" autocomplete="off">
+                                            </div>
+                                            <button class="form-search-submit" type="submit"><span class="novi-icon mdi mdi-magnify"></span></button>
+                                        </form>
+                                    </div>
+                                    <ul class="rd-navbar-nav">
+                                        <li><a href="/exchange"><span>Exchange</span></a></li>
+                                        <li><a href="/how-it-works"><span>How it works</span></a></li>
+                                        <li><a href="/checkup"><span>Checkup</span></a></li>
+                                        <li><a href="/blog"><span>Blog</span></a></li>
+                                        <li><a href="/faq"><span>FAQ</span></a></li>
+                                        <li><a href="/contact"><span>Contact</span></a></li>
+                                        <li><a href="#" data-toggle="dropdown" data-close-others="true"><span>Language</span><a class="paddingImages"><img src="/assets/img/flag-uk.png"></a>
+                                            <ul class="dropdown-menu pull-right">
+                                                <li>
+                                                    <a href="/?clang=de"><img src="/assets/img/flag-de.png"><span class="dropElement">Deutsch</span></a>
+                                                </li>
+                                                <li class="active">
+                                                    <a href="/?clang=en"><img src="/assets/img/flag-uk.png"><span class="dropElement">English</span></a>
+                                                </li>
+                                                <li>
+                                                    <a href="/?clang=fr"><img src="/assets/img/flag-fr.png"><span class="dropElement">François</span></a>
+                                                </li>
+                                                <li>
+                                                    <a href="/?clang=es"><img src="/assets/img/flag-es.png"><span class="dropElement">Español</span></a>
+                                                </li>
+                                            </ul>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <section class="section novi-background section-66 section-md-top-110">
+            <div class="container" style="margin-top: -85px">
+                <div class="responsive-tabs responsive-tabs-classic" data-type="horizontal" style="width: 75%;">
+                    <ul class="resp-tabs-list tabs-1 text-center tabs-group-default">
+                        <li class="resp-tab-item tabs-group-default" aria-controls="tabs-group-default_tab_item-2" role="tab">Select Coins<img class="img-fluid" width="30" height="30" src="/assets/img/static_done.png" alt=""></li>
+                        <li class="resp-tab-item tabs-group-default" aria-controls="tabs-group-default_tab_item-2" role="tab">Transaction Info <img class="img-fluid" width="30" height="30" src="/assets/img/static_done.png" alt=""></li>
+                        <li class="resp-tab-item tabs-group-default resp-tab-active" aria-controls="tabs-group-default_tab_item-2" role="tab">Awaiting Deposit<img class="img-fluid" width="30" height="30" src="/assets/img/loading.gif" alt=""></li>
+                        <li class="resp-tab-item tabs-group-default" aria-controls="tabs-group-default_tab_item-2" role="tab">Exchanging</li>
+                        <li class="resp-tab-item tabs-group-default" aria-controls="tabs-group-default_tab_item-2" role="tab">Finish</li>
+                    </ul>
+                    <div class="resp-tabs-container text-left tabs-group-default">
+                        <div>
+                            <div class="row offset-md-top-66">
+                                <div class="col-xl-12">
+                                    <div class="table-responsive clearfix">
+                                        <table class="table table-striped">
+                                            <tbody>
+                                                <tr>
+                                                    <th>Transaction ID</th>
+                                                    <th>{{id}} ({{incomeCurrency}}/{{outCurrency}})</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>Income Address our address systeme</th>
+                                                    <td>{{systemeAddress}}<a href="javascript:void()"><i class="cpyTxt novi-icon fa fa-clipboard" data-clipboard-text="{{systemeAddress}}"></i></a></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>QR-Code</th>
+                                                    <td>
+                                                        <div class="qrcode"></div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Transaction Created</th>
+                                                    <td>{{time}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Receiving Wallet ({{outCurrency}})</th>
+                                                    <td>{{recvAddress}}<a href="javascript:void()"><i class="cpyTxt novi-icon fa fa-clipboard" data-clipboard-text="{{recvAddress}}"</i></a></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Refund Address ({{returnAddress}})</th>
+                                                    <td>{{returnAddress}}<a href="javascript:void()"><i class="cpyTxt novi-icon fa fa-clipboard" data-clipboard-text="{{returnAddress}}"></i></a></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <script type="text/javascript" src="/assets/js/jquery.qrcode.min.js"></script>
+        <script>
+            new ClipboardJS('.cpyTxt');
+        </script>
+        <script type="text/javascript">
+            $('.qrcode').qrcode({
+                width: 125,
+                height: 125,
+                text: "hello bro"
+            });
+        </script>
+        {% endblock %}

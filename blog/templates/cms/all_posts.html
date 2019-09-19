@@ -1,0 +1,90 @@
+{% extends "foot.html" %}
+{% block content %}
+<section class="allposts">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<h4 class="font-weight-bold">POSTS <a class="btn btn-outline-grey btn-sm" href="/blog/add">Add New</a></h4>
+				<table id="allposts" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+					<thead>
+						<tr>
+							<th class="th-sm">Title
+							</th>
+							<th class="th-sm">Category
+							</th>
+							<th class="th-sm">Tags
+							</th>
+							<th class="th-sm">Date
+							</th>
+							<th class="th-sm">
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for post in posts %}
+
+						<tr>
+							<td>
+								<small>
+											{{post.title}}
+										</small>
+							</td>
+							<td>
+								<small>
+												News
+											</small>
+							</td>
+							<td>
+								<small>
+												{{post.tags}}
+											</small>
+							</td>
+							<td>
+								
+								
+								<small>{{post.date}}</small>
+							</td>
+							<td class="text-center">
+								<a class="btn btn-sm btn-outline-grey" href='/blog/modify/{{post.slug}}'>
+									<i class="fas fa-pencil-alt"></i>
+								</a>
+
+								<a class="btn btn-sm btn-outline-grey" href='/blog/delete/{{post.slug}}'>
+									<i class="fas fa-trash-alt"></i>
+								</a>
+							</td>
+						</tr>
+						{% endfor %}
+
+						
+
+
+					</tbody>
+					<tfoot>
+						<tr>
+							<th class="th-sm">Title
+							</th>
+							<th class="th-sm">Category
+							</th>
+							<th class="th-sm">Tags
+							</th>
+							<th class="th-sm">Date
+							</th>
+							<th class="th-sm">
+							</th>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}
+{% block script %}
+<script>
+	$(document).ready(function() {
+		$('#allposts').DataTable();
+		$('.dataTables_length').addClass('bs-select');
+	});
+</script>
+{% endblock %}

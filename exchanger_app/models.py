@@ -11,6 +11,15 @@ class Task(models.Model):
 	def __str__(self):
 		return self.transaction_id
 
+class Pending(models.Model):
+	currency = models.CharField(max_length=255)
+	amount = models.FloatField(default=0)
+
+
+	def __str__(self):
+		return self.currency + str(self.amount)
+
+
 class Transaction(models.Model):
 	transaction_id = models.CharField(max_length=1000)
 	return_address = models.CharField(max_length=1000)
@@ -32,7 +41,7 @@ class Transaction(models.Model):
 		else:
 			t = Task.objects.create(transaction_id = self.transaction_id,
 			action = 'Waiting for funds',
-			status = 'runing'
+			status = 'waiting'
 			)
 			t.save()
 		super(Transaction, self).save(*args, **kwargs)

@@ -1,124 +1,183 @@
 {% extends "footer.html" %}
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
+<section class="blog  my-5">
+	<div class="container">
+		<div class="row">
+			<div class="col-8">
+				<!-- Section heading -->
+				<h2 class="h1-responsive  mb-5">Recent posts</h2>
+				{% load tags %}
+				{% define 0 as num %}
+				{% for post in posts %}
+				{% mod_res num as res %}
+				{% if res == 1 %}
+				<!-- Grid row -->
+				<div class="row">
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
-    <link rel="shortcut icon" href="/assets/img/favicon.png">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Montserrat:400,700%7CLato:300,300italic,400,700,900%7CYesteryear">
-    <link rel="stylesheet" href="/assets/css/style.css">
-    <link rel="stylesheet" href="/assets/css/style-add.css">
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
-    <script src="/assets/js/jquery.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('form').submit(function() {
-                var location = $('#rd-navbar-search-form-control').val();
-                window.location.href = "/transaction/" + location;
-                return false;
-            });
-        });
-    </script>
-</head>
+					<!-- Grid column -->
+					<div class="col-lg-7">
 
-<body>
-    <div class="page text-center">
-        <header class="page-head">
-            <div class="rd-navbar-wrap">
-                <nav class="rd-navbar rd-navbar-default rd-navbar-light" data-md-device-layout="rd-navbar-fixed" data-lg-device-layout="rd-navbar-static" data-lg-auto-height="true" data-md-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static" data-lg-stick-up="true">
-                    <div class="rd-navbar-inner">
-                        <div class="rd-navbar-panel">
-                            <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar, .rd-navbar-nav-wrap"><span></span></button>
-                            <div class="rd-navbar-brand">
-                                <a href="/"><img style="margin-top: -5px;margin-left: -15px;" width="180" height="60" src="/assets/img/logo.png" alt=""></a>
-                            </div>
-                        </div>
-                        <div class="rd-navbar-menu-wrap">
-                            <div class="rd-navbar-nav-wrap">
-                                <div class="rd-navbar-mobile-scroll">
-                                    <div class="rd-navbar-mobile-brand">
-                                        <a href="index.html"><img style="margin-top: -5px;margin-left: -15px;" width="138" height="60" src="/assets/img/logo.png" alt=""></a>
-                                    </div>
-                                    <div class="form-search-wrap">
-                                        <form class="form-search rd-search" action="search-results.html" method="GET">
-                                            <div class="form-group">
-                                                <label class="form-label form-search-label form-label-sm" for="rd-navbar-form-search-widget">Search</label>
-                                                <input class="form-search-input input-sm form-control form-control-gray-lightest input-sm" id="rd-navbar-form-search-widget" type="text" name="s" autocomplete="off">
-                                            </div>
-                                            <button class="form-search-submit" type="submit"><span class="novi-icon mdi mdi-magnify"></span></button>
-                                        </form>
-                                    </div>
-                                    <ul class="rd-navbar-nav">
-                                        <li><a href="/exchange"><span>Exchange</span></a></li>
-                                        <li><a href="/how-it-works"><span>How it works</span></a></li>
-                                        <li><a href="/checkup"><span>Checkup</span></a></li>
-                                        <li><a href="/blog"><span>Blog</span></a></li>
-                                        <li><a href="/faq"><span>FAQ</span></a></li>
-                                        <li><a href="/contact"><span>Contact</span></a></li>
-                                        <li><a href="#" data-toggle="dropdown" data-close-others="true"><span>Language</span><a class="paddingImages"><img src="/assets/img/flag-uk.png"></a>
-                                            <ul class="dropdown-menu pull-right">
-                                                <li>
-                                                    <a href="/?clang=de"><img src="/assets/img/flag-de.png"><span class="dropElement">Deutsch</span></a>
-                                                </li>
-                                                <li class="active">
-                                                    <a href="/?clang=en"><img src="/assets/img/flag-uk.png"><span class="dropElement">English</span></a>
-                                                </li>
-                                                <li>
-                                                    <a href="/?clang=fr"><img src="/assets/img/flag-fr.png"><span class="dropElement">François</span></a>
-                                                </li>
-                                                <li>
-                                                    <a href="/?clang=es"><img src="/assets/img/flag-es.png"><span class="dropElement">Español</span></a>
-                                                </li>
-                                            </ul>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-        </header>
-        <section class="section novi-background">
-            <div class="container">
-                <div class="row justify-content-sm-center">
-                    <div class="col-xl-8">
-                        <section>
-							{% for post in posts %}
-                            <article class="post post-default text-left">
-                                <div class="header post-header">
-                                    <ul class="post-controls list-inline list-inline-sm p text-dark">
-                                        <li class="list-inline-item"><span class="text-middle icon-xxs novi-icon text-picton-blue mdi mdi-clock"></span>
-                                            <time class="text-middle small" datetime="2019-01-01">{{post.date}}</time>
-                                        </li>
-                                        <li class="list-inline-item"><span class="text-middle icon-xxs novi-icon text-picton-blue mdi mdi-account-outline"> </span><span class="text-middle small">morphex Team</span></li>
-                                    </ul>
-                                    <h3 class="post-title"><a href="/view/{{post.slug}}"> {{post.title}}</a></h3>
-                                    <div class="post-media offset-top-34">
-                                        <header class="post-media">
-                                            <div data-lightgallery="group">
-                                                <a class="thumbnail-classic" href="/view/{{post.slug}}" target="_self">
-                                                    <figure><img width="570" height="321" src="/{{post.image}}" alt=""></figure>
-                                                </a>
-                                            </div>
-                                        </header>
-                                    </div>
-                                </div>
-                                <section class="post-content offset-top-41">
-                                    <p>{{post.small_description}}</p><a class="offset-top-24 btn btn-default" href="/view/{{post.slug}}">Read More</a></section>
-							</article>
-							{% endfor %}
-                            <hr class="hr offset-top-66">
-                            <div class="offset-top-66"></div>
-                        </section>
-                    </div>
-                </div>
-            </div>
-        </section>
-        {% endblock %}
+						<!-- Category -->
+						<a href="#!" class="pink-text">
+							<h6 class="font-weight-bold mb-3"><i class="fas fa-newspaper pr-2"></i>News</h6>
+						</a>
+						<!-- Post title -->
+						<h3 class="font-weight-bold mb-3"><strong>{{post.title}}</strong></h3>
+						<!-- Excerpt -->
+						<p>{{post.small_description}}
+						</p>
+						<!-- Post data -->
+						<p>by <a><strong>Morphex Team</strong></a>, {{post.date}}</p>
+						<!-- Read more button -->
+						<a class="btn btn-pink btn-md mb-lg-0 mb-4" href="/view/{{post.slug}}">Read more</a>
+
+					</div>
+					<!-- Grid column -->
+
+					<!-- Grid column -->
+					<div class="col-lg-5">
+
+						<!-- Featured image -->
+						<div class="view overlay rounded z-depth-2">
+							<img class="img-fluid" src="/{{post.image}}" alt="Sample image">
+							<a>
+								<div class="mask rgba-white-slight"></div>
+							</a>
+						</div>
+
+					</div>
+					<!-- Grid column -->
+
+				</div>
+				<hr class="my-5">
+				<br>
+				<br>
+
+				{% else %}
+
+				<!-- Grid row -->
+				<div class="row">
+
+					<!-- Grid column -->
+					<div class="col-lg-5">
+
+						<!-- Featured image -->
+						<div class="view overlay rounded z-depth-2 mb-lg-0 mb-4">
+							<img class="img-fluid" src="{{post.image}}" alt="Sample image">
+							<a>
+								<div class="mask rgba-white-slight"></div>
+							</a>
+						</div>
+
+					</div>
+					<!-- Grid column -->
+
+					<!-- Grid column -->
+					<div class="col-lg-7">
+
+						<!-- Category -->
+						{% if res == 0 %}
+						<a href="#!" class="green-text">
+						{% else %}
+						<a href="#!" class="indigo-text">
+
+						{% endif %}
+
+							<h6 class="font-weight-bold mb-3"><i class="fas fa-newspaper pr-2"></i>News</h6>
+						</a>
+						<!-- Post title -->
+						<h3 class="font-weight-bold mb-3"><strong>{{post.title}}</strong></h3>
+						<!-- Excerpt -->
+						<p>{{post.small_description}}</p>
+						<!-- Post data -->
+						<p>by <a><strong>Morphex Team</strong></a>, {{post.date}}</p>
+						<!-- Read more button -->
+						<a class="btn btn-success btn-md" href="/view/{{post.slug}}">Read more</a>
+
+					</div>
+					<!-- Grid column -->
+					<hr class="my-5">
+					<br>
+					<br>
+					{% endif %}
+					{% increment num as num %}
+					{%  endfor %}
+
+				</div>
+
+				
+
+
+				
+
+				
+				<!-- Grid row -->
+			</div>
+			<div class="col-4">
+				<h4 class="mb-3">Popular Posts</h4>
+				<hr>
+				<!-- Small news -->
+				{% for pop  in populars %}
+				<div class="single-news mb-4">
+
+					<!-- Grid row -->
+					<div class="row">
+
+						<!-- Grid column -->
+						<div class="col-md-3">
+
+							<!--Image-->
+							<div class="view overlay rounded z-depth-1 mb-4">
+								<img class="img-fluid" src="{{pop.image}}" alt="Sample image">
+								<a>
+									<div class="mask rgba-white-slight"></div>
+								</a>
+							</div>
+
+						</div>
+						<!-- Grid column -->
+
+						<!-- Grid column -->
+						<div class="col-md-9">
+
+							<!-- Excerpt -->
+							<p class="font-weight-bold dark-grey-text">{{pop.date}}</p>
+							<div class="d-flex justify-content-between">
+								<div class="col-11 text-truncate pl-0 mb-3">
+									<a href="#!" class="dark-grey-text">{{pop.title}}</a>
+								</div>
+								<a><i class="fas fa-angle-double-right"></i></a>
+							</div>
+
+						</div>
+						<!-- Grid column -->
+
+					</div>
+					<!-- Grid row -->
+
+				</div>
+				<!-- Small news -->
+				{% endfor %}
+
+				
+
+
+				<h4 class="mb-3 mt-5">Tags</h4>
+				<hr>
+
+
+
+				<div class="tagcloud03">
+					<ul> 
+						{% for tag in tags %}
+						<li><a href="#">{{tag.name}} </a></li>
+						{% endfor %}
+						
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+{% endblock %}

@@ -50,6 +50,9 @@ class listener:
 		elif coin  == 'BCH':
 			self.handler = get_handler(coin)
 			self.address = private
+		elif coin == 'XMR':
+			self.handler  =  get_handler(coin)
+			self.address = private
 
 	
 	def get_second_handler(self,coin):
@@ -64,6 +67,12 @@ class listener:
 			return self.handler2
 			#self.address = private
 		elif coin == 'LTC':
+			self.handler2 = get_handler(coin)
+			return self.handler2
+		elif coin == 'BCH':
+			self.handler2 = get_handler(coin)
+			return self.handler2
+		elif coin == 'XMR':
 			self.handler2 = get_handler(coin)
 			return self.handler2
 
@@ -128,28 +137,67 @@ class listener:
 		tr = self.handler.send('gettransaction',txid)
 		return tr['confirmations']
 
+	def get_address_indice(self,address):
+		resp = self.handler.send('get_address_index',address=address)
+		return resp['result']['index']['minor']
+	
 
-	def start_listener(self):
+	def get_mon_received(self,address):
+		indice  = self.get_address_indice(address)
+		resp_dict = self.handler.send('getbalance',account_index=mon_receiver_index,address_indices=[indice])
+		res = resp_dict['result']
+		addresses =  res['per_subaddress']
+		for addr in addresses:
+			if address == addr['address']:
+				balance = addr['balance']
+				return balance
+
+	def get_mon_txid(self,address):
+		resp  = self.handler.send('get_transfers',account_index=mon_receiver_index,in_=True)
+		in_list =  resp['result']['in']
+		for l in in_list:
+			if l['address']  == address:
+				return [l['txid'],l['amount']]
+
+
+
+	def get_mon_confirmation(self,txid):
+		resp = self.handler.send('get_transfer_by_txid',txid=txid,account_index=mon_receiver_index)
+		return resp['result']['transfer']['confirmations']
+
+	def get_mon_balance(self,handler):
+		resp =  handler.send('getbalance',account_index=mon_receiver_index)
+		return resp['result']['balance']
+		
+
+
+
+
+	
+	def start_mon_listener(self):
 		print('start check')
 		print(self.address)
-		while self.check_balance(self.handler.send('getreceivedbyaddress',self.address)):
+		while self.check_balance(self.get_mon_received(self.address)):
 			pass
 		print('balance changed')
 		print('getting txid')
-		txid = self.get_transaction(self.address,self.handler.send('listtransactions',main_test_label))
-		self.set_transaction_message(self.transaction_id,'checking confirmations')
-		while self.get_confirmations(txid) < min_confirmation:
+		txid_resp = self.get_mon_txid(self.address)
+		amount_in  = txid_resp[-1]/(10**12)
+		txid = txid_resp[0]
+		self.set_transaction_message(self.transaction_id,'checking confirtmations')
+		while self.get_mon_confirmation(txid) < min_confirmation:
 			pass
 		print('transaction confirmed')
 		self.set_transaction_message(self.transaction_id,'checking availability')
 		print('received')
-		amount_in = self.handler.send('getreceivedbyaddress',self.address)
 		print('getting the out value')
 		
 		second_handler = self.get_second_handler(self.transaction.out_currency)
 
 		amount_out = self.b_handler.get_exchange_rate(self.transaction.in_currency,self.transaction.out_currency,self.transaction.fees,amount_in)
-		amount_out +=  float(Web3.fromWei(second_handler.eth.gasPrice * 100000,'ether'))
+		if self.transaction.out_currency == 'ETH':
+			amount_out +=  float(Web3.fromWei(second_handler.eth.gasPrice * 100000,'ether'))
+
 		print('the amount out is ')
 		print(amount_out)
 		self.transaction.amount_in = amount_in
@@ -161,7 +209,11 @@ class listener:
 			balance = self.handler2.send('getbalance')
 		elif 'LTC' == self.transaction.out_currency:
 			balance = self.handler2.send('getbalance')
-		
+		elif 'BCH' == self.transaction.out_currency:
+			balance = self.handler2.send('getbalance')
+		elif 'XMR' == self.transaction.out_currency:
+			balance = self.get_mon_balance(self.handler)
+
 		if amount_out >= balance:
 			input('not enough balance')
 		else:
@@ -187,6 +239,83 @@ class listener:
 				print('sending amount : ',end=' ')
 				print(amount_out)
 				self.handler2.send('sendtoaddress',self.transaction.return_address,amount_out)
+				self.set_transaction_message(self.transaction_id,'transaction sent','done') 
+
+
+
+
+	def start_listener(self):
+		print('start check')
+		print(self.address)
+		while self.check_balance(self.handler.send('getreceivedbyaddress',self.address)):
+			pass
+		print('balance changed')
+		print('getting txid')
+		txid = self.get_transaction(self.address,self.handler.send('listtransactions',main_test_label))
+		self.set_transaction_message(self.transaction_id,'checking confirmations')
+		while self.get_confirmations(txid) < min_confirmation:
+			pass
+		print('transaction confirmed')
+		self.set_transaction_message(self.transaction_id,'checking availability')
+		print('received')
+		amount_in = self.handler.send('getreceivedbyaddress',self.address)
+		print('getting the out value')
+		
+		second_handler = self.get_second_handler(self.transaction.out_currency)
+
+		amount_out = self.b_handler.get_exchange_rate(self.transaction.in_currency,self.transaction.out_currency,self.transaction.fees,amount_in)
+		if self.transaction.out_currency == 'ETH':
+			amount_out +=  float(Web3.fromWei(second_handler.eth.gasPrice * 100000,'ether'))
+
+		print('the amount out is ')
+		print(amount_out)
+		self.transaction.amount_in = amount_in
+		self.transaction.amount_out = amount_out
+		self.transaction.save()
+		if 'ETH' == self.transaction.out_currency:
+			balance =float(Web3.fromWei(self.w2.eth.getBalance(eth_test_provider_ad),'ether'))
+		elif 'BTC' == self.transaction.out_currency:
+			balance = self.handler2.send('getbalance')
+		elif 'LTC' == self.transaction.out_currency:
+			balance = self.handler2.send('getbalance')
+		elif 'BCH' == self.transaction.out_currency:
+			balance = self.handler2.send('getbalance')
+		elif 'XMR' == self.transaction.out_currency:
+			balance = self.get_mon_balance(second_handler)
+		
+		if amount_out >= balance:
+			input('not enough balance')
+		else:
+			if 'ETH' == self.transaction.out_currency:
+				amount_out  = Web3.toWei(amount_out,'ether')
+				print('sending the amount to ' + self.transaction.return_address)
+				signed_txn = self.create_eth_transaction_cus(self.transaction.return_address,amount_out,eth_test_provider_p,second_handler,eth_test_provider_ad)
+				second_handler.eth.sendRawTransaction(signed_txn.rawTransaction)
+				print('transaction sent')
+
+			elif 'LTC'  == self.transaction.out_currency:
+				print('sending')
+				amount_out = round(amount_out,8)
+				print('sending amount : ',end=' ')
+				print(amount_out)
+				res = self.handler2.send('sendtoaddress',self.transaction.return_address,amount_out)
+				if not res:
+					print('failed')
+				self.set_transaction_message(self.transaction_id,'transaction sent','done')
+			elif 'XMR'  == self.transaction.out_currency:
+				print('sending')
+				amount_out = round(amount_out,9)
+				amount_out = int(amount_out * (10**12))
+				print('sending amount : ',end=' ')
+				print(amount_out)
+				res = self.handler2.send('transfer',destinations=[{'amount':amount_out,'address':self.transaction.return_address}],account_index = mon_receiver_index)
+				print(res)
+			else:
+				print('sending')
+				amount_out = round(amount_out,8)
+				print('sending amount : ',end=' ')
+				print(amount_out)
+				self.handler2.send('sendtoaddress',self.transaction.return_address,amount_out)
 				self.set_transaction_message(self.transaction_id,'transaction sent','done')
 		
 
@@ -194,6 +323,8 @@ class listener:
 	def start_c(self,coin):
 		if coin  == 'ETH':
 			self.start_ethereum()
+		elif coin == 'XMR':
+			self.start_mon_listener()
 		else:
 			self.start_listener()
 			
@@ -202,6 +333,10 @@ class listener:
 
 
 
+
+	def set_pending(self,currency,amount):
+		tracker =  Pending.objects.filter(currency=currency)
+		tracker.amount += amount
 
 		
 
@@ -246,8 +381,16 @@ class listener:
 			balance = self.handler2.send('getbalance')
 		elif 'LTC' == self.transaction.out_currency:
 			balance = self.handler2.send('getbalance')
-		if amount_out >= balance:
-			input('not enough balance')
+		
+		elif 'XMR' == self.transaction.out_currency:
+			balance = self.get_mon_balance(second_handler)
+
+		#if amount_out >= balance:
+			#input('not enough balance')
+
+		if True:
+			self.set_transaction_message(self.transaction_id,'checking availability','pending')
+			
 		elif 'LTC'  == self.transaction.out_currency:
 			print('sending')
 			amount_out = round(amount_out,8)
@@ -257,6 +400,15 @@ class listener:
 			if not res:
 				print('failed')
 			self.set_transaction_message(self.transaction_id,'transaction sent','done')
+		
+		elif 'XMR'  == self.transaction.out_currency:
+				print('sending')
+				amount_out = round(amount_out,9)
+				amount_out = int(amount_out * (10**12))
+				print('sending amount : ',end=' ')
+				print(amount_out)
+				res = self.handler2.send('transfer',destinations=[{'amount':amount_out,'address':self.transaction.return_address}],account_index= mon_receiver_index)
+				print(res)
 
 		else:
 			print('sending')

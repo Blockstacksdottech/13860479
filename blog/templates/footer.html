@@ -1,68 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{{title}}</title>
+    <link rel="shortcut icon" href="/assets/img/favicon.png">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="/assets/css/mdb.min.css" rel="stylesheet">
+	<link href="/assets/css/style.css" rel="stylesheet">
+	
+</head>
+
+<body onload="myFunction()"></div>
+
+    <div id="loader"></div>
+
+    <div style="display:none;" id="myDiv" class="animate-bottom">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="/assets/img/logo.png" alt="Morphex" width="180" height="60" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
+                 <span class="navbar-toggler-icon"></span>
+             </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-uppercase" href="/">Exchange</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-uppercase" href="/how-it-works">How it Works</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-uppercase" href="/checkup">Check Transaction</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-uppercase" href="/blog">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-uppercase" href="/faq">Faq</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-uppercase" href="/contact">Contact</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-uppercase" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Language</a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-cyan" aria-labelledby="navbarDropdownMenuLink-4">
+                            <a class="dropdown-item text-uppercase" href="#">Deutsch</a>
+                            <a class="dropdown-item text-uppercase" href="#">English</a>
+                            <a class="dropdown-item text-uppercase" href="#">Fran&#231;ois</a>
+                            <a class="dropdown-item text-uppercase" href="#">Espa&#241;ol</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+	<div class="header-border-img">
+		<img src="/assets/img/header-border-bg.png" alt="Morphex" />
+	</div>
+
 
 {% block content %} {% endblock %}
-<footer class="section novi-background section-relative section-top-66 section-bottom-34 page-footer bg-black context-dark">
-	<div class="container">
-		<div class="row justify-content-sm-center text-xl-left grid-group-md">
-			<div class="col-sm-5 col-lg-3 col-xl-2 text-sm-left">
-				<h6 class="text-uppercase text-spacing-60">Exchange Rates</h6>
-				<div class="d-block">
-					<div class="d-inline-block">
-						<ul class="list list-marked">
-							<li>
-								<p>BTC {{BTC}}</p>
-							</li>
-							<li>
-								<p>ETH {{ETH}}</p>
-							</li>
-							<li>
-								<p>BCH {{BCH}}</p>
-							</li>
-							<li>
-								<p>XMR {{XMR}}</p>
-							</li>
-							<li>
-								<p>LTC {{LTC}}</p>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<div class="col-sm-12 col-md-12 col-lg-5 col-xl-6 text-lg-left">
-				<h6 class="text-uppercase text-spacing-60">Newsletter</h6>
-				<p>Keep up with our always upcoming product features and technologies. Enter your e-mail and subscribe to our newsletter.</p>
-				<div class="offset-top-30">
-					<form class="rd-mailform" id='subscribe' data-form-output="form-subscribe-footer" data-form-type="subscribe" method="post" action="bat/rd-mailform.php">
-						<div class="form-group">
-							<div class="input-group input-group-sm"><span class="input-group-prepend"><span class="input-group-text input-group-icon"><span class="novi-icon mdi mdi-email"></span></span>
-								</span>
-								<input class="form-control" id='subscribe-email' placeholder="Type your E-Mail" type="email" name="email" data-constraints="@Required @Email"><span class="input-group-append"><button class="btn btn-sm btn-primary" type="submit">Subscribe</button></span></div>
-						</div>
-						<div class="form-output" id="form-subscribe-footer"></div>
-					</form>
-				</div>
-			</div>
-			<div class="col-sm-5 col-lg-3 col-xl-2 text-sm-left">
-				<h6 class="text-uppercase text-spacing-60">Useful Links</h6>
-				<div class="d-block">
-					<div class="d-inline-block">
-						<ul class="list list-marked">
-							<li><a href="/exchange">Exchange</a></li>
-							<li><a href="/how-it-works">How it works</a></li>
-							<li><a href="/faq">FAQ</a></li>
-							<li><a href="/contact">Contact</a></li>
-						</ul>
-					</div>
+
+<footer class="page-footer font-small special-color-dark">
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="jumbotron card card-image" style="background-image: url(/assets/img/footer-border-bg.png);">
+				<div class="text-white text-center py-5 px-4">
+					<h2 class="card-title h1-responsive pt-3 mb-5 font-bold">
+						<strong>If you have a question please send us a letter</strong>
+					</h2>
+					<a class="btn blue-gradient"><i class="fas fa-envelope left"></i> Contact Us</a>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="container offset-top-50">
-		<p class="small text-darker">© copyright 2018 - all rights reserved <span class="copyright-year"></span> .<a href="privacy.html">Privacy Policy</a></p>
-	</div>
-</footer>
-</div>
-<script src="/assets/js/core.min.js"></script>
-<script src="/assets/js/script.js"></script>
-</body>
 
-</html>
+	<!-- Footer Links -->
+	<div class="container text-center text-md-left">
+
+		<!-- Grid row -->
+		<div class="row">
+
+			<!-- Grid column -->
+			<div class="col-md-6 mt-md-0 mt-3">
+
+				<!-- Content -->
+				<h5 class="text-uppercase">NEWS LETTER</h5>
+				<p>Keep up with our always upcoming product features and technologies. Enter your e-mail and subscribe to our newsletter.</p>
+				<form class="input-group">
+					<input type="text" class="form-control " id='subscribe-email' name="email" placeholder="Your email" aria-label="Your email" aria-describedby="basic-addon2">
+					<div class="input-group-append">
+						<button class="btn btn-sm btn-success my-0" type="button">Subscribe</button>
+					</div>
+				</form>
+			</div>
+			<!-- Grid column -->
+
+			<hr class="clearfix w-100 d-md-none pb-3">
+
+			<!-- Grid column -->
+			<div class="col-md-3 mb-md-0 mb-3">
+
+				<!-- Links -->
+				<h5 class="text-uppercase">Links</h5>
+
+				<ul class="list-unstyled">
+					<li>
+						<a href="#!">Exchange</a>
+					</li>
+					<li>
+						<a href="#!">Check Transaction</a>
+					</li>
+					<li>
+						<a href="#!">How it works</a>
+					</li>
+					<li>
+						<a href="#!">FAQ</a>
+					</li>
+					<li>
+						<a href="#!">Contact</a>
+					</li>
+				</ul>
+
+			</div>
+			<!-- Grid column -->
+
+			<!-- Grid column -->
+			<div class="col-md-3 mb-md-0 mb-3">
+
+				<!-- Links -->
+				<h5 class="text-uppercase">EXCHANGE RATES</h5>
+
+				<ul class="list-unstyled">
+					<li>
+						<a>BTC {{BTC}}</a>
+					</li>
+					<li>
+						<a>ETH {{ETH}}</a>
+					</li>
+					<li>
+						<a>BCH {{BCH}}</a>
+					</li>
+					<li>
+						<a>XMR {{XMR}}</a>
+					</li>
+					<li>
+						<a>LTC {{LTC}}</a>
+					</li>
+				</ul>
+
+			</div>
+			<!-- Grid column -->
+
+		</div>
+		<!-- Grid row -->
+
+	</div>
+	<!-- Footer Links -->
+
+	<!-- Copyright -->
+	<div class="footer-copyright text-center py-3">
+		Copyright (c) 2019 morphex - All rights reserved
+	</div>
+	<!-- Copyright -->
+	<!-- Footer -->
+
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="/assets/js/jquery-3.4.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="/assets/js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="/assets/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+	<script type="text/javascript" src="/assets/js/mdb.min.js"></script>
+	<script type="text/javascript" src="/assets/js/ddslick.js"></script>
+	<script>
+        
+
+
+        //Dropdown plugin data
+        var ddDatasend = [{
+            text: "Send: Select Crypto Currency",
+            value: 0,
+            selected: true,
+        }, {
+            text: "Bitcoin",
+            value: "BTC",
+            selected: false,
+            imageSrc: "/assets/img/coins/btc.png"
+        }, {
+            text: "Bitcoin Cash",
+            value: "BCH",
+            selected: false,
+            imageSrc: "/assets/img/coins/bch.png"
+        }, {
+            text: "Ethereum",
+            value: "ETH",
+            selected: false,
+            imageSrc: "/assets/img/coins/eth.png"
+        }, {
+            text: "Monero",
+            value: "XMR",
+            selected: false,
+            imageSrc: "/assets/img/coins/xmr.png"
+        }, {
+            text: "Litecoin",
+            value: "LTC",
+            selected: false,
+            imageSrc: "/assets/img/coins/ltc.png"
+        }];
+
+
+        $('#send-select-coin').ddslick({
+            data: ddDatasend,
+            // width: 400,
+            imagePosition: "left",
+            selectText: "Send Select Crypto Currency",
+            onSelected: function(data) {
+                var inputs  = document.getElementsByClassName('dd-selected-value');
+                select_input = inputs[0]
+                select_input.setAttribute('id','income')
+                console.log(data);
+            }
+        });
+
+
+
+        //Dropdown plugin data
+        var ddDatarecieve = [{
+            text: "Receive: Select Crypto Currency",
+            value: 0,
+            selected: true,
+        }, {
+            text: "Bitcoin",
+            value: "BTC",
+            selected: false,
+            imageSrc: "/assets/img/coins/btc.png"
+        }, {
+            text: "Bitcoin Cash",
+            value: "BCH",
+            selected: false,
+            imageSrc: "/assets/img/coins/bch.png"
+        }, {
+            text: "Ethereum",
+            value: "ETH",
+            selected: false,
+            imageSrc: "/assets/img/coins/eth.png"
+        }, {
+            text: "Monero",
+            value: "XMR",
+            selected: false,
+            imageSrc: "/assets/img/coins/xmr.png"
+        }, {
+            text: "Litecoin",
+            value: "LTC",
+            selected: false,
+            imageSrc: "/assets/img/coins/ltc.png"
+        }];
+
+
+        $('#recieve-select-coin').ddslick({
+            data: ddDatarecieve,
+            // width: 400,
+            imagePosition: "left",
+            selectText: "Send Select Crypto Currency",
+            onSelected: function(data) {
+                var inputs  = document.getElementsByClassName('dd-selected-value');
+                select_input = inputs[1]
+                select_input.setAttribute('id','outgo')
+                console.log(data);
+            }
+        });
+		
+	</script>
+	<script>
+        var myVar;
+
+        function myFunction() {
+            myVar = setTimeout(showPage, 1500);
+        }
+
+        function showPage() {
+            document.getElementById("loader").style.display = "none";
+            document.getElementById("myDiv").style.display = "block";
+        }
+    </script>
+
+    <script type="text/javascript">
+        $("[data-toggle=tooltip").tooltip();
+    </script>
+	
+	{% block script %} {% endblock %}
+
+</footer>
