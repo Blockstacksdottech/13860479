@@ -9,75 +9,90 @@
 			<div class="col-md-12 col-lg-12 col-xl-12">
 
 				<ul class="nav md-pills nav-justified ">
-					<li class="nav-item">
+					<li class="nav-item d-none d-sm-block">
 						<a class="nav-link pill-inactive" data-toggle="tab" role="tab">
-				Select Coins <img class="img-fluid" width="30" height="30" src="/assets/img/loading.gif" alt="">
+				Select Coins <img class="img-fluid" width="20" height="20" src="/assets/img/favicon.png">
 			</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link pill-active" data-toggle="tab" role="tab">
-				Transaction Info <img class="img-fluid" width="30" height="30" src="/assets/img/loading.gif" alt="">
+				Transaction Info <img class="img-fluid" width="30" height="30" src="/assets/img/loading.gif">
 			</a>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item d-none d-sm-block">
 						<a class="nav-link pill-inactive" data-toggle="tab" role="tab">
-				Awaiting Deposit <img class="img-fluid" width="30" height="30" src="/assets/img/loading.gif" alt="">
+				Awaiting Deposit <img class="img-fluid" width="20" height="20" src="/assets/img/favicon.png">
 			</a>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item d-none d-sm-block">
 						<a class="nav-link pill-inactive" data-toggle="tab" role="tab">
-				Exchanging <img class="img-fluid" width="30" height="30" src="/assets/img/loading.gif" alt="">
+				Exchanging <img class="img-fluid" width="20" height="20" src="/assets/img/favicon.png">
 			</a>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item d-none d-sm-block">
 						<a class="nav-link pill-inactive" data-toggle="tab" role="tab">
-				Finish <img class="img-fluid" width="30" height="30" src="/assets/img/loading.gif" alt="">
+				Finish <img class="img-fluid" width="20" height="20" src="/assets/img/favicon.png">
 			</a>
 					</li>
 				</ul>
 
 				<!-- Tab panels -->
 				<div class="tab-content">
+					{% csrf_token %}
 
 					<!--Panel 1-->
-					{% csrf_token %}
 					<div class="tab-pane fade in show active" role="tabpanel">
 
-						<div class="row my-5  col-10 mx-auto ">
+						<div class="row my-5  col-12 ">
 							<div class="col-md-4">
-								<label>You send</label>
-								<input type="text" class="form-control mb-4" id =  'income' value="Bitcoin">
 
-								<label>You receive</label>
-								<input type="text" class="form-control mb-4"  id='outgo' value="Monero">
+								<label>You send ( min amount  : {{min1}})</label>
+								<div class="input-group input-group-lg mb-4">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="inputGroup-sizing-lg">
+											<img  src="/assets/img/coins/btc.png">
+										</span>
+									</div>
+									<input type="text" class="form-control" id =  'income' value="Bitcoin">
+								</div>
+
+								<label>You send ( min amount  : {{min2}})</label>
+								<div class="input-group input-group-lg mb-4">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="inputGroup-sizing-lg">
+											<img  src="/assets/img/coins/xmr.png">
+										</span>
+									</div>
+									<input type="text" class="form-control" id='outgo' value="Monero">
+								</div>
+
 							</div>
+
 							<div class="col-md-8">
 
 								<label>
 									Backup Wallet  
-										<a class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title="the address wallet to refund if something went wrong." ></a>
+										<a  class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title="Loreipsum dummy text. Add tooltip here" ></a>
 								</label>
-								<input type="text" class="form-control mb-4" id='r_wallet'>
+								<input type="text" class="form-control  form-control-lg mb-4" id='r_wallet'>
 
 								<label>
 									Receiving Wallet
-									<a href="#" data-toggle="tooltip" title="The wallet address where you want your exchanged coin to arrive.">
-											<i class="far fa-question-circle"></i>
+									<a  class="fa fa-question-circle" data-toggle="tooltip" title="Add tooltip text">
 										</a>
 								</label>
-								<input type="text" class="form-control mb-4" id='b_wallet'>
+								<input type="text" class="form-control form-control-lg mb-4" id='b_wallet'>
 
 								<div class=" mb-4">
 									<input type="checkbox" id="inputTerms" name="terms">
 									<label>
-									I agree to the terms and conditions
+									I agree to the <a class="text-success" href="Terms_and_Conditions.pdf" target="_blank">terms and conditions</a>
 								</label>
 								</div>
-
-								<button class="btn btn-success my-2" type="submit" id="target">Start Exchange</button>
-								<a href = "/exchange"><button class="btn btn-light my-2" type="submit">Go Back</button></a>
-								<div class="errormessage2"></div>
-
+								<div class="mx-0">
+									<button class="btn btn-success my-2" type="submit"  id='target'>Start Exchange</button>
+									<button class="btn btn-light my-2" type="submit">Go Back</button>
+								</div>
 							</div>
 						</div>
 
@@ -119,12 +134,7 @@
 					'X-CSRFToken':token
 				}
 			});
-				alert({
-						inCurrency: inCurrency,
-						outCurrency: outCurrency,
-						refundAddress: refundAddress,
-						returnAddress: returnAddress
-					});
+				
 				$.post("{{api_link}}", {
 						inCurrency: inCurrency,
 						outCurrency: outCurrency,

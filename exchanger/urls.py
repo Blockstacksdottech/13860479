@@ -51,6 +51,7 @@ urlpatterns = [
     path('blog/modify/<str:slug>',modify),
     path('blog/delete/<str:slug>',delete_post),
     path('blog/modify_post',modify_post),
-    path('settings',view_settings)
+    path('settings',view_settings),
+    path('settings/changemin',change_min)
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

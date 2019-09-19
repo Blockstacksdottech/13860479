@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect,HttpResponseRedirect,HttpResponse
 from exchanger.settings import  *
 from .models import *
+from custom_admin.models import *
 import requests as req
 import json
 import random
@@ -145,10 +146,16 @@ def exchange_pannel(request):
 	curr_out = request.GET.get('out','')
 	
 	if curr_in != '' and curr_out != '':
+		b_h = Handler()
+		s = Settings.objects.all()[0]
+		min1 = b_h.get_rate(curr_in,s.min_amount)
+		min2 = b_h.get_rate(curr_out,s.min_amount)
 		resp = {
 			'cur_in' : curr_in,
 			'cur_out' : curr_out,
-			'api_link' : api_link
+			'api_link' : api_link,
+			'min1':min1,
+			'min2':min2
 
 		}
 		ret_dict = get_exchange_rates()
@@ -207,6 +214,8 @@ def start(request):
 			address = resp['result']['address']
 		else:
 			address = handler.send('getnewaddress',main_test_label)
+		
+		
 
 
 
@@ -267,8 +276,10 @@ def check(request,idd):
 	if 'done' in task.status:
 		ret_dict = {
 				'addr':t.return_address,
-				'c' : t.out_currency,
-				'amount': t.amount_out,
+				'c_in':t.in_currency,
+				'in':t.amount_in,
+				'c_out' : t.out_currency,
+				'out': t.amount_out,
 				'hash':t.hash_tr
 
 		}

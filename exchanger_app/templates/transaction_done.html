@@ -1,71 +1,75 @@
 {% extends "footer.html" %}
 {% block content %}
 <section class="exchange">
-	<div class="container">
-		<!-- Grid row -->
-		<div class="row">
+		<div class="container">
+			<!-- Grid row -->
+			<div class="row">
 
-			<!-- Grid column -->
-			<div class="col-md-12 col-lg-12 col-xl-12">
+				<!-- Grid column -->
+				<div class="col-md-12 col-lg-12 col-xl-12">
 
-				<ul class="nav md-pills nav-justified ">
-					<li class="nav-item">
-						<a class="nav-link pill-inactive" data-toggle="tab" role="tab">
-				Select Coins <img class="img-fluid" width="30" height="30" src="img/loading.gif" alt="">
-			</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link pill-inactive" data-toggle="tab" role="tab">
-				Transaction Info <img class="img-fluid" width="30" height="30" src="img/loading.gif" alt="">
-			</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link pill-inactive" data-toggle="tab" role="tab">
-				Awaiting Deposit <img class="img-fluid" width="30" height="30" src="img/loading.gif" alt="">
-			</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link pill-inactive" data-toggle="tab" role="tab">
-				Exchanging <img class="img-fluid" width="30" height="30" src="img/loading.gif" alt="">
-			</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link pill-active" data-toggle="tab" role="tab">
-				Finish <img class="img-fluid" width="30" height="30" src="img/loading.gif" alt="">
-			</a>
-					</li>
-				</ul>
+					<ul class="nav md-pills nav-justified ">
+						<li class="nav-item d-none d-sm-block">
+							<a class="nav-link pill-inactive" data-toggle="tab" role="tab">
+					Select Coins <img class="img-fluid" width="20" height="20" src="/assets/img/favicon.png">
+				</a>
+						</li>
+						<li class="nav-item d-none d-sm-block">
+							<a class="nav-link pill-inactive" data-toggle="tab" role="tab">
+					Transaction Info <img class="img-fluid" width="20" height="20" src="/assets/img/favicon.png">
+				</a>
+						</li>
+						<li class="nav-item d-none d-sm-block">
+							<a class="nav-link pill-inactive" data-toggle="tab" role="tab">
+					Awaiting Deposit <img class="img-fluid" width="20" height="20" src="/assets/img/favicon.png">
+				</a>
+						</li>
+						<li class="nav-item d-none d-sm-block">
+							<a class="nav-link pill-inactive" data-toggle="tab" role="tab">
+					Exchanging <img class="img-fluid" width="20" height="20" src="/assets/img/favicon.png">
+				</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link pill-active" data-toggle="tab" role="tab">
+					Finish <img class="img-fluid" width="30" height="30" src="/assets/img/loading.gif" alt="">
+				</a>
+						</li>
+					</ul>
 
-				<!-- Tab panels -->
-				<div class="tab-content">
+					<!-- Tab panels -->
+					<div class="tab-content">
 
-					<!--Panel 1-->
-					<div class="tab-pane fade in show active" role="tabpanel">
+						<!--Panel 1-->
+						<div class="tab-pane fade in show active" role="tabpanel">
 
-						<div class="my-5  row">
-							<div class="col-12">
-								<!-- Card -->
-								<div class="my-3">
-									<div class="text-center">
-										<i class="far fa-check-circle  fa-5x  green-text"></i>
-										<h2 class="card-title text-center mt-3">
-											You have successfully exchanged coins
-										</h2>
+							<div class="my-5">
+								<div class="row">
+									<div class="col-md-5 my-3">
+										<img src="/assets/img/animation.gif" class="img-fluid z-depth-1" alt="morphex">
+									</div>
+									<div class="col-md-7 my-3">
+										<div class="text-center">
+											<i class="far fa-check-circle  fa-5x  green-text"></i>
+											<h5 class="card-title text-center mt-3">
+												All Done!<br> We have exchanged {{in}} {{c_in}} into {{out}} {{c_out}} <br> Please check the payout address you specified.
+											</h5>
+											<a href='/'><button class="btn btn-success my-2 waves-effect waves-light" type="submit">Exchange Again</button></a>
+											<a href='/contact'><button class="btn btn-light my-2 waves-effect waves-light" type="submit">Contact us</button></a>
+										</div>
 									</div>
 								</div>
 							</div>
+
 						</div>
+						<!--/.Panel 1-->
 
 					</div>
-					<!--/.Panel 1-->
 
 				</div>
+				<!-- Grid column -->
 
 			</div>
-			<!-- Grid column -->
-
+			<!-- Grid row -->
 		</div>
-		<!-- Grid row -->
-	</div>
-</section>
+	</section>
 {% endblock %}

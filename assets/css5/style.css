@@ -2,6 +2,25 @@
 body {
     font-family: Montserrat;
     color: #1d1d1b;
+    
+}
+html{
+    height:100% !important;
+}
+.file_but{
+    background-color:#006ab2;
+    color:white;
+    padding:10px;
+    border-radius: 2px;
+    cursor:pointer;
+    margin:5px;
+    
+}
+.file_but:hover{
+    background-color:#42b574;
+}
+.file_up{
+    z-index: -5  !important;
 }
 
 .navbar {
@@ -33,24 +52,10 @@ body {
     width: 100%;
 }
 
-@-webkit-keyframes blinker {
-    from {
-        opacity: 1.0;
-    }
-    to {
-        opacity: 0.0;
-    }
-}
-
 .pill-active {
     color: #2f2929 !important;
+    text-decoration: underline !important;
     font-weight: 600 !important;
-    text-decoration: blink;
-    -webkit-animation-name: blinker;
-    -webkit-animation-duration: 0.6s;
-    -webkit-animation-iteration-count: infinite;
-    -webkit-animation-timing-function: ease-in-out;
-    -webkit-animation-direction: alternate;
 }
 
 .pill-inactive {
@@ -345,88 +350,4 @@ footer.page-footer a {
 
 .navbar-toggler {
     background-color: #42b574 !important;
-}
-
-.input-group-lg>.form-control:not(textarea) {
-    height: calc(1.5em + 1rem + 5px) !important;
-}
-
-.form-control-lg {
-    height: calc(1.5em + 1rem + 5px) !important;
-}
-
-
-/* Material design styling */
-
-
-/*placeholder style*/
-
-.note-placeholder {
-    position: absolute;
-    top: 20%;
-    left: 5%;
-    font-size: 2rem;
-    color: #e4e5e7;
-    pointer-events: none;
-}
-
-
-/*Toolbar panel*/
-
-.note-editor .note-toolbar {
-    background: #f0f0f1;
-}
-
-
-/*Buttons from toolbar*/
-
-.summernote .btn-group,
-.popover-content .btn-group {
-    background: transparent;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-}
-
-.note-popover {
-    background: #f0f0f1!important;
-}
-
-.summernote .btn,
-.note-btn {
-    color: rgba(0, 0, 0)!important;
-    background-color: transparent!important;
-    padding: .5rem 1.3rem !important;
-    font-size: 15px !important;
-    line-height: 1.42857;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-}
-
-.summernote .dropdown-toggle:after {
-    vertical-align: middle;
-}
-
-.note-editor.card {
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    border-radius: 2px;
-}
-
-
-/* Padding of the text in textarea */
-
-.note-editor.note-frame .note-editing-area .note-editable {
-    padding-top: 1rem;
-}
-
-.btn-default.dropdown-toggle {
-    background-color: transparent !important;
-}
-
-.note-editor.note-frame {
-    border: 1px solid #ced4da !important;
 }

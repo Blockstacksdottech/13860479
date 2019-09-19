@@ -48,4 +48,18 @@ def log_out(request):
 def get_details(request):
 	pass
 
+def change_min(request):
+	if request.method == 'POST':
+		min_val = request.POST.get('min','')
+		if min_val != '':
+			s = Settings.objects.all()[0]
+			s.min_amount = min_val
+			s.save()
+			return redirect('/settings')
+		else:
+			return redirect('/settings')
+	else:
+		return redirect('/settings')
+
+
 #ndhkjkuejmx

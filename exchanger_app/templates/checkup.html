@@ -17,9 +17,9 @@
 					<div class="card-body">
 						<h4 class="card-title">Information for the transaction ID #</h4>
 						<div class="input-group mb-3">
-							<input type="text" class="form-control" placeholder="Transaction ID">
+							<input type="text" class="form-control" placeholder="Transaction ID" id='idd'>
 							<div class="input-group-append">
-								<button class="btn btn-lg btn-success m-0 px-3 py-2 z-depth-0 waves-effect" type="button" id="button-addon2">View Transaction</button>
+								<button class="btn btn-lg btn-success m-0 px-3 py-2 z-depth-0 waves-effect" type="button" id="target">View Transaction</button>
 							</div>
 						</div>
 					</div>
@@ -32,4 +32,11 @@
 	<!--container-->
 
 </section>
+{% endblock %}
+{% block script %}
+<script type="text/javascript">
+	$("#target").click(function() {
+		window.location.href = "/check/" + $('#idd').val();
+	});
+</script>
 {% endblock %}
