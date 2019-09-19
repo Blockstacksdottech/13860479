@@ -2,6 +2,7 @@ from django.shortcuts import render,HttpResponse,get_object_or_404,redirect
 from .models import *
 from exchanger_app.models import *
 from django.core.files.storage import FileSystemStorage
+from custom_admin.models import *
 
 
 # Create your views here.
@@ -43,7 +44,7 @@ def view_post(request,slug):
 def blog_admin(request):
 	username = request.session.get('user','')
 	if username == '':
-		return redirect('/custadmin')
+		return redirect('/blog/login')
 	else:
 		posts = Posts.objects.all().order_by('-date')
 		return render(request,'cms/all_posts.html',{'posts':posts})
@@ -51,7 +52,7 @@ def blog_admin(request):
 def tags(request):
 	username = request.session.get('user','')
 	if username == '':
-		return redirect('/custadmin')
+		return redirect('/blog/login')
 	else:
 		tags = Tags.objects.all()
 		return render(request,'cms/tags_add.html',{'tags':tags})
@@ -59,7 +60,7 @@ def tags(request):
 def adder(request):
 	username = request.session.get('user','')
 	if username == '':
-		return redirect('/custadmin')
+		return redirect('/blog/login')
 	else:
 		tags  = Tags.objects.all()
 		return render(request,'cms/create_post.html',{'tags':tags})
@@ -68,7 +69,7 @@ def adder(request):
 def add_tag(request):
 	username = request.session.get('user','')
 	if username == '':
-		return redirect('/custadmin')
+		return redirect('/blog/login')
 	else:
 		if request.method == 'POST':
 			name= request.POST.get('name')
@@ -87,7 +88,7 @@ def add_tag(request):
 def delete_tag(request,tag):
 	username = request.session.get('user','')
 	if username == '':
-		return redirect('/custadmin')
+		return redirect('/blog/login')
 	else:
 		t = get_object_or_404(Tags,name = tag)
 		t.delete()
@@ -99,7 +100,7 @@ def delete_tag(request,tag):
 def add_post(request):
 	username = request.session.get('user','')
 	if username == '':
-		return redirect('/custadmin')
+		return redirect('/blog/login')
 	else:
 		if request.method == 'POST' and request.FILES['myfile'] :
 			myfile = request.FILES['myfile']
@@ -129,7 +130,7 @@ def add_post(request):
 def modify_post(request):
 	username = request.session.get('user','')
 	if username == '':
-		return redirect('/custadmin')
+		return redirect('/blog/login')
 	else:
 		if request.method == 'POST' and request.FILES.get('myfile',True) :
 			myfile = request.FILES.get('myfile','')
@@ -174,14 +175,14 @@ def modify_post(request):
 def add_dash(request):
 	username = request.session.get('user','')
 	if username == '':
-		return redirect('/custadmin')
+		return redirect('/blog/login')
 	else:
 		return render(request,'cms/create_post.html')
 
 def modify(request,slug):
 	username = request.session.get('user','')
 	if username == '':
-		return redirect('/custadmin')
+		return redirect('/blog/login')
 	else:
 		
 		post = get_object_or_404(Posts,slug=slug)
@@ -191,7 +192,7 @@ def modify(request,slug):
 def delete_post(request,slug):
 	username = request.session.get('user','')
 	if username == '':
-		return redirect('/custadmin')
+		return redirect('/blog/login')
 	else:
 		
 		post = get_object_or_404(Posts,slug=slug)
@@ -201,10 +202,37 @@ def delete_post(request,slug):
 def view_settings(request):
 	username = request.session.get('user','')
 	if username == '':
-		return redirect('/custadmin')
+		return redirect('/blog/login')
 	else:
 		return render(request,'settings.html')
 
+def blog_login(request):
+	if request.method == 'POST':
+		username = request.POST.get('username','')
+		password = request.POST.get('password','')
+
+		if username == '' or password == '':
+			return render(request,'new_login.html',{'message':'empty field'})
+
+		usr = User.objects.filter(username =  username )
+		if len(usr) != 0:
+			usr = usr[0]
+			if password == usr.password:
+				request.session['user'] = usr.username
+				return  redirect('/blog/admin')
+			else:
+				return render(request,'new_login.html',{'message':'password is incorrect'})
+				
+		else:
+			return render(request,'new_login.html',{'message':'user not found'})
+		
+	else:
+		return render(request,'login.html')
+
+
+def blog_log_out(request):
+	del request.session['user']
+	return redirect('/blog/admin')
 
 
 

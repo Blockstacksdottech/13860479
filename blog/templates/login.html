@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>morphex - fast and anonymously crypto asset conversion</title>
+    <link rel="shortcut icon" href="/assets/img/favicon.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i|Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="http://instexchanger.herokuapp.com/assets/css2/style.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+    <script src="http://instexchanger.herokuapp.com/assets/js/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="page text-center">
+        <img src="http://instexchanger.herokuapp.com/assets/img/bg.png" style="width:100%;">
+        <main class="page-content">
+            <div id="features" data-type="anchor">
+                <section class="section novi-background section-66 section-md-top-110">
+                    <div class="container" style="margin-top: -85px">
+
+                        <div class="responsive-tabs responsive-tabs-classic" data-type="horizontal" style="width: 100%;">
+                            <div class="resp-tabs-container text-left tabs-group-default">
+                                <div class="tabnr1">
+                                    <div class="row offset-md-top-66">
+                                        <div class="col-md-8">
+                                            <img src="http://instexchanger.herokuapp.com/assets/img/logo.png" alt="" style="width:80%">
+                                        </div>
+                                        <div class="col-md-4">
+                                                <form action="/blog/login" class='login' method='post'>{% csrf_token %}
+                                            <div class="form-content formImgBox">
+                                                <div class="form-horizontal ">
+                                                    <h1 class="text-center">Login</h1>
+                                                    <div class="form-group">
+                                                        <div class="col-sm-12">
+                                                            <input class="form-control select-filter select-size" name="username" placeholder="Username">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="col-sm-12">
+                                                            <input class="form-control select-filter select-size" name="password" type="password" placeholder="Password">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group ">
+                                                        <div class="col-sm-offset-2 col-sm-12">
+                                                            <button class="btn btn-primary mr-10 btn-block" type="submit">Login</button>
+                                                            {% if message %}
+                                                            <div class="errormessage">{{message}} </div>
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <footer class="novi-background section-relative page-footer pt-5  bg-black context-dark">
+            <div class="container ">
+                <p class="small text-darker">© copyright 2018 - all rights reserved <span class="copyright-year"></span> .<a href="privacy.html">Privacy Policy</a></p>
+            </div>
+        </footer>
+    </div>
+    <script src="http://instexchanger.herokuapp.com/assets/js/core.min.js"></script>
+    <script src="http://instexchanger.herokuapp.com/assets/js/script.js"></script>
+</body>
+
+</html>
