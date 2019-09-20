@@ -153,6 +153,8 @@ def exchange_pannel(request):
 		resp = {
 			'cur_in' : curr_in,
 			'cur_out' : curr_out,
+			'c_in'  : curr_in.lower(),
+			'c_out' : curr_out.lower(),
 			'api_link' : api_link,
 			'min1':min1,
 			'min2':min2

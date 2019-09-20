@@ -50,7 +50,7 @@
 								<div class="input-group input-group-lg mb-4">
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="inputGroup-sizing-lg">
-											<img  src="/assets/img/coins/btc.png">
+											<img  src="/assets/img/coins/{{c_in}}.png">
 										</span>
 									</div>
 									<input type="text" class="form-control" id =  'income' value="Bitcoin">
@@ -60,7 +60,7 @@
 								<div class="input-group input-group-lg mb-4">
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="inputGroup-sizing-lg">
-											<img  src="/assets/img/coins/xmr.png">
+											<img  src="/assets/img/coins/{{c_out}}.png">
 										</span>
 									</div>
 									<input type="text" class="form-control" id='outgo' value="Monero">
@@ -125,8 +125,8 @@
 	$("#target").click(function() {
 		var inCurrency = $('#income').val();
 		var outCurrency = $('#outgo').val();
-		var returnAddress = $('#r_wallet').val();
-		var refundAddress = $('#b_wallet').val();
+		var returnAddress = $('#b_wallet').val();
+		var refundAddress = $('#r_wallet').val();
 		if ($('input[name="terms"]').is(":checked")) {
 			if (returnAddress != '' && refundAddress != '') {
 				$.ajaxSetup({

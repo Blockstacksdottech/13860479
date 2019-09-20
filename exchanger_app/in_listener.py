@@ -188,7 +188,7 @@ class listener:
 		while self.get_mon_confirmation(txid) < min_confirmation:
 			pass
 		print('transaction confirmed')
-		self.set_transaction_message(self.transaction_id,'checking availability')
+		self.set_transaction_message(self.transaction_id,'checking availability','exchanging')
 		print('received')
 		print('getting the out value')
 		
@@ -203,43 +203,47 @@ class listener:
 		self.transaction.amount_in = amount_in
 		self.transaction.amount_out = amount_out
 		self.transaction.save()
-		if 'ETH' == self.transaction.out_currency:
-			balance =float(Web3.fromWei(self.w2.eth.getBalance(eth_test_provider_ad),'ether'))
-		elif 'BTC' == self.transaction.out_currency:
-			balance = self.handler2.send('getbalance')
-		elif 'LTC' == self.transaction.out_currency:
-			balance = self.handler2.send('getbalance')
-		elif 'BCH' == self.transaction.out_currency:
-			balance = self.handler2.send('getbalance')
-		elif 'XMR' == self.transaction.out_currency:
-			balance = self.get_mon_balance(self.handler)
-
-		if amount_out >= balance:
-			input('not enough balance')
-		else:
+		try:
 			if 'ETH' == self.transaction.out_currency:
-				amount_out  = Web3.toWei(amount_out,'ether')
-				print('sending the amount to ' + self.transaction.return_address)
-				signed_txn = self.create_eth_transaction_cus(self.transaction.return_address,amount_out,eth_test_provider_p,second_handler,eth_test_provider_ad)
-				second_handler.eth.sendRawTransaction(signed_txn.rawTransaction)
-				print('transaction sent')
+				balance =float(Web3.fromWei(self.w2.eth.getBalance(eth_test_provider_ad),'ether'))
+			elif 'BTC' == self.transaction.out_currency:
+				balance = self.handler2.send('getbalance')
+			elif 'LTC' == self.transaction.out_currency:
+				balance = self.handler2.send('getbalance')
+			elif 'BCH' == self.transaction.out_currency:
+				balance = self.handler2.send('getbalance')
+			elif 'XMR' == self.transaction.out_currency:
+				balance = self.get_mon_balance(self.handler)
 
-			elif 'LTC'  == self.transaction.out_currency:
-				print('sending')
-				amount_out = round(amount_out,8)
-				print('sending amount : ',end=' ')
-				print(amount_out)
-				res = self.handler2.send('sendtoaddress',self.transaction.return_address,amount_out)
-				if not res:
-					print('failed')
-				self.set_transaction_message(self.transaction_id,'transaction sent','done')
+			if amount_out >= balance:
+				input('not enough balance')
 			else:
-				print('sending')
-				amount_out = round(amount_out,8)
-				print('sending amount : ',end=' ')
-				print(amount_out)
-				self.handler2.send('sendtoaddress',self.transaction.return_address,amount_out)
-				self.set_transaction_message(self.transaction_id,'transaction sent','done') 
+				if 'ETH' == self.transaction.out_currency:
+					amount_out  = Web3.toWei(amount_out,'ether')
+					print('sending the amount to ' + self.transaction.return_address)
+					signed_txn = self.create_eth_transaction_cus(self.transaction.return_address,amount_out,eth_test_provider_p,second_handler,eth_test_provider_ad)
+					second_handler.eth.sendRawTransaction(signed_txn.rawTransaction)
+					print('transaction sent')
+
+				elif 'LTC'  == self.transaction.out_currency:
+					print('sending')
+					amount_out = round(amount_out,8)
+					print('sending amount : ',end=' ')
+					print(amount_out)
+					res = self.handler2.send('sendtoaddress',self.transaction.return_address,amount_out)
+					if not res:
+						print('failed')
+					self.set_transaction_message(self.transaction_id,'transaction sent','done')
+				else:
+					print('sending')
+					amount_out = round(amount_out,8)
+					print('sending amount : ',end=' ')
+					print(amount_out)
+					self.handler2.send('sendtoaddress',self.transaction.return_address,amount_out)
+					self.set_transaction_message(self.transaction_id,'transaction sent','done') 
+		except: #if any error is catched it will refund
+			print('refunding')
+			self.refund(self.transaction,self.transaction.in_currency)
 
 
 
@@ -256,7 +260,7 @@ class listener:
 		while self.get_confirmations(txid) < min_confirmation:
 			pass
 		print('transaction confirmed')
-		self.set_transaction_message(self.transaction_id,'checking availability')
+		self.set_transaction_message(self.transaction_id,'checking availability','exchanging')
 		print('received')
 		amount_in = self.handler.send('getreceivedbyaddress',self.address)
 		print('getting the out value')
@@ -272,51 +276,55 @@ class listener:
 		self.transaction.amount_in = amount_in
 		self.transaction.amount_out = amount_out
 		self.transaction.save()
-		if 'ETH' == self.transaction.out_currency:
-			balance =float(Web3.fromWei(self.w2.eth.getBalance(eth_test_provider_ad),'ether'))
-		elif 'BTC' == self.transaction.out_currency:
-			balance = self.handler2.send('getbalance')
-		elif 'LTC' == self.transaction.out_currency:
-			balance = self.handler2.send('getbalance')
-		elif 'BCH' == self.transaction.out_currency:
-			balance = self.handler2.send('getbalance')
-		elif 'XMR' == self.transaction.out_currency:
-			balance = self.get_mon_balance(second_handler)
-		
-		if amount_out >= balance:
-			input('not enough balance')
-		else:
+		try:
 			if 'ETH' == self.transaction.out_currency:
-				amount_out  = Web3.toWei(amount_out,'ether')
-				print('sending the amount to ' + self.transaction.return_address)
-				signed_txn = self.create_eth_transaction_cus(self.transaction.return_address,amount_out,eth_test_provider_p,second_handler,eth_test_provider_ad)
-				second_handler.eth.sendRawTransaction(signed_txn.rawTransaction)
-				print('transaction sent')
-
-			elif 'LTC'  == self.transaction.out_currency:
-				print('sending')
-				amount_out = round(amount_out,8)
-				print('sending amount : ',end=' ')
-				print(amount_out)
-				res = self.handler2.send('sendtoaddress',self.transaction.return_address,amount_out)
-				if not res:
-					print('failed')
-				self.set_transaction_message(self.transaction_id,'transaction sent','done')
-			elif 'XMR'  == self.transaction.out_currency:
-				print('sending')
-				amount_out = round(amount_out,9)
-				amount_out = int(amount_out * (10**12))
-				print('sending amount : ',end=' ')
-				print(amount_out)
-				res = self.handler2.send('transfer',destinations=[{'amount':amount_out,'address':self.transaction.return_address}],account_index = mon_receiver_index)
-				print(res)
+				balance =float(Web3.fromWei(self.w2.eth.getBalance(eth_test_provider_ad),'ether'))
+			elif 'BTC' == self.transaction.out_currency:
+				balance = self.handler2.send('getbalance')
+			elif 'LTC' == self.transaction.out_currency:
+				balance = self.handler2.send('getbalance')
+			elif 'BCH' == self.transaction.out_currency:
+				balance = self.handler2.send('getbalance')
+			elif 'XMR' == self.transaction.out_currency:
+				balance = self.get_mon_balance(second_handler)
+			
+			if amount_out >= balance:
+				input('not enough balance')
 			else:
-				print('sending')
-				amount_out = round(amount_out,8)
-				print('sending amount : ',end=' ')
-				print(amount_out)
-				self.handler2.send('sendtoaddress',self.transaction.return_address,amount_out)
-				self.set_transaction_message(self.transaction_id,'transaction sent','done')
+				if 'ETH' == self.transaction.out_currency:
+					amount_out  = Web3.toWei(amount_out,'ether')
+					print('sending the amount to ' + self.transaction.return_address)
+					signed_txn = self.create_eth_transaction_cus(self.transaction.return_address,amount_out,eth_test_provider_p,second_handler,eth_test_provider_ad)
+					second_handler.eth.sendRawTransaction(signed_txn.rawTransaction)
+					print('transaction sent')
+
+				elif 'LTC'  == self.transaction.out_currency:
+					print('sending')
+					amount_out = round(amount_out,8)
+					print('sending amount : ',end=' ')
+					print(amount_out)
+					res = self.handler2.send('sendtoaddress',self.transaction.return_address,amount_out)
+					if not res:
+						print('failed')
+					self.set_transaction_message(self.transaction_id,'transaction sent','done')
+				elif 'XMR'  == self.transaction.out_currency:
+					print('sending')
+					amount_out = round(amount_out,9)
+					amount_out = int(amount_out * (10**12))
+					print('sending amount : ',end=' ')
+					print(amount_out)
+					res = self.handler2.send('transfer',destinations=[{'amount':amount_out,'address':self.transaction.return_address}],account_index = mon_receiver_index)
+					print(res)
+				else:
+					print('sending')
+					amount_out = round(amount_out,8)
+					print('sending amount : ',end=' ')
+					print(amount_out)
+					self.handler2.send('sendtoaddress',self.transaction.return_address,amount_out)
+					self.set_transaction_message(self.transaction_id,'transaction sent','done')
+		except: #if any error is catched it will refund
+			print('refunding')
+			self.refund(self.transaction,self.transaction.in_currency)
 		
 
 
@@ -338,12 +346,72 @@ class listener:
 		tracker =  Pending.objects.filter(currency=currency)
 		tracker.amount += amount
 
+
+	def refund(self,t,coin):
+		handler = get_handler(coin)
+		if 'ETH' == t.in_currency:
+			balance =float(Web3.fromWei(handler.eth.getBalance(eth_test_provider_ad),'ether'))
+		elif 'BTC' == t.in_currency:
+			balance = handler.send('getbalance')
+		elif 'LTC' == t.in_currency:
+			balance = handler.send('getbalance')
+			
+		elif 'XMR' == t.in_currency:
+			balance = self.get_mon_balance(handler)
+		amount_in = t.amount_in
+		if 'ETH' ==  t.in_currency:
+			
+			amount_in +=  float(Web3.fromWei(handler.eth.gasPrice * 100000,'ether'))
+
+		if balance <= amount_in:
+			self.set_transaction_message(t.transaction_id,'can\' refund please contact support')
+		else:
+			if 'ETH' == t.in_currency:
+				amount_in  = Web3.toWei(amount_in,'ether')
+				print('sending the amount to ' + t.refund_address)
+				signed_txn = self.create_eth_transaction_cus(t.refund_address.strip(),amount_in,eth_test_provider_p,handler,eth_test_provider_ad)
+				handler.eth.sendRawTransaction(signed_txn.rawTransaction)
+				print('transaction sent')
+				self.set_transaction_message(t.transaction_id,'refund sent','done')
+
+			elif 'LTC'  == t.in_currency:
+				print('sending')
+				amount_in = round(amount_in,8)
+				print('sending amount : ',end=' ')
+				print(amount_in)
+				res = handler.send('sendtoaddress',t.return_address,amount_in)
+				if not res:
+					print('failed')
+				self.set_transaction_message(t.transaction_id,'refund sent','done')
+			elif 'XMR'  == t.in_currency:
+				print('sending')
+				amount_in = round(amount_in,9)
+				amount_in = int(amount_in * (10**12))
+				print('sending amount : ',end=' ')
+				print(amount_in)
+				res = handler.send('transfer',destinations=[{'amount':amount_in,'address':t.refund_address}],account_index = mon_receiver_index)
+				print(res)
+				self.set_transaction_message(t.transaction_id,'refund sent','done')
+			else:
+				print('sending')
+				amount_in = round(amount_in,8)
+				print('sending amount : ',end=' ')
+				print(amount_in)
+				handler.send('sendtoaddress',t.refund_address,amount_in)
+				self.set_transaction_message(t.transaction_id,'refund sent','done')
+
+			
+		
+
+		
+
 		
 
 
 	
 
 	def start_ethereum(self):
+		
 		print('start checking')
 		print(self.account.address)
 		while self.check_balance(self.w.eth.getBalance(self.account.address)):
@@ -357,16 +425,17 @@ class listener:
 			confirmation = self.get_eth_confirmation(res[0])
 			#print(confirmation)
 		print('transaction  confirmed')
+
 		print('balance')
 		amount_in = float(Web3.fromWei(self.w.eth.getBalance(self.account.address),'ether'))   
 		print(amount_in)
-		
+			
 		print('resending to the master accout')
 		print(master_eth_add)
 		signed_txn = self.create_eth_transaction(master_eth_add)
 		self.w.eth.sendRawTransaction(signed_txn.rawTransaction)
 		print('sent  to master add')
-		self.set_transaction_message(self.transaction_id,'checking availability')
+		self.set_transaction_message(self.transaction_id,'checking availability','exchanging')
 		print('received')
 		amount_out = self.b_handler.get_exchange_rate(self.transaction.in_currency,self.transaction.out_currency,self.transaction.fees,amount_in)
 		print('amount out is ')
@@ -374,49 +443,54 @@ class listener:
 		self.transaction.amount_in = amount_in
 		self.transaction.amount_out = amount_out
 		self.transaction.save()
-		second_handler = self.get_second_handler(self.transaction.out_currency)
-		if 'ETH' == self.transaction.out_currency:
-			balance =float(Web3.fromWei(self.w2.eth.getBalance(eth_test_provider_ad),'ether'))
-		elif 'BTC' == self.transaction.out_currency:
-			balance = self.handler2.send('getbalance')
-		elif 'LTC' == self.transaction.out_currency:
-			balance = self.handler2.send('getbalance')
-		
-		elif 'XMR' == self.transaction.out_currency:
-			balance = self.get_mon_balance(second_handler)
-
-		#if amount_out >= balance:
-			#input('not enough balance')
-
-		if True:
-			self.set_transaction_message(self.transaction_id,'checking availability','pending')
+		try:
 			
-		elif 'LTC'  == self.transaction.out_currency:
-			print('sending')
-			amount_out = round(amount_out,8)
-			print('sending amount : ',end=' ')
-			print(amount_out)
-			res = self.handler2.send('sendtoaddress',self.transaction.return_address,amount_out)
-			if not res:
-				print('failed')
-			self.set_transaction_message(self.transaction_id,'transaction sent','done')
-		
-		elif 'XMR'  == self.transaction.out_currency:
+			second_handler = self.get_second_handler(self.transaction.out_currency)
+			if 'ETH' == self.transaction.out_currency:
+				balance =float(Web3.fromWei(self.w2.eth.getBalance(eth_test_provider_ad),'ether'))
+			elif 'BTC' == self.transaction.out_currency:
+				balance = self.handler2.send('getbalance')
+			elif 'LTC' == self.transaction.out_currency:
+				balance = self.handler2.send('getbalance')
+			
+			elif 'XMR' == self.transaction.out_currency:
+				balance = self.get_mon_balance(second_handler)
+
+			#if amount_out >= balance:
+				#input('not enough balance')
+
+			if amount_out >= balance:
+				self.set_transaction_message(self.transaction_id,'checking availability','pending')
+				
+			elif 'LTC'  == self.transaction.out_currency:
 				print('sending')
-				amount_out = round(amount_out,9)
-				amount_out = int(amount_out * (10**12))
+				amount_out = round(amount_out,8)
 				print('sending amount : ',end=' ')
 				print(amount_out)
-				res = self.handler2.send('transfer',destinations=[{'amount':amount_out,'address':self.transaction.return_address}],account_index= mon_receiver_index)
-				print(res)
+				res = self.handler2.send('sendtoaddress',self.transaction.return_address,amount_out)
+				if not res:
+					print('failed')
+				self.set_transaction_message(self.transaction_id,'transaction sent','done')
+			
+			elif 'XMR'  == self.transaction.out_currency:
+					print('sending')
+					amount_out = round(amount_out,9)
+					amount_out = int(amount_out * (10**12))
+					print('sending amount : ',end=' ')
+					print(amount_out)
+					res = self.handler2.send('transfer',destinations=[{'amount':amount_out,'address':self.transaction.return_address}],account_index= mon_receiver_index)
+					print(res)
 
-		else:
-			print('sending')
-			amount_out = round(amount_out,8)
-			print('sending amount : ',end=' ')
-			print(amount_out)
-			self.handler2.send('sendtoaddress',self.transaction.return_address,amount_out)
-			self.set_transaction_message(self.transaction_id,'transaction sent','done')
+			else:
+				print('sending')
+				amount_out = round(amount_out,8)
+				print('sending amount : ',end=' ')
+				print(amount_out)
+				self.handler2.send('sendtoaddress',self.transaction.return_address,amount_out)
+				self.set_transaction_message(self.transaction_id,'transaction sent','done')
+		except: #if any error is catched it will refund
+			print('refunding')
+			self.refund(self.transaction,self.transaction.in_currency)
 
 
 
