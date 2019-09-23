@@ -268,14 +268,15 @@
                                             <th class="th-lg">
                                                 <a>Transaction ID</a>
                                             </th>
-                                            <th class="th-lg">
-                                                <a>Receiving address</a>
-                                            </th>
+                                            
                                             <th class="th-lg">
                                                 <a href="">Coins Exchange</a>
                                             </th>
                                             <th class="th-lg">
                                                 <a href="">Status</a>
+                                            </th>
+                                            <th class="th-lg">
+                                                <a>Receiving address</a>
                                             </th>
                                         </tr>
                                     </thead>
@@ -292,7 +293,7 @@
 										</button></a>
 									</div>
 													</th>
-                                            <td></td>
+                                            <td>{{l.transaction_id}}</td>
                                             
 											<td>{{l.in_currency}} <i class="fas fa-exchange-alt"></i> {{l.out_currency}}</td>
 											{% checkstatus l.transaction_id  as res %}
