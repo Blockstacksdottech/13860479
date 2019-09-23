@@ -1,5 +1,6 @@
 {% extends "foot.html" %}
 {% block content %}
+
 <section class="allposts mb-5">
         <div class="container">
             <form action='/blog/modify_post' method='post' enctype="multipart/form-data">
@@ -85,7 +86,7 @@
         });
 		var elems = document.getElementsByClassName('note-editable');
         var p = elems[0].getElementsByTagName('p')[0];
-        p.innerHTML = '{{post.content | safe}}'
+        p.innerHTML = `{{post.content | safe}}`;
 	</script>
 	
 	{% endblock %}

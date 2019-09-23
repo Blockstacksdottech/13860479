@@ -121,7 +121,7 @@
     <section class="my-5">
         <div class="container">
             <div class="row">
-                <div class="col-lg-9 col-md-12 mb-lg-0 mb-4">
+                <div class="col-lg-8 col-md-12 mb-lg-0 mb-4">
                     <div class="card">
                         <div class="card-header white-text blue-gradient">
                             TOP EXCHANGES
@@ -156,7 +156,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
@@ -293,7 +293,7 @@
 									</div>
 													</th>
                                             <td></td>
-                                            <td>{{l.return_address}}</td>
+                                            
 											<td>{{l.in_currency}} <i class="fas fa-exchange-alt"></i> {{l.out_currency}}</td>
 											{% checkstatus l.transaction_id  as res %}
 											{% if res == 1 %}
@@ -302,7 +302,8 @@
 											<td><span class="badge badge-danger">In Progress</span></td>
 											{% else %}
 											<td><span class="badge badge-success">Completed</span></td>
-											{% endif %}
+                                            {% endif %}
+                                            <td>{{l.return_address}}</td>
 										</tr>
 										{% endfor %}
                                         
