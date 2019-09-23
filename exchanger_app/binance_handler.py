@@ -37,3 +37,13 @@ class Handler:
 		price = float(tick['lastPrice'])
 		price = round(amount / price,8)
 		return price
+
+	def get_inverse(self,coin,amount):
+		if coin == 'BCH':
+			coin = 'BCHABC'
+		
+		tick = self.client.get_ticker(symbol='{0}USDT'.format(str(coin)))
+		price = float(tick['lastPrice'])
+		price = round(amount * price,8)
+		return price
+

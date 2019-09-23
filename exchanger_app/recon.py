@@ -213,7 +213,7 @@ class worker:
 					old_d = self.c.get_asset_balance(asset='BTC')['free']
 				elif out_c == 'BCH':
 					old_d = self.c.get_asset_balance(asset='BCHABC')['free']
-				elif out_c == 'LTC:
+				elif out_c == 'LTC':
 					old_d = self.c.get_asset_balance(asset='LTC')['free']
 				print('sending')
 				amount_out = round(amount,8)

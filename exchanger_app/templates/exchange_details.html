@@ -50,33 +50,53 @@
 								<div class="col-md-7 my-3">
 									<div class="table-responsive">
 										<table class="table table-bordered">
-									<tbody>
-										<tr>
-											<td>Transaction ID</td>
-											<td>{{id}} ({{in_c}}/{{out_c}})</td>
-										</tr>
-										<tr>
-											<td>Our system address</td>
-											<td>{{sys_add}}</td>
-										</tr>
-										<tr>
-											<td>QR-Code</td>
-											<td><div class='qrcode'></div></td>
-										</tr>
-										<tr>
-											<td>Status</td>
-											<td>{{status}}</td>
-										</tr>
-										<tr>
-											<td>Receiving Wallet ({{out_c}})</td>
-											<td>{{rec_add}}</td>
-										</tr>
-										<tr>
-											<td>Refund Address </td>
-											<td>{{ref_add}}</td>
-										</tr>
-									</tbody>
-								</table>
+											<tbody>
+												<tr>
+													<td>Your transaction ID (Please save)</td>
+													<td>
+														<span> <span id="copytext">{{id}}</span> ({{in_c}}/{{out_c}})</span>
+														<a data-clipboard-target="#copytext" class="float-right copy-text">
+															<i class="fas fa-clipboard-list"></i>
+														</a>
+													</td>
+												</tr>
+												<tr>
+													<td>Please deposit xxx to this address</td>
+													<td>
+														<span id="copytext2">{{sys_add}}</span>
+														<a data-clipboard-target="#copytext2" class="float-right copy-text">
+															<i class="fas fa-clipboard-list"></i>
+														</a>
+													</td>
+												</tr>
+												<tr>
+													<td>QR Code</td>
+													<td><div class='qrcode'></div></td>
+												</tr>
+												<tr>
+													<td>Status</td>
+													<td>{{status}}</td>
+												</tr>
+												<tr>
+													<td>Receiving address xxx</td>
+													<td>
+														<span id="copytext3">{{rec_add}}</span>
+														<a data-clipboard-target="#copytext3" class="float-right copy-text">
+															<i class="fas fa-clipboard-list"></i>
+														</a>
+													</td>
+												</tr>
+												<tr>
+													<td>Refund address xxx</td>
+													<td>
+														<span id="copytext4">{{ref_add}}</span>
+														<a data-clipboard-target="#copytext4" class="float-right copy-text">
+															<i class="fas fa-clipboard-list"></i>
+														</a>
+													</td>
+												</tr>
+											</tbody>
+										</table>
 							</div>
 						</div>
 

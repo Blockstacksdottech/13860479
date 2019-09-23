@@ -1,100 +1,203 @@
 {% extends 'footer.html' %}
 {% block content %}
 <section class="allposts mb-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <h4 class="font-weight-bold">Settings</h4>
-                    <div class="row">
-                        <div class="my-3 col-4">
-                            <label>Start/Stop Payments</label>
-                            <form>
-                                <div class="input-group">
-                                    <select class="browser-default custom-select" id="inputGroupSelect04">
-                                      <option value="1">Start</option>
-                                      <option value="2">Stop</option>
-                                    </select>
-                                    <div class="input-group-append">
-                                        <button class="btn btn-md btn-success m-0 px-3 py-2 z-depth-0 waves-effect" type="button">Save</button>
-                                    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h4 class="font-weight-bold">Settings</h4>
+                <div class="row">
+                    <div class="my-3 col-6">
+                        <label>Start/Stop Payments</label>
+                        <form action='/settings/changestat' method='post'>
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <select class="browser-default custom-select" id="inputGroupSelect04" name='activated'>
+                                  <option value="1">Start</option>
+                                  {% if stats %}
+                                    <option value="2">Stop</option>
+                                {% else %}
+                                <option value="2" selected>Stop</option>
+                                {% endif %}
+                                </select>
+                                <div class="input-group-append">
+                                    <button class="btn btn-md btn-success m-0 px-3 py-2 z-depth-0 waves-effect" type="submit">Save</button>
                                 </div>
-                            </form>
-                        </div>
-                        <div class="my-6 col-8">
-                        <form style='width:100%'>
-                        
-                            <label>Enable /Disable Single Coins</label>
-                            
-                                <div class="input-group">
-                                    <select class="browser-default custom-select" id="inputGroupSelect04">
-                                              <option value="BTC">BTC</option>
-                                              <option value="ETH">ETH</option>
-                                        <option value="BCH">BCH</option>
-                                        <option value="LTC">LTC</option>
-                                        <option value="XMR">XMR</option>
-                                            </select>
-                                    
-                                </div>
-                            <br>
-                            
-                        
-                            
-                            
-                                <div class="input-group">
-                                    <select class="browser-default custom-select" id="inputGroupSelect04">
-                                              <option value="1">Enable</option>
-                                              <option value="2">Disable</option>
-                                            </select>
-                                    <div class="input-group-append">
-                                        <button class="btn btn-md btn-success m-0 px-3 py-2 z-depth-0 waves-effect" type="button">Save</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                            
+                            </div>
+                        </form>
                     </div>
-                    <div class="row">
-                        <div class="my-3 col-6">
-                            <label>Change Service Fee</label>
-                            <form>
-                                <div class="input-group">
-                                    <input type="number" class="form-control" placeholder="Service Fee">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-md btn-success m-0 px-3 py-2 z-depth-0 waves-effect" type="button" id="button-addon2">Save</button>
-                                    </div>
+                    <div class="my-3 col-6">
+                        <label>Change Service Fee</label>
+                        <form action='/settings/changefee' method = 'post'>
+                            {% csrf_token %}
+                            <div class="input-group mb-3">
+                                <input type="number" class="form-control" placeholder="0"  name = 'fee' value='{{fee}}'>
+                                <div class="input-group-append">
+                                    <button class="btn btn-md btn-success m-0 px-3 py-2 z-depth-0 waves-effect" type="submit" id="button-addon2">Save</button>
                                 </div>
-                            </form>
-                        </div>
-                        
+                            </div>
+                        </form>
                     </div>
-                    <div class="row">
-                        <div class="my-3 col-6">
-                            <label>Change Minimum payment</label>
-							<form action='/settings/changemin' method='post'>
-								{% csrf_token %}
-                                <div class="input-group mb-3">
-                                    <input type="number" class="form-control" placeholder="Minimum Payment" name='min'>
-                                    <div class="input-group-append">
-                                        <button class="btn btn-md btn-success m-0 px-3 py-2 z-depth-0 waves-effect" type="submit" id="button-addon2" >Save</button>
-                                    </div>
+                </div>
+                <div class="row">
+                    <div class="my-3 col-6">
+                        <label>Change Minimum payment</label>
+                        <form action='/settings/changemin' method = 'post'>
+                            {% csrf_token %}
+                            <div class="input-group mb-3">
+                                <input type="number" class="form-control" placeholder="Minimum Payment" name='min' value= '{{min}}'>
+                                <div class="input-group-append">
+                                    <button class="btn btn-md btn-success m-0 px-3 py-2 z-depth-0 waves-effect" type="submit" id="button-addon2">Save</button>
                                 </div>
-                            </form>
-                        </div>
-                        <div class="my-3 col-6">
-                            <label>Change Maximum Payment</label>
-                            <form action='/settings/changemax'
-                                <div class="input-group mb-3">
-                                    <input type="number" class="form-control" placeholder="Maximum Payment"  name='max'>
-                                    <div class="input-group-append">
-                                        <button class="btn btn-md btn-success m-0 px-3 py-2 z-depth-0 waves-effect" type='submit'  id="button-addon2" >Save</button>
-                                    </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="my-3 col-6">
+                        <label>Change Maximum Payment</label>
+                        <form action='/settings/changemax' method='post'>
+                            {% csrf_token %}
+                            <div class="input-group mb-3">
+                                <input type="number" class="form-control" placeholder="Maximum Payment" name='max' value='{{max}}'>
+                                <div class="input-group-append">
+                                    <button class="btn btn-md btn-success m-0 px-3 py-2 z-depth-0 waves-effect"  id="button-addon2" type='submit'>Save</button>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="my-3 col-6">
+                        <label>Delay Before Deletion: <strong>20 Days</strong></label>
+                        <form action='settings/changedelay'  method='post'>
+                            {%  csrf_token %}
+                            <div class="input-group mb-3">
+                                <input type="number" class="form-control" name='delay'>
+                                <div class="input-group-append">
+                                    <button class="btn btn-md btn-success m-0 px-3 py-2 z-depth-0 waves-effect" type="submit" id="button-addon2">Save</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="my-3 col-12">
+                        <h5>Enable/Disable Coins</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="my-3 col-4">
+                        <label>Bitcoin(BTC)</label>
+                        <form action='/settings/changecoin' method='post'>
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <select class="browser-default custom-select" id="inputGroupSelect04" name='BTC'>
+                                    <option value="1">Start</option>
+                                    {% if BTC %}
+                                    <option value="2">Stop</option>
+                                    {% else %}
+                                    <option value="2" selected>Stop</option>
+                                    {% endif %}
+
+                                </select>
+                                <div class="input-group-append">
+                                    <button class="btn btn-md btn-success m-0 px-3 py-2 z-depth-0 waves-effect" type="submit">Save</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="my-3 col-4">
+                        <label>Bitcoin Cash (BCH)</label>
+                        <form action='/settings/changecoin' method='post'>
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <select class="browser-default custom-select" id="inputGroupSelect04" name='BCH'>
+                                    <option value="1">Start</option>
+                                    {% if BCH %}
+                                    <option value="2">Stop</option>
+                                    {% else %}
+                                    <option value="2" selected>Stop</option>
+                                    {% endif %}
+                                </select>
+                                <div class="input-group-append">
+                                    <button class="btn btn-md btn-success m-0 px-3 py-2 z-depth-0 waves-effect" type="submit">Save</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="my-3 col-4">
+                        <label>Ethereum (ETH)</label>
+                        <form action='/settings/changecoin' method='post'>
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <select class="browser-default custom-select" id="inputGroupSelect04" name='ETH'>
+                                    <option value="1">Start</option>
+                                    {% if ETH %}
+                                    <option value="2">Stop</option>
+                                    {% else %}
+                                    <option value="2" selected>Stop</option>
+                                    {% endif %}
+                                </select>
+                                <div class="input-group-append">
+                                    <button class="btn btn-md btn-success m-0 px-3 py-2 z-depth-0 waves-effect" type="submit">Save</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="my-3 col-4">
+                        <label>Monero (XMR)</label>
+                        <form action='/settings/changecoin' method='post'>
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <select class="browser-default custom-select" id="inputGroupSelect04" name='XMR'>
+                                    <option value="1">Start</option>
+                                    {% if XMR %}
+                                    <option value="2">Stop</option>
+                                    {% else %}
+                                    <option value="2" selected>Stop</option>
+                                    {% endif %}
+                                </select>
+                                <div class="input-group-append">
+                                    <button class="btn btn-md btn-success m-0 px-3 py-2 z-depth-0 waves-effect" type="submit">Save</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="my-3 col-4">
+                        <label>Litecoin (LTC)</label>
+                        <form action='/settings/changecoin' method='post'>
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <select class="browser-default custom-select" id="inputGroupSelect04" name='LTC'>
+                                    <option value="1">Start</option>
+                                    {% if LTC %}
+                                    <option value="2">Stop</option>
+                                    {% else %}
+                                    <option value="2" selected>Stop</option>
+                                    {% endif %}
+                                </select>
+                                <div class="input-group-append">
+                                    <button class="btn btn-md btn-success m-0 px-3 py-2 z-depth-0 waves-effect" type="submit">Save</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
+{% endblock %}
+{% block script %}
+<script>
+    var myVar;
+
+    function myFunction() {
+        myVar = setTimeout(showPage, 3000);
+    }
+
+    function showPage() {
+        document.getElementById("loader").style.display = "none";
+        document.getElementById("myDiv").style.display = "block";
+    }
+</script>
 {% endblock %}

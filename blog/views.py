@@ -204,7 +204,19 @@ def view_settings(request):
 	if username == '':
 		return redirect('/blog/login')
 	else:
-		return render(request,'settings.html')
+		setting = Settings.objects.all()[0]
+		ret_dict  = {
+			'stats':setting.activated,
+			'fee':setting.service_fee,
+			'min':setting.min_amount,
+			'max':setting.max_amount,
+			'delay':setting.delay
+			
+		}
+		coins = setting.currencies_s_set.all()
+		for x in coins:
+			ret_dict[x.currency] = x.activated
+		return render(request,'settings.html',ret_dict)
 
 def blog_login(request):
 	if request.method == 'POST':
@@ -212,7 +224,7 @@ def blog_login(request):
 		password = request.POST.get('password','')
 
 		if username == '' or password == '':
-			return render(request,'new_login.html',{'message':'empty field'})
+			return render(request,'login.html',{'message':'empty field'})
 
 		usr = User.objects.filter(username =  username )
 		if len(usr) != 0:
@@ -221,10 +233,10 @@ def blog_login(request):
 				request.session['user'] = usr.username
 				return  redirect('/blog/admin')
 			else:
-				return render(request,'new_login.html',{'message':'password is incorrect'})
+				return render(request,'login.html',{'message':'password is incorrect'})
 				
 		else:
-			return render(request,'new_login.html',{'message':'user not found'})
+			return render(request,'login.html',{'message':'user not found'})
 		
 	else:
 		return render(request,'login.html')

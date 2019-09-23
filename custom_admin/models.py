@@ -15,6 +15,7 @@ class Settings(models.Model):
 	service_fee = models.FloatField(default=0)
 	min_amount = models.FloatField(default=0)
 	max_amount  =  models.FloatField(default=0)
+	delay = models.IntegerField(default=0)
 
 	def __str__(self):
 		return str(self.activated)

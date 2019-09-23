@@ -46,24 +46,24 @@
 						<div class="row my-5  col-12 ">
 							<div class="col-md-4">
 
-								<label>You send ( min amount  : {{min1}})</label>
+								<label>You send (min. amount: xxxxxx)</label>
 								<div class="input-group input-group-lg mb-4">
 									<div class="input-group-prepend">
-										<span class="input-group-text" id="inputGroup-sizing-lg">
-											<img  src="/assets/img/coins/{{c_in}}.png">
-										</span>
-									</div>
-									<input type="text" class="form-control" id =  'income' value="Bitcoin">
+								<span class="input-group-text" id="inputGroup-sizing-lg">
+									<img  src="/assets/img/coins/{{c_in}}.png">
+								</span>
+							</div>
+							<input type="text" class="form-control" id =  'income' value="Bitcoin">
 								</div>
 
-								<label>You send ( min amount  : {{min2}})</label>
+								<label>You receive (min. amount: xxxxxx)</label>
 								<div class="input-group input-group-lg mb-4">
 									<div class="input-group-prepend">
-										<span class="input-group-text" id="inputGroup-sizing-lg">
-											<img  src="/assets/img/coins/{{c_out}}.png">
-										</span>
-									</div>
-									<input type="text" class="form-control" id='outgo' value="Monero">
+								<span class="input-group-text" id="inputGroup-sizing-lg">
+									<img  src="/assets/img/coins/{{c_out}}.png">
+								</span>
+							</div>
+							<input type="text" class="form-control" id='outgo' value="Monero">
 								</div>
 
 							</div>
@@ -71,27 +71,37 @@
 							<div class="col-md-8">
 
 								<label>
-									Backup Wallet  
-										<a  class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title="Loreipsum dummy text. Add tooltip here" ></a>
-								</label>
-								<input type="text" class="form-control  form-control-lg mb-4" id='r_wallet'>
-
-								<label>
-									Receiving Wallet
-									<a  class="fa fa-question-circle" data-toggle="tooltip" title="Add tooltip text">
+									Refund address
+										<a  class="fa fa-question-circle"
+											data-toggle="tooltip"
+											data-placement="right"
+											title="For your refund address, please enter an address for your original currency. This is where morphex will send your coins back if something goes wrong with your exchange. For example, if you are exchanging BTC for ETH, please enter a Bitcoin wallet here." >
 										</a>
 								</label>
-								<input type="text" class="form-control form-control-lg mb-4" id='b_wallet'>
+								<input type="text" class="form-control  form-control-lg mb-4" placeholder="Your xxx refund address" id='r_wallet'>
+
+								<label>
+									Receiving address
+										<a  class="fa fa-question-circle"
+											data-toggle="tooltip"
+											data-placement="right"
+											title="For your receiving address, please enter an address for the currency you would like to receive from the exchange. For example, if you are exchanging BTC for ETH, please enter an Ether address here." >
+										</a>
+								</label>
+								<input type="text" class="form-control form-control-lg mb-4" placeholder="Your xxx receiving address" id='b_wallet'>
 
 								<div class=" mb-4">
-									<input type="checkbox" id="inputTerms" name="terms">
+									<input type="checkbox" name="terms">
 									<label>
-									I agree to the <a class="text-success" href="Terms_and_Conditions.pdf" target="_blank">terms and conditions</a>
+									I agree to the <a class="text-success" href="/terms" target="_blank">terms and conditions</a>
 								</label>
 								</div>
+								
+								<span style='color:red;' class='errormessage2'></span>
+								
 								<div class="mx-0">
-									<button class="btn btn-success my-2" type="submit"  id='target'>Start Exchange</button>
-									<button class="btn btn-light my-2" type="submit">Go Back</button>
+									<button class="btn btn-success my-2"  id='target'>Start Exchange</button>
+									<a href='/'><button class="btn btn-light my-2" type="submit">Go Back</button></a>
 								</div>
 							</div>
 						</div>
@@ -127,8 +137,9 @@
 		var outCurrency = $('#outgo').val();
 		var returnAddress = $('#b_wallet').val();
 		var refundAddress = $('#r_wallet').val();
+		//alert(returnAddress + refundAddress);
 		if ($('input[name="terms"]').is(":checked")) {
-			if (returnAddress != '' && refundAddress != '') {
+			if (returnAddress.length != 0 && refundAddress.length  != 0) {
 				$.ajaxSetup({
 				headers: {
 					'X-CSRFToken':token

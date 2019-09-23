@@ -17,14 +17,14 @@
 	
 </head>
 
-<body onload="myFunction()"></div>
+<body >
 
-    <div id="loader"></div>
+    <div ></div>
 
-    <div style="display:none;" id="myDiv" class="animate-bottom">
+    <div style="display:block;" id="myDiv" class="animate-bottom">
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="/">
                 <img src="/assets/img/logo.png" alt="Morphex" width="180" height="60" />
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,7 +78,7 @@
 					<h2 class="card-title h1-responsive pt-3 mb-5 font-bold">
 						<strong>If you have a question please send us a letter</strong>
 					</h2>
-					<a class="btn blue-gradient"><i class="fas fa-envelope left"></i> Contact Us</a>
+					<a class="btn blue-gradient" href='/contact'><i class="fas fa-envelope left" ></i> Contact Us</a>
 				</div>
 			</div>
 		</div>
@@ -115,19 +115,17 @@
 
 				<ul class="list-unstyled">
 					<li>
-						<a href="#!">Exchange</a>
+						<a href="/">Exchange</a>
 					</li>
 					<li>
-						<a href="#!">Check Transaction</a>
+						<a href="/checkup">Check Transaction</a>
+					</li>
+					
+					<li>
+						<a href="/faq">FAQ</a>
 					</li>
 					<li>
-						<a href="#!">How it works</a>
-					</li>
-					<li>
-						<a href="#!">FAQ</a>
-					</li>
-					<li>
-						<a href="#!">Contact</a>
+						<a href="/contact">Contact</a>
 					</li>
 				</ul>
 
@@ -283,7 +281,7 @@
         });
 		
 	</script>
-	<script>
+	<!--<script>
         var myVar;
 
         function myFunction() {
@@ -294,7 +292,7 @@
             document.getElementById("loader").style.display = "none";
             document.getElementById("myDiv").style.display = "block";
         }
-    </script>
+    </script>-->
 
     <script type="text/javascript">
         $("[data-toggle=tooltip").tooltip();

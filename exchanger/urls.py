@@ -52,6 +52,13 @@ urlpatterns = [
     path('blog/delete/<str:slug>',delete_post),
     path('blog/modify_post',modify_post),
     path('settings',view_settings),
-    path('settings/changemin',change_min)
+    path('settings/changemin',change_min),
+    path('settings/changemax',change_max),
+    path('settings/changestat',change_stat),
+    path('settings/changefee',change_fee),
+    path('settings/changecoin',change_coin_status),
+    path('settings/changedelay',change_delay),
+    path('remove/<str:idd>',remove_tr),
+    path('terms',view_terms)
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

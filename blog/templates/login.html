@@ -3,76 +3,94 @@
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>morphex - fast and anonymously crypto asset conversion</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>morphex - Category</title>
     <link rel="shortcut icon" href="/assets/img/favicon.png">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i|Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="http://instexchanger.herokuapp.com/assets/css2/style.css">
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
-    <script src="http://instexchanger.herokuapp.com/assets/js/jquery.min.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="/assets/css/mdb.min.css" rel="stylesheet">
+    <link href="/assets/css/style.css" rel="stylesheet">
+    <link href="/assets/css/addons/editor.css" type="text/css" rel="stylesheet" />
 </head>
 
 <body>
-    <div class="page text-center">
-        <img src="http://instexchanger.herokuapp.com/assets/img/bg.png" style="width:100%;">
-        <main class="page-content">
-            <div id="features" data-type="anchor">
-                <section class="section novi-background section-66 section-md-top-110">
-                    <div class="container" style="margin-top: -85px">
-
-                        <div class="responsive-tabs responsive-tabs-classic" data-type="horizontal" style="width: 100%;">
-                            <div class="resp-tabs-container text-left tabs-group-default">
-                                <div class="tabnr1">
-                                    <div class="row offset-md-top-66">
-                                        <div class="col-md-8">
-                                            <img src="http://instexchanger.herokuapp.com/assets/img/logo.png" alt="" style="width:80%">
-                                        </div>
-                                        <div class="col-md-4">
-                                                <form action="/blog/login" class='login' method='post'>{% csrf_token %}
-                                            <div class="form-content formImgBox">
-                                                <div class="form-horizontal ">
-                                                    <h1 class="text-center">Login</h1>
-                                                    <div class="form-group">
-                                                        <div class="col-sm-12">
-                                                            <input class="form-control select-filter select-size" name="username" placeholder="Username">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <div class="col-sm-12">
-                                                            <input class="form-control select-filter select-size" name="password" type="password" placeholder="Password">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group ">
-                                                        <div class="col-sm-offset-2 col-sm-12">
-                                                            <button class="btn btn-primary mr-10 btn-block" type="submit">Login</button>
-                                                            {% if message %}
-                                                            <div class="errormessage">{{message}} </div>
-                                                            {% endif %}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand text-dark" href="/">
+                <img src="/assets/img/logo.png" alt="Morphex" width="180" height="60">
+                <span> - Blog CMS</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
+                 <span class="navbar-toggler-icon"></span>
+             </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-uppercase" href="/custadmin">Admin</a>
+                    </li>
+                </ul>
             </div>
-        </main>
+        </div>
+    </nav>
 
-        <footer class="novi-background section-relative page-footer pt-5  bg-black context-dark">
-            <div class="container ">
-                <p class="small text-darker">© copyright 2018 - all rights reserved <span class="copyright-year"></span> .<a href="privacy.html">Privacy Policy</a></p>
-            </div>
-        </footer>
+    <div class="header-border-img">
+        <img src="/assets/img/header-border-bg.png" alt="Morphex" />
     </div>
-    <script src="http://instexchanger.herokuapp.com/assets/js/core.min.js"></script>
-    <script src="http://instexchanger.herokuapp.com/assets/js/script.js"></script>
+
+    <section class="allposts mb-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-6 mx-auto">
+					<!-- Default form subscription -->
+					<form class="text-center border border-light p-5" action="/blog/login" class='login' method='post'>{% csrf_token %}
+                    
+
+                        <p class="h4 mb-4">Login</p>
+
+                        <!-- Email -->
+                        <input type="text" class="form-control mb-4" name='username' placeholder="Username">
+
+                        <!-- Name -->
+                        <input type="password" class="form-control mb-4"  name='password' placeholder="Password">
+
+
+                        <!-- Sign in button -->
+                        <button class="btn btn-success btn-block mx-0" type="submit">Login</button>
+
+
+                    </form>
+                    <!-- Default form subscription -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="page-footer font-small special-color-dark">
+
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3">
+            Copyright (c) 2019 morphex - All rights reserved
+        </div>
+        <!-- Copyright -->
+
+    </footer>
+    <!-- Footer -->
+
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="/assets/js/jquery-3.4.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="/assets/js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="/assets/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="/assets/js/mdb.min.js"></script>
+
 </body>
 
 </html>

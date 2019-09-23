@@ -4,6 +4,19 @@ body {
     color: #1d1d1b;
 }
 
+.file_but{
+    background-color:#006ab2 !important;
+    color:white !important;
+    padding:10px !important;
+    border-radius: 2px !important;
+    cursor:pointer !important;
+    margin:5px !important;
+    
+}
+.file_but:hover{
+    background-color:#42b574 !important;
+}
+
 .navbar {
     padding: .0rem 1rem;
     box-shadow: none !important;
@@ -429,4 +442,25 @@ footer.page-footer a {
 
 .note-editor.note-frame {
     border: 1px solid #ced4da !important;
+}
+
+.dd-selected-text {
+    font-size: 1rem !important;
+}
+
+.card.card-cascade .view.view-cascade.gradient-card-header {
+    padding: 1.6rem 1rem;
+    color: #fff;
+    text-align: center;
+}
+
+.card.card-cascade .view.view-cascade {
+    border-radius: .25rem;
+    box-shadow: 0 5px 11px 0 rgba(0,0,0,.18), 0 4px 15px 0 rgba(0,0,0,.15);
+}
+
+.view {
+    position: relative;
+    overflow: hidden;
+    cursor: default;
 }
