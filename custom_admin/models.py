@@ -21,6 +21,9 @@ class Settings(models.Model):
 		return str(self.activated)
 
 
+
+
+
 class Currencies_s(models.Model):
 	setting = models.ForeignKey(Settings,on_delete=models.CASCADE)
 	currency = models.CharField(max_length=50)

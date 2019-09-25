@@ -15,24 +15,41 @@
                     <div class="my-3">
                         <textarea id="summernote" name="description"></textarea>
                     </div>
-                    <div class="row my-3">
-                        
-                        <div class="col-6">
-                            <select class="browser-default custom-select" name="tag" multiple>
-										<option selected>Add Tag</option>
-										{% for tag in tags %}
-										<option value="{{tag.name}}">{{tag.name}}</option>
-										{% endfor %}
-                                        
-                                </select>
-                        </div>
-                    </div>
+                    <!-- 
                     <div class="my-3">
                         <label>Post Picture</label>
                         
                         <input type="file" class="file_up" id='up' name="myfile" hidden>
                         <label class='file_but' for='up'>Choose a file</label>
+                    </div>-->
+                    <div class="row my-3">
+                        
+                        <div class="col-6">
+                            <select class="browser-default custom-select" name="tag" multiple>
+										<option>Add Tag</option>
+                                        {% for tag in tags %}
+                                        {% if post.tag  == tag.name %}
+                                        <option value="{{tag.name}}" selected>{{tag.name}}</option>
+                                        {% else %}
+                                        <option value="{{tag.name}}" >{{tag.name}}</option>
+                                        {% endif %}
+										{% endfor %}
+                                        
+                                </select>
+                        </div>
                     </div>
+                    <div class="row my-3">
+                        
+                        <div class="col-6">
+                        <label>Upload Featured Image</label>
+                        <div class="input-group">
+                        <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="inputGroupFile01" name='myfile'>
+                        <label class="custom-file-label">Choose file</label>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
                     <div class="my-3">
                         <label>Meta Title</label>
                         <input type="text" class="form-control mb-4" placeholder="Meta Title" name='metatitle' value='{{post.meta_title}}'>

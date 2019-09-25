@@ -34,6 +34,7 @@ def verify_login(request):
 		if len(usr) != 0:
 			usr = usr[0]
 			if password == usr.password:
+				request.session.set_expiry(0)
 				request.session['user'] = usr.username
 				return  redirect('/pannel')
 			else:
