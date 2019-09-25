@@ -186,6 +186,9 @@ class worker:
 		return tr['confirmations']
 
 	#
+
+	def reconciliate(out_c,in_c,withdraw_address,amount):
+		
 					
 
 
@@ -235,19 +238,23 @@ class worker:
 						new_d = self.c.get_asset_balance(asset='BTC')['free']
 					elif out_c == 'BCH':
 						new_d = self.c.get_asset_balance(asset='BCHABC')['free']
-					elif out_c == 'LTC:
+					elif out_c == 'LTC':
 						new_d = self.c.get_asset_balance(asset='LTC')['free']
 
-				if  new_d !=  old_c:
+				if  new_d !=  old_d:
 					restart = False
 				else:
 					continue
+			
+
 			
 
 
 
 
 			print('withdrawing')
+
+
 			input('waiting fro withdraw')
 
 			print('now waiting for the withdraw')
@@ -334,7 +341,8 @@ class worker:
 				address = handler.send('getnewaddress',main_test_label)
 
 			print('start the sub_worker')
-			res = self.get_new_balance(rates[sorted_diff[-1][0]],s_addr,address,sorted_diff[-1][0],in_c)
+			amnt = rates[sorted_diff[-1][0]]  +  (rates[sorted_diff[-1][0]] * 5/100)
+			res = self.get_new_balance(amnt,s_addr,address,sorted_diff[-1][0],in_c,tr.amount_out,rates[sorted_diff[-1][0]])
 			if res:
 				input('success')
 			else:

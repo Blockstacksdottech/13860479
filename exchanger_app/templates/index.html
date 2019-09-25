@@ -63,8 +63,12 @@
 									<div class="col-lg-5 col-md-5 col-sm-12">
 										<div id="recieve-select-coin" style="width:100%"></div>
 									</div>
-									<center><span style='color:red;' class='errormessage'></span></center>
+									
 									<div class="col-12 text-center mt-4">
+											<div class="alert alert-danger" role="alert" style='display:none;margin-bottom: 5px;' id='error'>
+													A simple danger alert—check it out!
+													</div>
+													
 										<button type="button" class="btn btn-success btn-lg mx-0"  id="next">Exchange</button>
 									</div>
 								</div>
@@ -259,6 +263,16 @@
 {% endblock %}
 {%  block script %}
 <script type="text/javascript">
+function hide(err){
+		var err = document.getElementById('error');
+		err.style.display = 'none'
+	}
+	function setMessage(message){
+		var err = document.getElementById('error');
+		err.innerHTML = message;
+		err.style.display = 'block';
+		setTimeout(hide,2000);
+	}
 	$(document).ready(function() {
 		$('#transactionForm').submit(function() {
 			var location = $('#rd-navbar-form-search-widget').val();
@@ -279,13 +293,13 @@
 	$("#next").click(function() {
 								var inCurrency = $('#income').val();
 								var outCurrency = $('#outgo').val();
-								if (inCurrency == outCurrency && inCurrency != 'NON') {
-									$('.errormessage').text('You cannot exchange that! Use a mixer')
+								if (inCurrency == outCurrency && inCurrency != '') {
+									setMessage('Same currency selected. Please use a mixer.')
 								} else {
-									if (inCurrency != 'NON' && outCurrency != 'NON') {
+									if (inCurrency != 'NON' && outCurrency != 'NON'  && inCurrency != '' && outCurrency != '') {
 										window.location.href = "/exchange?in=" + inCurrency + "&out=" + outCurrency;
 									} else {
-										$('.errormessage').text('Please choose a Currency')
+										setMessage('Please choose a Currency')
 									}
 								}
 							});

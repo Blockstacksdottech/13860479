@@ -4,19 +4,6 @@ body {
     color: #1d1d1b;
 }
 
-.file_but{
-    background-color:#006ab2 !important;
-    color:white !important;
-    padding:10px !important;
-    border-radius: 2px !important;
-    cursor:pointer !important;
-    margin:5px !important;
-    
-}
-.file_but:hover{
-    background-color:#42b574 !important;
-}
-
 .navbar {
     padding: .0rem 1rem;
     box-shadow: none !important;
@@ -464,3 +451,22 @@ footer.page-footer a {
     overflow: hidden;
     cursor: default;
 }
+
+::-webkit-input-placeholder { /* Edge */
+  color: #8e9092 !important;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #8e9092 !important;
+}
+
+::placeholder {
+  color: #8e9092 !important;
+}
+
+.fa-clipboard-list:before {
+    content: "\f46d";
+    color: #8e9092;
+}
+
+

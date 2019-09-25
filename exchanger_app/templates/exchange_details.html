@@ -55,15 +55,13 @@
 													<td>Your transaction ID (Please save)</td>
 													<td>
 														<span> <span id="copytext">{{id}}</span> ({{in_c}}/{{out_c}})</span>
-														<a data-clipboard-target="#copytext" class="float-right copy-text">
-															<i class="fas fa-clipboard-list"></i>
-														</a>
+														
 													</td>
 												</tr>
 												<tr>
 													<td>Please deposit xxx to this address</td>
 													<td>
-														<span id="copytext2">{{sys_add}}</span>
+														<span id="copytext2" >{{sys_add}}</span>
 														<a data-clipboard-target="#copytext2" class="float-right copy-text">
 															<i class="fas fa-clipboard-list"></i>
 														</a>
@@ -81,18 +79,14 @@
 													<td>Receiving address xxx</td>
 													<td>
 														<span id="copytext3">{{rec_add}}</span>
-														<a data-clipboard-target="#copytext3" class="float-right copy-text">
-															<i class="fas fa-clipboard-list"></i>
-														</a>
+														
 													</td>
 												</tr>
 												<tr>
 													<td>Refund address xxx</td>
 													<td>
 														<span id="copytext4">{{ref_add}}</span>
-														<a data-clipboard-target="#copytext4" class="float-right copy-text">
-															<i class="fas fa-clipboard-list"></i>
-														</a>
+														
 													</td>
 												</tr>
 											</tbody>
@@ -114,10 +108,11 @@
 </section>
 {% endblock %}
 {% block script %}
+
 <script type="text/javascript" src="/assets/js/jquery.qrcode.min.js"></script>
         <script>
-            new ClipboardJS('.cpyTxt');
-        </script>
+			var clipboard = new Clipboard('.copy-text');
+		</script>
         <script type="text/javascript">
             $('.qrcode').qrcode({
                 width: 125,

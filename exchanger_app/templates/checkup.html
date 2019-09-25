@@ -16,9 +16,11 @@
 				<div class="card my-5">
 					<div class="card-body">
 						<h4 class="card-title">Information for the transaction ID #</h4>
-						<br>
-						<center><span style='color:red;' class='errormessage'></span></center>
-						<br>
+						
+						<div class="alert alert-danger" role="alert" style='display:none;' id='error'>
+							A simple danger alert—check it out!
+							</div>
+						
 						<div class="input-group mb-3">
 							<input type="text" class="form-control" placeholder="Transaction ID" id='idd'>
 							
@@ -39,10 +41,22 @@
 {% endblock %}
 {% block script %}
 <script type="text/javascript">
+	
+	function hide(err){
+		var err = document.getElementById('error');
+		err.style.display = 'none'
+	}
+	function setMessage(message){
+		var err = document.getElementById('error');
+		err.innerHTML = message;
+		err.style.display = 'block';
+		setTimeout(hide,2000);
+	}
+
 	$("#target").click(function() {
 		var val = $('#idd').val();
 		if (val == '' ||  val == 'NON'){
-			$('.errormessage').text('Please Type an ID')
+			setMessage('Please Type an ID');
 		}else{
 
 

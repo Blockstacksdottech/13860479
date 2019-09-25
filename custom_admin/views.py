@@ -20,7 +20,7 @@ def view_login(request):
 		return redirect('/pannel')
 	else:
 
-		return render(request,'new_login.html')
+		return render(request,'blog_login.html')
 
 def verify_login(request):
 	if request.method == 'POST':
@@ -28,7 +28,7 @@ def verify_login(request):
 		password = request.POST.get('password','')
 
 		if username == '' or password == '':
-			return render(request,'new_login.html',{'message':'empty field'})
+			return render(request,'blog_login.html',{'message':'empty field'})
 
 		usr = User.objects.filter(username =  username )
 		if len(usr) != 0:
@@ -37,10 +37,10 @@ def verify_login(request):
 				request.session['user'] = usr.username
 				return  redirect('/pannel')
 			else:
-				return render(request,'new_login.html',{'message':'password is incorrect'})
+				return render(request,'blog_login.html',{'message':'password is incorrect'})
 				
 		else:
-			return render(request,'new_login.html',{'message':'user not found'})
+			return render(request,'blog_login.html',{'message':'user not found'})
 		
 	else:
 		return HttpResponse('not valid')
@@ -144,7 +144,7 @@ def show_pannel(request):
 		ret_dict['last'] = l_trs
 		return render(request,'pannel.html',ret_dict)
 	else:
-		return render(request,'new_login.html',{'message':'please new_login first'})
+		return render(request,'blog_login.html',{'message':'please blog_login first'})
 
 
 def log_out(request):
@@ -252,7 +252,7 @@ def remove_tr(request,idd):
 			tr.delete()
 			return redirect('/custadmin')
 	else:
-		return render(request,'new_login.html',{'message':'please new_login first'})
+		return render(request,'blog_login.html',{'message':'please blog_login first'})
 
 	
 

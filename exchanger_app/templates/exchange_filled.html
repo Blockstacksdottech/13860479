@@ -46,7 +46,7 @@
 						<div class="row my-5  col-12 ">
 							<div class="col-md-4">
 
-								<label>You send (min. amount: xxxxxx)</label>
+								<label>You send (min. amount: {{min1}})</label>
 								<div class="input-group input-group-lg mb-4">
 									<div class="input-group-prepend">
 								<span class="input-group-text" id="inputGroup-sizing-lg">
@@ -56,7 +56,7 @@
 							<input type="text" class="form-control" id =  'income' value="Bitcoin">
 								</div>
 
-								<label>You receive (min. amount: xxxxxx)</label>
+								<label>You receive </label>
 								<div class="input-group input-group-lg mb-4">
 									<div class="input-group-prepend">
 								<span class="input-group-text" id="inputGroup-sizing-lg">
@@ -78,7 +78,7 @@
 											title="For your refund address, please enter an address for your original currency. This is where morphex will send your coins back if something goes wrong with your exchange. For example, if you are exchanging BTC for ETH, please enter a Bitcoin wallet here." >
 										</a>
 								</label>
-								<input type="text" class="form-control  form-control-lg mb-4" placeholder="Your xxx refund address" id='r_wallet'>
+								<input type="text" class="form-control  form-control-lg mb-4" placeholder="Your {{c_in}} refund address" id='r_wallet'>
 
 								<label>
 									Receiving address
@@ -88,7 +88,7 @@
 											title="For your receiving address, please enter an address for the currency you would like to receive from the exchange. For example, if you are exchanging BTC for ETH, please enter an Ether address here." >
 										</a>
 								</label>
-								<input type="text" class="form-control form-control-lg mb-4" placeholder="Your xxx receiving address" id='b_wallet'>
+								<input type="text" class="form-control form-control-lg mb-4" placeholder="Your {{c_out}} receiving address" id='b_wallet'>
 
 								<div class=" mb-4">
 									<input type="checkbox" name="terms">
@@ -97,7 +97,9 @@
 								</label>
 								</div>
 								
-								<span style='color:red;' class='errormessage2'></span>
+								<div class="alert alert-danger" role="alert" style='display:none;' id='error'>
+									A simple danger alert—check it out!
+									</div>
 								
 								<div class="mx-0">
 									<button class="btn btn-success my-2"  id='target'>Start Exchange</button>
@@ -122,6 +124,16 @@
 {% endblock %}
 {% block script %}
 <script type="text/javascript">
+	function hide(err){
+		var err = document.getElementById('error');
+		err.style.display = 'none'
+	}
+	function setMessage(message){
+		var err = document.getElementById('error');
+		err.innerHTML = message;
+		err.style.display = 'block';
+		setTimeout(hide,2000);
+	}
 	var token = jQuery("[name=csrfmiddlewaretoken]").val();
 	console.log(token);
 	
@@ -158,13 +170,13 @@
 						window.location.href = "/details/" + data.processId;
 					})
 					.fail(function(xhr, textStatus, errorThrown) {
-						$('.errormessage2').text('The API rejected this Addresses!')
+						setMessage('The API rejected this Addresses!')
 					})
 			} else {
-				$('.errormessage2').text('Please fill the forms.')
+				setMessage('Please fill the forms.')
 			}
 		} else {
-			$('.errormessage2').text('Please check the terms of conditions.')
+			setMessage('Please check the terms of conditions.')
 		}
 	});
 </script>

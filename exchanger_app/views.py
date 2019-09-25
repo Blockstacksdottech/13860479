@@ -118,6 +118,7 @@ def get_exchange_rates():
 			continue
 	
 
+
 	
 
 
@@ -273,7 +274,12 @@ def view_tr(request,idd):
 	return render(request,'exchange_details.html',ret_dict)
 
 def check(request,idd):
-	t = Transaction.objects.filter(transaction_id = idd)[0]
+	t = Transaction.objects.filter(transaction_id = idd)
+	if len(t) == 0:
+		return render(request,'404.html',{'msg':'Transaction not found'})
+	else:
+		t = t[0]
+
 	task = Task.objects.filter(transaction_id = t.transaction_id)[0]
 	if 'done' in task.status:
 		ret_dict = {

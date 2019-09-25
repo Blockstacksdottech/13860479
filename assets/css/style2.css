@@ -1,0 +1,466 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap');
+body {
+    font-family: Montserrat;
+    color: #1d1d1b;
+}
+
+.file_but{
+    background-color:#006ab2 !important;
+    color:white !important;
+    padding:10px !important;
+    border-radius: 2px !important;
+    cursor:pointer !important;
+    margin:5px !important;
+    
+}
+.file_but:hover{
+    background-color:#42b574 !important;
+}
+
+.navbar {
+    padding: .0rem 1rem;
+    box-shadow: none !important;
+}
+
+.navbar.navbar-dark .navbar-nav .nav-item .nav-link {
+    color: #2f2929;
+    font-size: 13px;
+    transition: .3s all ease;
+    font-weight: 600;
+}
+
+.navbar.navbar-dark .navbar-nav .nav-item .nav-link:hover {
+    color: #2f2929;
+    transition: .3s all ease;
+    border-bottom: 2px solid #34b2aa;
+}
+
+.navbar .dropdown-menu a {
+    color: #2f2929;
+    font-size: 13px;
+    transition: .3s all ease;
+    font-weight: 600;
+}
+
+.header-border-img>img {
+    width: 100%;
+}
+
+@-webkit-keyframes blinker {
+    from {
+        opacity: 1.0;
+    }
+    to {
+        opacity: 0.0;
+    }
+}
+
+.pill-active {
+    color: #2f2929 !important;
+    font-weight: 600 !important;
+    text-decoration: blink;
+    -webkit-animation-name: blinker;
+    -webkit-animation-duration: 0.6s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-direction: alternate;
+}
+
+.pill-inactive {
+    color: #869a8f !important;
+    font-weight: 500 !important;
+    cursor: default !important;
+}
+
+
+/******* SELECT COINS *********/
+
+.h1-header {
+    font-weight: 900;
+    text-align: center;
+    /* font-size: 3rem; */
+    /* line-height: 1.5; */
+    text-transform: uppercase;
+    background: linear-gradient(to right, #30CFD0 0%, #330867 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.p-header {
+    font-weight: 500;
+    text-align: center;
+}
+
+.custom-select-lg {
+    font-size: 1rem;
+}
+
+.fa-exchange-alt {
+    opacity: 0.75;
+}
+
+.section-title {
+    font-weight: 500;
+    text-align: center !important;
+}
+
+.stats-number {
+    /* font-size: 3rem; */
+    font-weight: 700;
+    background: linear-gradient(to right, #30CFD0 0%, #330867 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.stats-text {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.jumbotron {
+    padding: 0rem;
+    width: 100%;
+}
+
+.btn-success {
+    background-color: #42b574 !important;
+    border-color: #42b574 !important;
+}
+
+.angle {
+    color: #495057 !important;
+    font-size: 1rem !important;
+    background-color: #fff !important;
+    background-clip: padding-box;
+    border: 1px solid #ced4da !important;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out !important;
+    box-shadow: none !important;
+    text-align: left !important;
+    text-transform: capitalize !important;
+}
+
+.angle::after {
+    display: none;
+}
+
+.dropdown-menu {
+    width: 100% !important;
+}
+
+.green-text {
+    color: #42b574 !important;
+}
+
+
+/* Tag cloud */
+
+.tagcloud03 ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.tagcloud03 ul li {
+    display: inline-block;
+    margin: 0 .3em .3em 0;
+    padding: 0;
+}
+
+.tagcloud03 ul li a {
+    position: relative;
+    display: inline-block;
+    max-width: 100px;
+    height: 28px;
+    line-height: 28px;
+    padding: 0 2.5em 0 1em;
+    background-color: #fff;
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    color: #333;
+    font-size: 13px;
+    text-decoration: none;
+    -webkit-transition: .2s;
+    transition: .2s;
+}
+
+
+/* Tag Cloud */
+
+
+/* Loader */
+
+
+/* Center the loader */
+
+#loader {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 1;
+    width: 150px;
+    height: 150px;
+    margin: -75px 0 0 -75px;
+    border: 16px solid #033a1b;
+    border-radius: 50%;
+    border-top: 16px solid #42b574;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* Add animation to "page content" */
+
+.animate-bottom {
+    position: relative;
+    -webkit-animation-name: animatebottom;
+    -webkit-animation-duration: 1s;
+    animation-name: animatebottom;
+    animation-duration: 1s
+}
+
+@-webkit-keyframes animatebottom {
+    from {
+        bottom: -100px;
+        opacity: 0
+    }
+    to {
+        bottom: 0px;
+        opacity: 1
+    }
+}
+
+@keyframes animatebottom {
+    from {
+        bottom: -100px;
+        opacity: 0
+    }
+    to {
+        bottom: 0;
+        opacity: 1
+    }
+}
+
+
+/* Loader */
+
+
+/* .list-unstyled {
+    padding-left: 20px;
+    list-style: disc;
+} */
+
+.list-unstyled li:before {
+    content: '';
+    position: absolute;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: #42b574;
+    margin-top: 10px;
+}
+
+footer.page-footer a {
+    color: #fff;
+    margin-left: 10px;
+}
+
+.list-unstyled li {
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+}
+
+
+/* BLOG CSS */
+
+.line-control-menu-bar .btn-default {
+    margin: 1rem !important;
+    background: transparent !important;
+    color: black !important;
+    padding: 0.2rem !important;
+    box-shadow: none !important;
+    font-family: inherit !important;
+}
+
+.line-control-menu-bar .dropdown-toggle {
+    background: transparent !important;
+}
+
+.line-control-menu-bar .dropdown-toggle {
+    font-size: 12px !important;
+}
+
+.dropdown-menu>li>a {
+    color: inherit !important;
+    font-size: 12px !important;
+    text-align: center !important;
+    padding-left: 1rem !important;
+    font-family: inherit !important;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #42b574 !important;
+}
+
+.card {
+    overflow: hidden;
+}
+
+.card-block .rotate {
+    z-index: 8;
+    float: right;
+    height: 100%;
+}
+
+.card-block .rotate i {
+    color: rgba(20, 20, 20, 0.15);
+    position: absolute;
+    left: 0;
+    left: auto;
+    right: -10px;
+    bottom: 0;
+    display: block;
+    -webkit-transform: rotate(-44deg);
+    -moz-transform: rotate(-44deg);
+    -o-transform: rotate(-44deg);
+    -ms-transform: rotate(-44deg);
+    transform: rotate(-44deg);
+}
+
+.display-1 {
+    text-align: center !important;
+    color: #ebebeb !important;
+}
+
+.navbar-toggler {
+    background-color: #42b574 !important;
+}
+
+.input-group-lg>.form-control:not(textarea) {
+    height: calc(1.5em + 1rem + 5px) !important;
+}
+
+.form-control-lg {
+    height: calc(1.5em + 1rem + 5px) !important;
+}
+
+
+/* Material design styling */
+
+
+/*placeholder style*/
+
+.note-placeholder {
+    position: absolute;
+    top: 20%;
+    left: 5%;
+    font-size: 2rem;
+    color: #e4e5e7;
+    pointer-events: none;
+}
+
+
+/*Toolbar panel*/
+
+.note-editor .note-toolbar {
+    background: #f0f0f1;
+}
+
+
+/*Buttons from toolbar*/
+
+.summernote .btn-group,
+.popover-content .btn-group {
+    background: transparent;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.note-popover {
+    background: #f0f0f1!important;
+}
+
+.summernote .btn,
+.note-btn {
+    color: rgba(0, 0, 0)!important;
+    background-color: transparent!important;
+    padding: .5rem 1.3rem !important;
+    font-size: 15px !important;
+    line-height: 1.42857;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.summernote .dropdown-toggle:after {
+    vertical-align: middle;
+}
+
+.note-editor.card {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-radius: 2px;
+}
+
+
+/* Padding of the text in textarea */
+
+.note-editor.note-frame .note-editing-area .note-editable {
+    padding-top: 1rem;
+}
+
+.btn-default.dropdown-toggle {
+    background-color: transparent !important;
+}
+
+.note-editor.note-frame {
+    border: 1px solid #ced4da !important;
+}
+
+.dd-selected-text {
+    font-size: 1rem !important;
+}
+
+.card.card-cascade .view.view-cascade.gradient-card-header {
+    padding: 1.6rem 1rem;
+    color: #fff;
+    text-align: center;
+}
+
+.card.card-cascade .view.view-cascade {
+    border-radius: .25rem;
+    box-shadow: 0 5px 11px 0 rgba(0,0,0,.18), 0 4px 15px 0 rgba(0,0,0,.15);
+}
+
+.view {
+    position: relative;
+    overflow: hidden;
+    cursor: default;
+}

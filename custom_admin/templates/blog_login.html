@@ -22,7 +22,7 @@
         <div class="container">
             <a class="navbar-brand text-dark" href="/">
                 <img src="/assets/img/logo.png" alt="Morphex" width="180" height="60">
-                <span> - Blog CMS</span>
+                <span> - Admin Pannel</span>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
                  <span class="navbar-toggler-icon"></span>
@@ -30,7 +30,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link text-uppercase" href="/custadmin">Admin</a>
+                        <a class="nav-link text-uppercase" href="/blog/admin">Blog CMS</a>
                     </li>
                 </ul>
             </div>
@@ -46,13 +46,13 @@
             <div class="row">
                 <div class="col-6 mx-auto">
 					<!-- Default form subscription -->
-					<form class="text-center border border-light p-5" action="/blog/login" class='login' method='post'>{% csrf_token %}
+					<form class="text-center border border-light p-5" action="/verfadmin" class='login' method='post'>{% csrf_token %}
                     
 
                         <p class="h4 mb-4">Login</p>
 
                         <!-- Email -->
-                        <input type="email" class="form-control mb-4" name='password' placeholder="E-mail">
+                        <input type="text" class="form-control mb-4" name='username' placeholder="E-mail">
 
                         <!-- Name -->
                         <input type="password" class="form-control mb-4"  name='password' placeholder="Password">
