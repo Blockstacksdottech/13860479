@@ -38,7 +38,7 @@ urlpatterns = [
     path('faq',faq),
     path('custadmin',view_login),
     path('verfadmin',verify_login),
-    path('pannel',show_pannel),
+    path('panel',show_pannel),
     path('logout',log_out),
     path('blog/logout',blog_log_out),
     path('blog/admin',blog_admin),

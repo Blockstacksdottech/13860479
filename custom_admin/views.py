@@ -17,7 +17,7 @@ def view_terms(request):
 def view_login(request):
 	username = request.session.get('user','')
 	if username != '':
-		return redirect('/pannel')
+		return redirect('/panel')
 	else:
 
 		return render(request,'blog_login.html')
@@ -36,7 +36,7 @@ def verify_login(request):
 			if password == usr.password:
 				request.session.set_expiry(0)
 				request.session['user'] = usr.username
-				return  redirect('/pannel')
+				return  redirect('/panel')
 			else:
 				return render(request,'blog_login.html',{'message':'password is incorrect'})
 				
@@ -143,7 +143,7 @@ def show_pannel(request):
 		ret_dict['top'] = top_list
 		l_trs = Transaction.objects.all().order_by('-created')[:10]
 		ret_dict['last'] = l_trs
-		return render(request,'pannel.html',ret_dict)
+		return render(request,'panel.html',ret_dict)
 	else:
 		return render(request,'blog_login.html',{'message':'please blog_login first'})
 

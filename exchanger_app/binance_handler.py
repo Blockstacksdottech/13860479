@@ -1,5 +1,6 @@
 from binance.client import Client
 from .settings import *
+import math
 
 
 class Handler:
@@ -19,6 +20,25 @@ class Handler:
 		out_value = rate * (amount - (amount * (fee/100)))
 		#out_value = rate * (amount)
 		return out_value
+	
+	def get_exchange_rate_rec(self,in_c,out_c,marge,received):
+		amount  = received
+		if in_c == 'BCH':
+			in_c  = 'BCHABC'
+		if out_c == 'BCH':
+			out_c =   'BCHABC'
+		first_c = self.client.get_ticker(symbol='{0}USDT'.format(str(in_c)))
+		second_c = self.client.get_ticker(symbol='{0}USDT'.format(str(out_c)))
+		rate = float(first_c['lastPrice']) / float(second_c['lastPrice'])
+		out_value = rate * (amount + (amount * (marge/100)))
+		#out_value = rate * (amount)
+		return out_value
+	
+	def get_precision(self,coin):
+		for x in self.client.get_symbol_info(symbol='{0}BTC'.format(coin))['filters']:
+			if x['filterType'] == 'LOT_SIZE':
+				return int(round(-math.log(float(x['stepSize']), 10), 0))
+
 
 	def get_single(self,coin,amount):
 		print(coin)

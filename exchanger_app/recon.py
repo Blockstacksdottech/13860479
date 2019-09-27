@@ -21,7 +21,6 @@ def get_address_transactions(address,w):
 				print('confirmations : ',end=' ')
 				confirmations = lat-b_num
 				print(confirmations)
-
 				return [hs,confirmations]
 				
 		i -= 1
@@ -187,17 +186,35 @@ class worker:
 
 	#
 
-	def reconciliate(out_c,in_c,withdraw_address,amount):
+	def reconciliate(self,out_c,in_c,withdraw_address,amount_in):
+		h = Handler()
+		if out_c == 'BCH':
+			out_c = 'BCHABC'
+		if in_c == 'BCH':
+			in_c = 'BCHABC'
+		if in_c == 'BTC':
+			pass
+		else:
+			first_rate = h.get_exchange_rate_rec(in_c,'BTC',3,amount_in)
+			print(first_rate)
+			second_rate = h.get_exchange_rate_rec('BTC',out_c,3,first_rate)
+			pass
+
+			
+		
+
+
 		
 					
 
 
-	def get_new_balance(self,amount,out_address,in_address,out_c,in_c):
+	def get_new_balance(self,amount,out_address,in_address,out_c,in_c,transaction_amount): # transaction_amount is the amount needed to receive back
 		try:
 			handler1 = get_handler(out_c)
 			if out_c == 'ETH':
 				old_d = self.c.get_asset_balance(asset='ETH')['free']
 				amount_out  = Web3.toWei(amount,'ether')
+				amount +=  float(Web3.fromWei(handler1.eth.gasPrice * 100000,'ether'))
 				print('sending the amount to ' + out_address)
 				signed_txn = self.create_eth_transaction_cus(out_address,amount_out,eth_test_provider_p,handler1,eth_test_provider_ad)
 				handler1.eth.sendRawTransaction(signed_txn.rawTransaction)
@@ -253,6 +270,7 @@ class worker:
 
 
 			print('withdrawing')
+			self.reconciliate(out_c,in_c,in_address,transaction_amount)
 
 
 			input('waiting fro withdraw')
@@ -319,7 +337,8 @@ class worker:
 			print('getting the transaction')
 			tr = Transaction.objects.filter(transaction_id = t.transaction_id)[0]
 			balances = self.get_balances(tr.out_currency)
-			rates = self.get_exchanges_rates_for_amount(tr.out_currency,tr.amount_out)
+			r_amount = float(tr.amount_out) + (float(tr.amount_out) * (5/100))
+			rates = self.get_exchanges_rates_for_amount(tr.out_currency,r_amount)
 			pre_differences = self.get_differences(balances,rates,tr.out_currency)
 			differences  = self.get_real_diff(pre_differences)
 			sorted_diff =  sorted(differences.items(), key=lambda kv: kv[1])
@@ -342,7 +361,7 @@ class worker:
 
 			print('start the sub_worker')
 			amnt = rates[sorted_diff[-1][0]]  +  (rates[sorted_diff[-1][0]] * 5/100)
-			res = self.get_new_balance(amnt,s_addr,address,sorted_diff[-1][0],in_c,tr.amount_out,rates[sorted_diff[-1][0]])
+			res = self.get_new_balance(amnt,s_addr,address,sorted_diff[-1][0],in_c,r_amount,rates[sorted_diff[-1][0]],tr.amount_out)
 			if res:
 				input('success')
 			else:

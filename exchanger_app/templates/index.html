@@ -56,7 +56,7 @@
 										<div id="send-select-coin" style="width:100%"></div>
 									</div>
 									<div class="col-lg-2 col-md-2 col-sm-12 text-center">
-										<a>
+										<a class="interchange">
 											<i class="fas fa-exchange-alt fa-3x"></i>
 										</a>
 									</div>
@@ -318,6 +318,29 @@ function hide(err){
             options: {
                 responsive: true
             }
+        });
+	
+		$( document ).ready(function() {
+        	$(".fa-exchange-alt").click(function(){
+        		var sendcoin=$('#send-select-coin .dd-selected .dd-selected-text').text();
+        		var sendimagesrc=$('#send-select-coin .dd-selected .dd-selected-image').attr('src');
+        		
+
+        		var sendvalue=$('#income').val();
+
+        		var receivesoin=$('#recieve-select-coin .dd-selected .dd-selected-text').text();
+        		var receiveimagesrc=$('#recieve-select-coin .dd-selected .dd-selected-image').attr('src');
+
+        		var outgovalue=$('#outgo').val();
+
+        		$('#send-select-coin .dd-selected .dd-selected-text').text(receivesoin);
+        		$('#send-select-coin .dd-selected .dd-selected-image').attr('src',receiveimagesrc);
+        		$('#income').val(outgovalue);
+        		$('#recieve-select-coin .dd-selected .dd-selected-text').text(sendcoin);
+        		$('#recieve-select-coin .dd-selected .dd-selected-image').attr('src',sendimagesrc);
+        		$('#outgo').val(sendvalue);
+        		
+        	});
         });
 	
 </script>
