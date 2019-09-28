@@ -97,10 +97,10 @@
 				<!-- Content -->
 				<h5 class="text-uppercase">NEWS LETTER</h5>
 				<p>Keep up with our always upcoming product features and technologies. Enter your e-mail and subscribe to our newsletter.</p>
-				<form class="input-group">
+				<form class="input-group" method='get' action='/subscribe'>
 					<input type="text" class="form-control " id='subscribe-email' name="email" placeholder="Your email" aria-label="Your email" aria-describedby="basic-addon2">
 					<div class="input-group-append">
-						<button class="btn btn-sm btn-success my-0" type="button">Subscribe</button>
+						<button class="btn btn-sm btn-success my-0" type="submit">Subscribe</button>
 					</div>
 				</form>
 			</div>
@@ -232,6 +232,11 @@
                 console.log(data);
             }
         });
+
+        $('#subscribe').submit(function() {
+                var email = $('#subscribe-email').val();
+                window.location.href = '/subscribe?email='+email
+            });
 
 
 

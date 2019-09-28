@@ -229,24 +229,24 @@
 			<div class="col-lg-6 col-md-12 col-sm-12 ">
 				<div class="row ">
 					<div class="col-6 text-center ">
-						<h2 class="stats-number h1-responsive ">702 </h2>
+						<h2 class="stats-number h1-responsive ">{{total}}</h2>
 						<hr>
 						<p class="stats-text ">Transactions</p>
 					</div>
 					<div class="col-6 text-center ">
-						<h2 class="stats-number h1-responsive ">0 Min</h2>
+						<h2 class="stats-number h1-responsive ">{{processed}}</h2>
 						<hr>
-						<p class="stats-text ">AVG. PROCESS TIME</p>
+						<p class="stats-text ">Processed transactions</p>
 					</div>
 				</div>
 				<div class="row my-5 ">
 					<div class="col-6 text-center ">
-						<h2 class="stats-number h1-responsive ">49 BTC</h2>
+						<h2 class="stats-number h1-responsive ">{{volume}}</h2>
 						<hr>
 						<p class="stats-text ">BTC VOLUME EQUIVALENT</p>
 					</div>
 					<div class="col-6 text-center ">
-						<h2 class="stats-number h1-responsive ">0</h2>
+						<h2 class="stats-number h1-responsive ">{{hck}}</h2>
 						<hr>
 						<p class="stats-text ">COINS LOST TROUGH HACKING</p>
 					</div>
@@ -310,7 +310,7 @@ function hide(err){
             data: {
                 labels: ["BtcToAlt", "AltToBtc", "AltToAlt"],
                 datasets: [{
-                    data: [60.0, 24.0, 16.0],
+                    data: [Number('{{high}}'), Number('{{mid}}'), Number('{{low}}')],
                     backgroundColor: ["#276eda", "#46BFBD", "#332a79"],
                     hoverBackgroundColor: ["#4a89eb", "#5AD3D1", "#4b3db4"]
                 }]

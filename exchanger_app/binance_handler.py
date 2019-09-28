@@ -35,6 +35,9 @@ class Handler:
 		return out_value
 	
 	def get_precision(self,coin):
+		if coin == 'BCH':
+			coin = 'BCHABC'
+		print(coin)
 		for x in self.client.get_symbol_info(symbol='{0}BTC'.format(coin))['filters']:
 			if x['filterType'] == 'LOT_SIZE':
 				return int(round(-math.log(float(x['stepSize']), 10), 0))

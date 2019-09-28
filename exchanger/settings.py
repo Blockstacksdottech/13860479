@@ -174,3 +174,8 @@ mon_receiver_index  = 1
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'assets/media')
+
+
+mail_api_key = '6bf4532f710ef0edffbdc8b2c1327437-us20'
+mail_list_id = '779d16a8d7'
+ 

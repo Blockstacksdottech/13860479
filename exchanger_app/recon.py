@@ -65,19 +65,24 @@ class worker:
 				continue
 			else:
 				if x == 'ETH':
-					rate =  h.get_exchange_rate(coin,'ETH',1,amount)
+					prec = h.get_precision('ETH')
+					rate =  round(h.get_exchange_rate(coin,'ETH',1,amount),prec) + (10**-prec)
 					res_dict[x] = rate
 				elif x == 'BTC':
-					rate =  h.get_exchange_rate(coin,'BCH',1,amount)
+					prec = 3
+					rate =  round(h.get_exchange_rate(coin,'BTC',1,amount),prec) + (10**-prec)
 					res_dict[x] = rate
 				elif x == 'BCH':
-					rate =  h.get_exchange_rate(coin,'BCH',1,amount)
+					prec = h.get_precision('BCH')
+					rate =  round(h.get_exchange_rate(coin,'BCH',1,amount),prec) + (10**-prec)
 					res_dict[x] = rate
 				elif x == 'LTC':
-					rate =  h.get_exchange_rate(coin,'LTC',1,amount)
+					prec = h.get_precision('LTC')
+					rate =  round(h.get_exchange_rate(coin,'LTC',1,amount),prec) + (10**-prec)
 					res_dict[x] = rate
 				elif x == 'XMR':
-					rate =  h.get_exchange_rate(coin,'XMR',1,amount)
+					prec = h.get_precision('XMR')
+					rate =  round(h.get_exchange_rate(coin,'XMR',1,amount),prec) + (10**-prec)
 					res_dict[x] = rate
 
 		return res_dict
@@ -195,10 +200,26 @@ class worker:
 		if in_c == 'BTC':
 			pass
 		else:
-			first_rate = h.get_exchange_rate_rec(in_c,'BTC',3,amount_in)
+			prec  = 3
+			first_rate = round(h.get_exchange_rate_rec(in_c,'BTC',3,amount_in),prec) + (10**-prec)
+
 			print(first_rate)
-			second_rate = h.get_exchange_rate_rec('BTC',out_c,3,first_rate)
-			pass
+			second_rate = round(h.get_exchange_rate_rec('BTC',out_c,3,first_rate),prec) + (10**-prec)
+			print(second_rate)
+			input('check')
+			if out_c == 'BCH':
+				out_c_b = 'BCHABC'
+			else:
+				out_c_b  = out_c
+			
+			if in_c == 'BCH':
+				in_c_b = 'BCHABC'
+			else:
+				in_c_b = 'BCHABC' 
+			old_btc_balance = self.client.get_asset_balance(asset='BTC')['free']
+			old_in_balance  = self.client.get_asset_balance(asset=in_c_b)['free']
+
+
 
 			
 		
@@ -229,12 +250,16 @@ class worker:
 				res = handler1.send('transfer',destinations=[{'amount':amount_out,'address':out_address}],account_index = mon_receiver_index)
 				print(res)
 			else:
+				print('here in btc')
+				"""
 				if out_c == 'BTC':
 					old_d = self.c.get_asset_balance(asset='BTC')['free']
 				elif out_c == 'BCH':
 					old_d = self.c.get_asset_balance(asset='BCHABC')['free']
 				elif out_c == 'LTC':
 					old_d = self.c.get_asset_balance(asset='LTC')['free']
+
+				"""
 				print('sending')
 				amount_out = round(amount,8)
 				print('sending amount : ',end=' ')
@@ -244,7 +269,7 @@ class worker:
 					print('failed')
 
 			print('checking if deposit arrived')
-			restart = True
+			restart = False
 			while restart:
 				if out_c == 'ETH':
 					new_d = self.c.get_asset_balance(asset='ETH')['free']
@@ -337,10 +362,15 @@ class worker:
 			print('getting the transaction')
 			tr = Transaction.objects.filter(transaction_id = t.transaction_id)[0]
 			balances = self.get_balances(tr.out_currency)
+			input(tr.amount_out)
 			r_amount = float(tr.amount_out) + (float(tr.amount_out) * (5/100))
+			input(r_amount)
 			rates = self.get_exchanges_rates_for_amount(tr.out_currency,r_amount)
+			print('after rates')
 			pre_differences = self.get_differences(balances,rates,tr.out_currency)
+			print('after pre')
 			differences  = self.get_real_diff(pre_differences)
+			print('after diff')
 			sorted_diff =  sorted(differences.items(), key=lambda kv: kv[1])
 			print(sorted_diff)
 			print('the best paire is')
@@ -348,6 +378,7 @@ class worker:
 			s_addr = input('sending address ==> ')
 			in_c = tr.out_currency
 			handler = get_handler(in_c)
+			hb = Handler()
 
 			if in_c == 'ETH':
 				account = handler.eth.account.create('check this')
@@ -360,8 +391,14 @@ class worker:
 				address = handler.send('getnewaddress',main_test_label)
 
 			print('start the sub_worker')
-			amnt = rates[sorted_diff[-1][0]]  +  (rates[sorted_diff[-1][0]] * 5/100)
-			res = self.get_new_balance(amnt,s_addr,address,sorted_diff[-1][0],in_c,r_amount,rates[sorted_diff[-1][0]],tr.amount_out)
+			#if sorted_diff[-1][0] == 'BTC':
+			#	prec = 3
+			#else:
+			#	prec = hb.get_precision(sorted_diff[-1][0])
+			amnt = rates[sorted_diff[-1][0]]  
+			print(sorted_diff[-1][0])
+			input(amnt)
+			res = self.get_new_balance(amnt,s_addr,address,sorted_diff[-1][0],in_c,tr.amount_out)
 			if res:
 				input('success')
 			else:

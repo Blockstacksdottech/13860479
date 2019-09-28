@@ -216,7 +216,7 @@ class listener:
 				balance = self.get_mon_balance(self.handler)
 
 			if amount_out >= balance:
-				input('not enough balance')
+				self.set_transaction_message(self.transaction_id,'checking availability','pending')
 			else:
 				if 'ETH' == self.transaction.out_currency:
 					amount_out  = Web3.toWei(amount_out,'ether')
@@ -289,7 +289,7 @@ class listener:
 				balance = self.get_mon_balance(second_handler)
 			
 			if amount_out >= balance:
-				input('not enough balance')
+				self.set_transaction_message(self.transaction_id,'checking availability','pending')
 			else:
 				if 'ETH' == self.transaction.out_currency:
 					amount_out  = Web3.toWei(amount_out,'ether')

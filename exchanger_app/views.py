@@ -10,6 +10,8 @@ import time
 from bs4 import BeautifulSoup
 from .nodes_handler import *
 from .in_listener import *
+import mailchimp3
+from django.core.mail import send_mail
 
 # Create your views here.
 
@@ -118,9 +120,24 @@ def get_exchange_rates():
 			continue
 	
 
+def get_equivalent(lst):
+	h = Handler()
+	final_amount = 0
+	for x in lst:
+		if x.out_currency == 'BTC':
+			final_amount += x.amount_out
+		else:
+			final_amount += h.get_exchange_rate(x.out_c,'BTC',1,x.amount_out)
+	
+	return round(final_amount,4)
 
 	
-
+def get_rates():
+	tr1 = Transaction.objects.filter(out_currency = 'BTC')
+	tr2 = Transaction.objects.filter(in_currency='BTC')
+	trs = Transaction.objects.all() 
+	lst = [float(len(tr1)),float(len(tr2)),float(len(trs) - len(tr1) - len(tr2))]
+	return sorted(lst)[::-1]
 
 def index(request):
 	listnr = Listener.objects.filter(name='price_updater')
@@ -138,6 +155,21 @@ def index(request):
 			lstnr.save()
 
 	ret_dict = get_exchange_rates()
+	h_c_s = hacking_status.objects.all()[0]
+	h_amount  = h_c_s.amount
+	total = len(Transaction.objects.all())
+	
+	processed_cont = [Transaction.objects.filter(transaction_id = t.transaction_id)[0] for t in Task.objects.filter(status='done') if len(Transaction.objects.filter(transaction_id = t.transaction_id)) != 0]
+	processed = len(processed_cont)
+	equivalent = get_equivalent(processed_cont)
+	rates = get_rates()
+	ret_dict.update({'total':total,'processed':processed,'volume':str(equivalent),'hck':str(h_amount),
+	'high':rates[0],
+	'mid':rates[1],
+	'low':rates[2]
+	
+	})
+
 	return render(request,'index.html',ret_dict)
 
 # exchange section
@@ -334,15 +366,38 @@ def contact(request):
 	ret_dict = get_exchange_rates()
 	return render(request,'contact.html',ret_dict)
 
+def send_mail_contact(request):
+	name = request.GET.get('name','')
+	mail = request.GET.get('email','')
+	content = request.GET.get('content','')
+	if name != '' and mail != '' and content != '':
+		send_mail(
+    '[Morphex] Contact email [{0}]'.format(name),
+    content,
+    mail,
+    ['sky.red2212@gmail.com'],
+    fail_silently=False,
+)		
+		return render(request,'success.html')
+	else:
+		return redirect('/contact')
+
 def subscribe(request):
 	
 	mail = request.GET.get('email','')
 	if mail != '':
+		a = mailchimp3.MailChimp(mail_api_key)
 		ret_dict = get_exchange_rates()
 		ret_dict.update({
 			'message':'subscribed to the newsletter'
 			})
+		a.lists.members.create(mail_list_id,{'email_address':mail,'status':'subscribed'})
+		print('error here')
+		s = subscribers.objects.create(email=mail)
+		s.save()
+
 		return render(request,'success.html',ret_dict)
+		#return redirect('/')
 	else:
 		return redirect('/')
 

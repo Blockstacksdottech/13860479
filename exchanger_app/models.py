@@ -77,4 +77,17 @@ class Eth_wallets(models.Model):
 	def __str__(self):
 		return self.public_key
 
+class subscribers(models.Model):
+	email = models.CharField(max_length=255)
+	date = models.DateTimeField(auto_now_add=True)
+
+	def __str__(self):
+		return self.email
+
+class hacking_status(models.Model):
+	amount = models.FloatField(default=0)
+
+	def __str__(self):
+		return str(self.amount)
+
 
