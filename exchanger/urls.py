@@ -60,6 +60,7 @@ urlpatterns = [
     path('settings/changedelay',change_delay),
     path('remove/<str:idd>',remove_tr),
     path('terms',view_terms),
-    path('sendmail',send_mail_contact)
+    path('sendmail',send_mail_contact),
+    path('validate',validator)
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

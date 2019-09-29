@@ -12,6 +12,7 @@ from .nodes_handler import *
 from .in_listener import *
 import mailchimp3
 from django.core.mail import send_mail
+from monero.address import address as mon_checker
 
 # Create your views here.
 
@@ -84,6 +85,57 @@ def get_exchange_rates_api():
 		time.sleep(20)
 
 
+def check_valid(coin,address):
+	h = get_handler(coin)
+	if coin == 'ETH':
+		res = h.isAddress(address)
+	elif coin == 'XMR':
+		try:
+			print('XMR')
+			print(address)
+			pre_res = mon_checker(address)
+			res = True
+		except:
+			res = False
+	else:
+		if coin == 'LTC':
+			resp = h.send('validateaddress',address)
+			res = resp['isvalid']
+		else:
+			res = h.send('validateaddress',address)['isvalid']
+	return res
+
+
+
+
+def validator(request):
+	in_c = request.POST.get('inCurrency','')
+	in_addr =  request.POST.get('refundAddress','')
+	out_c = request.POST.get('outCurrency','')
+	out_addr = request.POST.get('returnAddress','')
+	if in_c != '' and out_c != '' and in_addr != '' and out_addr != '':
+		in_status =  check_valid(in_c,in_addr)
+		out_status = check_valid(out_c,out_addr)
+		if in_status and out_status:
+			return {
+				'valid' : True
+			}
+		else:
+			if in_status:
+				return {
+					'valid':False,
+					'reason':2
+				}
+			elif out_status:
+				return {
+					'valid':False,
+					'reason':1
+				}
+			else:
+				return {
+					'valid':False,
+					'reason':0
+				}
 
 
 
@@ -127,7 +179,7 @@ def get_equivalent(lst):
 		if x.out_currency == 'BTC':
 			final_amount += x.amount_out
 		else:
-			final_amount += h.get_exchange_rate(x.out_c,'BTC',1,x.amount_out)
+			final_amount += h.get_exchange_rate(x.out_currency,'BTC',1,x.amount_out)
 	
 	return round(final_amount,4)
 
@@ -220,80 +272,91 @@ def run_lstn(coin,t,l):
 
 def start(request):
 	if request.method == "POST":
-		in_c  = request.POST.get('inCurrency','')
-		out_c = request.POST.get('outCurrency','')
-		refund_address = request.POST.get('refundAddress','')
-		return_address = request.POST.get('returnAddress','')
-		while True:
-			idd = str(random.randrange(10000,10000000000000))
-			if len(Transaction.objects.filter(transaction_id = idd)) != 0:
-				continue
+		check_res = validator(request)
+		if check_res['valid']:
+			in_c  = request.POST.get('inCurrency','')
+			out_c = request.POST.get('outCurrency','')
+			refund_address = request.POST.get('refundAddress','')
+			return_address = request.POST.get('returnAddress','')
+			while True:
+				idd = str(random.randrange(10000,10000000000000))
+				if len(Transaction.objects.filter(transaction_id = idd)) != 0:
+					continue
+				else:
+					break
+			#out_mod = Currencies.objects.filter(currency=out_c)[0]
+			#in_mod = Currencies.objects.filter(currency=in_c)[0]
+			handler = get_handler(in_c)
+			if handler:
+				pass
 			else:
-				break
-		#out_mod = Currencies.objects.filter(currency=out_c)[0]
-		#in_mod = Currencies.objects.filter(currency=in_c)[0]
-		handler = get_handler(in_c)
-		if handler:
-			pass
-		else:
-			return HttpResponse(json.dumps({
-			'processId':'undefined'
-		}))
+				check_res = {
+			'valid': False,
+			'reason':4
+		}
+				return HttpResponse(json.dumps(check_res))
 
-		# get new address
-		if in_c == 'ETH':
-			account = handler.eth.account.create('check this')
-			address = account.address
-		elif in_c == 'XMR':
-			resp = handler.send('create_address',account_index=mon_receiver_index)
-			address = resp['result']['address']
-		else:
-			address = handler.send('getnewaddress',main_test_label)
-		
-		
-
-
-
-
-
-
-		# when the nodes are integrated generate an address directly from the client
-		t = Transaction.objects.create(
-			transaction_id = idd,
-			return_address = return_address,
-			refund_address = refund_address,
-			recv_address = address, #make an address getter
-			in_currency = in_c,
-			out_currency = out_c,
-			hash_tr = 'None'
+			# get new address
+			if in_c == 'ETH':
+				account = handler.eth.account.create('check this')
+				address = account.address
+			elif in_c == 'XMR':
+				resp = handler.send('create_address',account_index=mon_receiver_index)
+				address = resp['result']['address']
+			else:
+				address = handler.send('getnewaddress',main_test_label)
 			
-		)
-		t.save()
-		
-		if in_c == 'ETH':
-			this_arg  = account
-		else:
-			this_arg = address
-		tr = threading.Thread(target=run_lstn,args=(in_c,t,this_arg,))
-		tr.daemon = True
-		tr.start()
+			
 
-		
-		return HttpResponse(json.dumps({
-			'processId':t.transaction_id
-		}))
+
+
+
+
+
+			# when the nodes are integrated generate an address directly from the client
+			t = Transaction.objects.create(
+				transaction_id = idd,
+				return_address = return_address,
+				refund_address = refund_address,
+				recv_address = address, #make an address getter
+				in_currency = in_c,
+				out_currency = out_c,
+				hash_tr = 'None'
+				
+			)
+			t.save()
+			
+			if in_c == 'ETH':
+				this_arg  = account
+			else:
+				this_arg = address
+			tr = threading.Thread(target=run_lstn,args=(in_c,t,this_arg,))
+			tr.daemon = True
+			tr.start()
+
+			
+			return HttpResponse(json.dumps({
+				'valid':True,
+				'processId':t.transaction_id
+			}))
+
+		else:
+			return HttpResponse(json.dumps(check_res))
 
 
 
 
 	else:
-		return HttpResponse(json.dumps({
-			'processId':'undefined'
-		}))
+		check_res = {
+			'valid': False,
+			'reason':4
+		}
+		return HttpResponse(json.dumps(check_res))
 
 def view_tr(request,idd):
 	pass
 	t = Transaction.objects.filter(transaction_id = idd)[0]
+	
 	ret_dict = {
 			'id':t.transaction_id,
 			'incomeCurrency':t.in_currency,
@@ -303,6 +366,9 @@ def view_tr(request,idd):
 			'recvAddress':t.return_address,
 			'returnAddress':t.refund_address
 		}
+
+	ret_dict2 = get_exchange_rates()
+	ret_dict.update(ret_dict2)
 	return render(request,'exchange_details.html',ret_dict)
 
 def check(request,idd):
@@ -323,8 +389,10 @@ def check(request,idd):
 				'hash':t.hash_tr
 
 		}
+		ret_dict2 = get_exchange_rates()
+		ret_dict.update(ret_dict2)
 		return render(request,'transaction_done.html',ret_dict)
-	elif 'waiting'  in task.status:
+	elif 'Awaiting deposit ...'  in task.status:
 		ret_dict ={
 			'id':t.transaction_id,
 			'in_c':t.in_currency,
@@ -337,6 +405,8 @@ def check(request,idd):
 			'status':task.status
 
 		}
+		ret_dict2 = get_exchange_rates()
+		ret_dict.update(ret_dict2)
 		return render(request,'exchange_details.html',ret_dict)
 	else:
 		ret_dict ={
@@ -346,6 +416,8 @@ def check(request,idd):
 			
 
 		}
+		ret_dict2 = get_exchange_rates()
+		ret_dict.update(ret_dict2)
 		return render(request,'exchanging.html',ret_dict)
 
 

@@ -41,7 +41,7 @@ class Transaction(models.Model):
 		else:
 			t = Task.objects.create(transaction_id = self.transaction_id,
 			action = 'Waiting for funds',
-			status = 'waiting'
+			status = 'Awaiting deposit ...'
 			)
 			t.save()
 		super(Transaction, self).save(*args, **kwargs)

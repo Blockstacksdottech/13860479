@@ -78,7 +78,7 @@
 											title="For your refund address, please enter an address for your original currency. This is where morphex will send your coins back if something goes wrong with your exchange. For example, if you are exchanging BTC for ETH, please enter a Bitcoin wallet here." >
 										</a>
 								</label>
-								<input type="text" class="form-control  form-control-lg mb-4" placeholder="Your {{c_in}} refund address" id='r_wallet'>
+								<input type="text" class="form-control  form-control-lg mb-4" placeholder="Your {{cur_in}} refund address" id='r_wallet'>
 
 								<label>
 									Receiving address
@@ -88,7 +88,7 @@
 											title="For your receiving address, please enter an address for the currency you would like to receive from the exchange. For example, if you are exchanging BTC for ETH, please enter an Ether address here." >
 										</a>
 								</label>
-								<input type="text" class="form-control form-control-lg mb-4" placeholder="Your {{c_out}} receiving address" id='b_wallet'>
+								<input type="text" class="form-control form-control-lg mb-4" placeholder="Your {{cur_out}} receiving address" id='b_wallet'>
 
 								<div class=" mb-4">
 									<input type="checkbox" name="terms">
@@ -137,6 +137,7 @@
 	var token = jQuery("[name=csrfmiddlewaretoken]").val();
 	console.log(token);
 	
+
 	$(document).ready(function() {
 		var inc = '{{cur_in}}' ;
 		var outc = '{{cur_out}}' ;
@@ -167,7 +168,20 @@
 					.done(function(data) {
 						
 						var data = JSON.parse(data)
+						if (data.valid){
 						window.location.href = "/details/" + data.processId;
+						}else{
+							if (data.reason == 0){
+								setMessage('Enter a valid refund and receiving address');
+							}else if (data.reason == 1){
+								setMessage('Enter a valid refund address');
+
+							}else if (data.reason == 2){
+								setMessage('Enter a valid receiving address');
+							}else{
+								setMessage('Internal error please check later or contact support');
+							}
+						}
 					})
 					.fail(function(xhr, textStatus, errorThrown) {
 						setMessage('The API rejected this Addresses!')

@@ -469,4 +469,8 @@ footer.page-footer a {
     color: #8e9092;
 }
 
+.table-bordered td, .table-bordered th {
+    border: 1px solid #000 !important;
+}
+
 
