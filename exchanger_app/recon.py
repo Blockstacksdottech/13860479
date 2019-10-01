@@ -200,12 +200,12 @@ class worker:
 		if in_c == 'BTC':
 			pass
 		else:
-			prec  = 3
-			first_rate = round(h.get_exchange_rate_rec(in_c,'BTC',3,amount_in),prec) + (10**-prec)
+			#prec  = 3
+			#first_rate = round(h.get_exchange_rate_rec(in_c,'BTC',3,amount_in),prec) + (10**-prec)
 
-			print(first_rate)
-			second_rate = round(h.get_exchange_rate_rec('BTC',out_c,3,first_rate),prec) + (10**-prec)
-			print(second_rate)
+			#print(first_rate)
+			#second_rate = round(h.get_exchange_rate_rec('BTC',out_c,3,first_rate),prec) + (10**-prec)
+			#print(second_rate)
 			input('check')
 			if out_c == 'BCH':
 				out_c_b = 'BCHABC'
@@ -215,9 +215,75 @@ class worker:
 			if in_c == 'BCH':
 				in_c_b = 'BCHABC'
 			else:
-				in_c_b = 'BCHABC' 
+				in_c_b = in_c
 			old_btc_balance = self.client.get_asset_balance(asset='BTC')['free']
-			old_in_balance  = self.client.get_asset_balance(asset=in_c_b)['free']
+			precision = h.get_precision(in_c_b)
+			old_in_balance  = round(self.client.get_asset_balance(asset=in_c_b)['free'],precision)
+			trade_1 = self.c.order_market_buy(symbol='{0}BTC'.format(in_c_b),quantity=round(h.get_exchange_rate(in_c_b,'BTC',0,old_in_balance),3))
+			print(trade_1)
+			print('checking for trade')
+			out_c = 'BTC'
+			restart = True
+			while restart:
+				if out_c == 'ETH':
+					new_d = self.c.get_asset_balance(asset='ETH')['free']
+				elif out_c == 'XMR':
+					new_d = self.c.get_asset_balance(asset='XMR')['free']
+				else:
+					if out_c == 'BTC':
+						new_d = self.c.get_asset_balance(asset='BTC')['free']
+					elif out_c == 'BCH':
+						new_d = self.c.get_asset_balance(asset='BCHABC')['free']
+					elif out_c == 'LTC':
+						new_d = self.c.get_asset_balance(asset='LTC')['free']
+
+				if  new_d !=  old_btc_balance:
+					restart = False
+				else:
+					continue
+			new_btc_balance = self.c.get_asset_balance(asset='BTC')['free']
+			old_out_balance = self.c.get_asset_balance(asset=out_c_b)['free']
+			trade2 = self.c.order_market_sell(symbol='{0}BTC'.format(out_c_b),quantity=round(h.get_exchange_rate('BTC',out_c_b,0,new_btc_balance),3))
+			print(trade2)
+			print('checking for trade')
+			out_c = out_c_b
+			restart = True
+			while restart:
+				if out_c == 'ETH':
+					new_d = self.c.get_asset_balance(asset='ETH')['free']
+				elif out_c == 'XMR':
+					new_d = self.c.get_asset_balance(asset='XMR')['free']
+				else:
+					if out_c == 'BTC':
+						new_d = self.c.get_asset_balance(asset='BTC')['free']
+					elif out_c == 'BCH':
+						new_d = self.c.get_asset_balance(asset='BCHABC')['free']
+					elif out_c == 'LTC':
+						new_d = self.c.get_asset_balance(asset='LTC')['free']
+
+				if  new_d !=  old_out_balance:
+					restart = False
+				else:
+					continue
+			final_balance = self.c.get_asset_balance(asset=out_c_b)['free']
+			precision = h.get_precision(out_c_b)
+			with_res = self.c.withdraw(asset=out_c_b,address=withdraw_address,amount=round(final_balance,precision))
+			try:
+				if with_res['message'] == 'success':
+					return True
+				else:
+					print('failed withdraw')
+					return False
+			except Exception as e:
+				print(str(e))
+				print('failed withdraw')
+				return False
+
+			
+
+			
+
+
 
 
 
@@ -344,6 +410,7 @@ class worker:
 			return True
 		except  Exception as e:
 			print(str(e))
+			print('something went wrong')
 			return False
 
 
@@ -360,11 +427,34 @@ class worker:
 			print('starting reconciliation task for transaction ID : ',end=' ')
 			print(t.transaction_id)
 			print('getting the transaction')
+			hb = Handler()
 			tr = Transaction.objects.filter(transaction_id = t.transaction_id)[0]
+			####
+			prec = 3
+			first_rate = round(hb.get_exchange_rate_rec(tr.out_currency,'BTC',3,tr.amount_out),prec) + (10**-prec)
+			second_rate = round(hb.get_exchange_rate_rec('BTC',tr.out_currency,3,first_rate),prec) + (10**-prec)
+
+
+			#####
+			
+			
 			balances = self.get_balances(tr.out_currency)
 			input(tr.amount_out)
-			r_amount = float(tr.amount_out) + (float(tr.amount_out) * (5/100))
+			#r_amount = float(tr.amount_out) + (float(tr.amount_out * 5/100)) + hb.get_usd_equiv(tr.out_currency,10)
+			r_amount = second_rate + hb.get_usd_equiv(tr.out_currency,10)
+			print(second_rate)
 			input(r_amount)
+			r_amount_single  = hb.get_single(tr.out_currency,r_amount)
+			print(r_amount_single)
+			if round(100-r_amount_single,3) > 0:
+				r_amount = hb.get_usd_equiv(tr.out_currency,100)
+				
+			else:
+				pass
+			input('check')
+
+				
+			
 			rates = self.get_exchanges_rates_for_amount(tr.out_currency,r_amount)
 			print('after rates')
 			pre_differences = self.get_differences(balances,rates,tr.out_currency)
@@ -378,7 +468,7 @@ class worker:
 			s_addr = input('sending address ==> ')
 			in_c = tr.out_currency
 			handler = get_handler(in_c)
-			hb = Handler()
+			
 
 			if in_c == 'ETH':
 				account = handler.eth.account.create('check this')
@@ -416,12 +506,42 @@ class worker:
 		except Exception as e:
 			input(str(e))
 
+
+	def recheck_balance(self,transaction):
+		self.handler2 = get_handler(transaction.out_currency)
+		self.transaction  = transaction
+		if 'ETH' == self.transaction.out_currency:
+			balance =float(Web3.fromWei(self.handler2.eth.getBalance(eth_test_provider_ad),'ether'))
+		elif 'BTC' == self.transaction.out_currency:
+			balance = self.handler2.send('getbalance')
+		elif 'LTC' == self.transaction.out_currency:
+			balance = self.handler2.send('getbalance')
+			
+		elif 'XMR' == self.transaction.out_currency:
+			balance = self.get_mon_balance(self.handler2)
+		
+		if self.transaction.amount_out >= balance:
+			return False
+		else:
+			return True
+
 	
 
 	def run(self):
 		while True:
-			t_pending = Task.objects.filter(status='pending')
+			#t_pending = Task.objects.filter(status='pending')
+			t_pending  = Task.objects.filter(transaction_id = '7353548484328')
 			for t in t_pending:
-				res = self.handle_pending(t)
+				transaction = Transaction.objects.filter(transaction_id = t.transaction_id)
+				print('here')
+				print(transaction)
+				if len(transaction) == 0:
+					continue
+				else:
+					check_res = self.recheck_balance(transaction[0])
+					if check_res:
+						res = self.handle_pending(t)
+					else:
+						continue
 			input('check')
 				

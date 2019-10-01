@@ -48,10 +48,16 @@ class Handler:
 		if coin == 'BCH':
 			coin = 'BCHABC'
 		tick = self.client.get_ticker(symbol='{0}USDT'.format(str(coin)))
-		price = float(tick['lastPrice'])
+		price = float(float(tick['lastPrice']) * amount) 
 
 		return price
-	
+	def get_usd_equiv(self,coin,amount):
+		print(coin)
+		if coin == 'BCH':
+			coin = 'BCHABC'
+		tick = self.client.get_ticker(symbol='{0}USDT'.format(str(coin)))
+		price = amount / float(tick['lastPrice']) 
+		return price
 	def get_rate(self,coin,amount):
 		if coin == 'BCH':
 			coin = 'BCHABC'

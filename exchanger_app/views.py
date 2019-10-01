@@ -36,7 +36,11 @@ def get_exchange_rates_api():
 
 def get_exchange_rates_api():
 	while True:
-		resp = req.get('https://coinmarketcap.com/')
+		try:
+			resp = req.get('https://coinmarketcap.com/')
+		except:
+			time.sleep(5)
+			continue
 		soup = BeautifulSoup(resp.content.decode(),'html.parser')
 		table = soup.find('table')
 		trs = table.find('tbody').findAll('tr')
@@ -188,8 +192,9 @@ def get_rates():
 	tr1 = Transaction.objects.filter(out_currency = 'BTC')
 	tr2 = Transaction.objects.filter(in_currency='BTC')
 	trs = Transaction.objects.all() 
-	lst = [float(len(tr1)),float(len(tr2)),float(len(trs) - len(tr1) - len(tr2))]
-	return sorted(lst)[::-1]
+	lst = {'altToBTC':float(len(tr1)),'BtcToAlt':float(len(tr2)),'AltToAlt':float(len(trs) - len(tr1) - len(tr2))}
+	lst_sorted = sorted(lst.items(), key=lambda kv: kv[1])
+	return sorted(lst_sorted)[::-1]
 
 def index(request):
 	listnr = Listener.objects.filter(name='price_updater')
@@ -216,9 +221,9 @@ def index(request):
 	equivalent = get_equivalent(processed_cont)
 	rates = get_rates()
 	ret_dict.update({'total':total,'processed':processed,'volume':str(equivalent),'hck':str(h_amount),
-	'high':rates[0],
-	'mid':rates[1],
-	'low':rates[2]
+	rates[0][0]:rates[0][1],
+	rates[1][0]:rates[1][1],
+	rates[2][0]:rates[2][1]
 	
 	})
 

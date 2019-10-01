@@ -305,12 +305,31 @@ function hide(err){
 							});
 	//doughnut
 	var ctxD = document.getElementById("doughnutChart").getContext('2d');
+	var t = [];
+	var t2 = [];
+	var h = Number('{{BtcToAlt}}');
+	var m =  Number('{{AltToBTC}}');
+	var l =  Number('{{AltToAlt}}')
+	if (h >  0){
+		t.push('BtcToAlt');
+		t2.push(h);
+	}
+	if (m>0){
+		t.push('AltToBTC');
+		t2.push(m);
+	}
+	if (l>0){
+		t.push('AltToAlt');
+		t2.push(l);
+	}
+	console.log(t);
+	console.log(t2);
         var myLineChart = new Chart(ctxD, {
             type: 'doughnut',
             data: {
-                labels: ["BtcToAlt", "AltToBtc", "AltToAlt"],
+                labels: t,
                 datasets: [{
-                    data: [Number('{{high}}'), Number('{{mid}}'), Number('{{low}}')],
+                    data: t2,
                     backgroundColor: ["#276eda", "#46BFBD", "#332a79"],
                     hoverBackgroundColor: ["#4a89eb", "#5AD3D1", "#4b3db4"]
                 }]

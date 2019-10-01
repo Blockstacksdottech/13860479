@@ -3,6 +3,7 @@ import requests as req
 import json
 from .settings import *
 from requests.auth import HTTPDigestAuth
+import time
 
 
 #needed variable
@@ -31,8 +32,13 @@ class Bitcoin:
 		custom_payload['params'] = params
 
 		# sending and recieving response from the node
-
-		resp = req.post(self.url,json = custom_payload,headers = headers)
+		while True:
+			try:
+				resp = req.post(self.url,json = custom_payload,headers = headers)
+				break
+			except:
+				print('request failed')
+				time.sleep(5)
 		data = json.loads(resp.content.decode())
 		if data['error']:
 			return False
@@ -56,8 +62,13 @@ class Monero:
 		custom_payload['method'] = command
 		custom_payload['params'] = params
 		#print(custom_payload)
-
-		resp = req.post(self.url ,auth=HTTPDigestAuth(self.user,self.password), json=custom_payload,headers=headers)
+		while True:
+			try:
+				resp = req.post(self.url ,auth=HTTPDigestAuth(self.user,self.password), json=custom_payload,headers=headers)
+				break
+			except:
+				print('request failed')
+				time.sleep(5)
 		#print(resp.content.decode())
 		data = json.loads(resp.content.decode())
 		#print(data)
@@ -86,8 +97,12 @@ class BitcoinCash:
 		custom_payload['params'] = params
 
 		# sending and recieving response from the node
-
-		resp = req.post(self.url,json = custom_payload,headers = headers)
+		while True:
+			try:
+				resp = req.post(self.url,json = custom_payload,headers = headers)
+			except:
+				print('request failed')
+				time.sleep(5)
 		data = json.loads(resp.content.decode())
 		if data['error']:
 			return False
@@ -112,8 +127,12 @@ class Litecoin:
 		custom_payload['params'] = params
 
 		# sending and recieving response from the node
-
-		resp = req.post(self.url,json = custom_payload,headers = headers)
+		while True:
+			try:
+				resp = req.post(self.url,json = custom_payload,headers = headers)
+			except:
+				print('request failed')
+				time.sleep(5)
 		data = json.loads(resp.content.decode())
 		print(data)
 		if data['error']:
