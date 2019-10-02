@@ -100,6 +100,7 @@ class BitcoinCash:
 		while True:
 			try:
 				resp = req.post(self.url,json = custom_payload,headers = headers)
+				break
 			except:
 				print('request failed')
 				time.sleep(5)
@@ -130,6 +131,7 @@ class Litecoin:
 		while True:
 			try:
 				resp = req.post(self.url,json = custom_payload,headers = headers)
+				break
 			except:
 				print('request failed')
 				time.sleep(5)

@@ -106,6 +106,8 @@ def check_valid(coin,address):
 			resp = h.send('validateaddress',address)
 			res = resp['isvalid']
 		else:
+			print('here')
+			print(coin)
 			res = h.send('validateaddress',address)['isvalid']
 	return res
 
@@ -119,6 +121,7 @@ def validator(request):
 	out_addr = request.POST.get('returnAddress','')
 	if in_c != '' and out_c != '' and in_addr != '' and out_addr != '':
 		in_status =  check_valid(in_c,in_addr)
+		time.sleep(3)
 		out_status = check_valid(out_c,out_addr)
 		if in_status and out_status:
 			return {
